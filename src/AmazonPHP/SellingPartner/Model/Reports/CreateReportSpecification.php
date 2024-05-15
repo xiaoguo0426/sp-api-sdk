@@ -274,7 +274,7 @@ class CreateReportSpecification implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets data_start_time
      *
-     * @param \DateTimeInterface|null $data_start_time The start of a date and time range, in ISO 8601 date time format, used for selecting the data to report. The default is now. The value must be prior to or equal to the current date and time. Not all report types make use of this.
+     * @param \DateTimeInterface|null $data_start_time The start of a date and time range, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format, used for selecting the data to report. The default is now. The value must be prior to or equal to the current date and time. Not all report types make use of this.
      *
      * @return self
      */
@@ -298,7 +298,7 @@ class CreateReportSpecification implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets data_end_time
      *
-     * @param \DateTimeInterface|null $data_end_time The end of a date and time range, in ISO 8601 date time format, used for selecting the data to report. The default is now. The value must be prior to or equal to the current date and time. Not all report types make use of this.
+     * @param \DateTimeInterface|null $data_end_time The end of a date and time range, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format, used for selecting the data to report. The default is now. The value must be prior to or equal to the current date and time. Not all report types make use of this.
      *
      * @return self
      */

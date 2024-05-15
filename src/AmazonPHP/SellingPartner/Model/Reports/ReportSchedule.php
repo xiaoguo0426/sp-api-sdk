@@ -324,7 +324,7 @@ class ReportSchedule implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets period
      *
-     * @param string $period An ISO 8601 period value that indicates how often a report should be created.
+     * @param string $period An <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> period value that indicates how often a report should be created.
      *
      * @return self
      */
@@ -348,7 +348,7 @@ class ReportSchedule implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets next_report_creation_time
      *
-     * @param \DateTimeInterface|null $next_report_creation_time The date and time when the schedule will create its next report, in ISO 8601 date time format.
+     * @param \DateTimeInterface|null $next_report_creation_time The date and time when the schedule will create its next report, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format.
      *
      * @return self
      */

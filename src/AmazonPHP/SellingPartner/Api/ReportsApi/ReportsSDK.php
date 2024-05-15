@@ -429,7 +429,7 @@ final class ReportsSDK implements ReportsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportSpecification $body  body (required)
+     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportSpecification $body  Information required to create the report. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -529,7 +529,7 @@ final class ReportsSDK implements ReportsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportSpecification $body  (required)
+     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportSpecification $body  Information required to create the report. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -624,7 +624,7 @@ final class ReportsSDK implements ReportsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportScheduleSpecification $body  body (required)
+     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportScheduleSpecification $body  Information required to create the report schedule. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -724,7 +724,7 @@ final class ReportsSDK implements ReportsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportScheduleSpecification $body  (required)
+     * @param \AmazonPHP\SellingPartner\Model\Reports\CreateReportScheduleSpecification $body  Information required to create the report schedule. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -1609,9 +1609,9 @@ final class ReportsSDK implements ReportsSDKInterface
      * @param string[]|null $processing_statuses  A list of processing statuses used to filter reports. (optional)
      * @param string[]|null $marketplace_ids  A list of marketplace identifiers used to filter reports. The reports returned will match at least one of the marketplaces that you specify. (optional)
      * @param int $page_size  The maximum number of reports to return in a single call. (optional, default to 10)
-     * @param \DateTimeInterface|null $created_since  The earliest report creation date and time for reports to include in the response, in ISO 8601 date time format. The default is 90 days ago. Reports are retained for a maximum of 90 days. (optional)
-     * @param \DateTimeInterface|null $created_until  The latest report creation date and time for reports to include in the response, in ISO 8601 date time format. The default is now. (optional)
-     * @param string|null $next_token  A string token returned in the response to your previous request. nextToken is returned when the number of results exceeds the specified pageSize value. To get the next page of results, call the getReports operation and include this token as the only parameter. Specifying nextToken with any other parameters will cause the request to fail. (optional)
+     * @param \DateTimeInterface|null $created_since  The earliest report creation date and time for reports to include in the response, in &lt;a href&#x3D;&#39;https://developer-docs.amazon.com/sp-api/docs/iso-8601&#39;&gt;ISO 8601&lt;/a&gt; date time format. The default is 90 days ago. Reports are retained for a maximum of 90 days. (optional)
+     * @param \DateTimeInterface|null $created_until  The latest report creation date and time for reports to include in the response, in &lt;a href&#x3D;&#39;https://developer-docs.amazon.com/sp-api/docs/iso-8601&#39;&gt;ISO 8601&lt;/a&gt; date time format. The default is now. (optional)
+     * @param string|null $next_token  A string token returned in the response to your previous request. &#x60;nextToken&#x60; is returned when the number of results exceeds the specified &#x60;pageSize&#x60; value. To get the next page of results, call the &#x60;getReports&#x60; operation and include this token as the only parameter. Specifying &#x60;nextToken&#x60; with any other parameters will cause the request to fail. (optional)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -1715,9 +1715,9 @@ final class ReportsSDK implements ReportsSDKInterface
      * @param string[]|null $processing_statuses  A list of processing statuses used to filter reports. (optional)
      * @param string[]|null $marketplace_ids  A list of marketplace identifiers used to filter reports. The reports returned will match at least one of the marketplaces that you specify. (optional)
      * @param int $page_size  The maximum number of reports to return in a single call. (optional, default to 10)
-     * @param \DateTimeInterface|null $created_since  The earliest report creation date and time for reports to include in the response, in ISO 8601 date time format. The default is 90 days ago. Reports are retained for a maximum of 90 days. (optional)
-     * @param \DateTimeInterface|null $created_until  The latest report creation date and time for reports to include in the response, in ISO 8601 date time format. The default is now. (optional)
-     * @param string|null $next_token  A string token returned in the response to your previous request. nextToken is returned when the number of results exceeds the specified pageSize value. To get the next page of results, call the getReports operation and include this token as the only parameter. Specifying nextToken with any other parameters will cause the request to fail. (optional)
+     * @param \DateTimeInterface|null $created_since  The earliest report creation date and time for reports to include in the response, in &lt;a href&#x3D;&#39;https://developer-docs.amazon.com/sp-api/docs/iso-8601&#39;&gt;ISO 8601&lt;/a&gt; date time format. The default is 90 days ago. Reports are retained for a maximum of 90 days. (optional)
+     * @param \DateTimeInterface|null $created_until  The latest report creation date and time for reports to include in the response, in &lt;a href&#x3D;&#39;https://developer-docs.amazon.com/sp-api/docs/iso-8601&#39;&gt;ISO 8601&lt;/a&gt; date time format. The default is now. (optional)
+     * @param string|null $next_token  A string token returned in the response to your previous request. &#x60;nextToken&#x60; is returned when the number of results exceeds the specified &#x60;pageSize&#x60; value. To get the next page of results, call the &#x60;getReports&#x60; operation and include this token as the only parameter. Specifying &#x60;nextToken&#x60; with any other parameters will cause the request to fail. (optional)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface

@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Orders
 *
-* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  _Note:_ The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
+* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  **Note:** The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
 *
 * The version of the OpenAPI document: v0
 *
@@ -328,7 +328,7 @@ class OrderItemBuyerInfo implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets gift_message_text
      *
-     * @param string|null $gift_message_text A gift message provided by the buyer.
+     * @param string|null $gift_message_text A gift message provided by the buyer.  **Note**: This attribute is only available for MFN (Fulfilled by the seller) orders.
      *
      * @return self
      */

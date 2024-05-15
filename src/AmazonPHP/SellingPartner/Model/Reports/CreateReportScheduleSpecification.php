@@ -360,7 +360,7 @@ class CreateReportScheduleSpecification implements ModelInterface, ArrayAccess, 
     /**
      * Sets period
      *
-     * @param string $period One of a set of predefined ISO 8601 periods that specifies how often a report should be created.
+     * @param string $period One of a set of predefined <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> periods that specifies how often a report should be created.
      *
      * @return self
      */
@@ -384,7 +384,7 @@ class CreateReportScheduleSpecification implements ModelInterface, ArrayAccess, 
     /**
      * Sets next_report_creation_time
      *
-     * @param \DateTimeInterface|null $next_report_creation_time The date and time when the schedule will create its next report, in ISO 8601 date time format.
+     * @param \DateTimeInterface|null $next_report_creation_time The date and time when the schedule will create its next report, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format.
      *
      * @return self
      */

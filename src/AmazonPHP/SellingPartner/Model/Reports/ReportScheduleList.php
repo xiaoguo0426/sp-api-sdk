@@ -190,7 +190,7 @@ class ReportScheduleList implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets report_schedules
      *
-     * @param \AmazonPHP\SellingPartner\Model\Reports\ReportSchedule[] $report_schedules report_schedules
+     * @param \AmazonPHP\SellingPartner\Model\Reports\ReportSchedule[] $report_schedules Detailed information about a report schedule.
      *
      * @return self
      */
