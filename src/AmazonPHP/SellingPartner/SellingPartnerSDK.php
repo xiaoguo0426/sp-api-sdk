@@ -37,6 +37,8 @@ use AmazonPHP\SellingPartner\Api\NotificationsApi\NotificationsSDKInterface;
 use AmazonPHP\SellingPartner\Api\OrdersV0Api;
 use AmazonPHP\SellingPartner\Api\ProductPricingApi\ProductPricingSDK;
 use AmazonPHP\SellingPartner\Api\ProductPricingApi\ProductPricingSDKInterface;
+use AmazonPHP\SellingPartner\Api\QueriesApi\DataKioskSDK;
+use AmazonPHP\SellingPartner\Api\QueriesApi\DataKioskSDKInterface;
 use AmazonPHP\SellingPartner\Api\ReportsApi\ReportsSDK;
 use AmazonPHP\SellingPartner\Api\ReportsApi\ReportsSDKInterface;
 use AmazonPHP\SellingPartner\Api\SalesApi\SalesSDK;
@@ -122,6 +124,11 @@ final class SellingPartnerSDK
     public function catalogItem() : CatalogItemSDKInterface
     {
         return $this->instantiateSDK(CatalogItemSDK::class);
+    }
+
+    public function dataKiosk() : DataKioskSDKInterface
+    {
+        return $this->instantiateSDK(DataKioskSDK::class);
     }
 
     public function fbaInbound() : FBAInboundSDKInterface
