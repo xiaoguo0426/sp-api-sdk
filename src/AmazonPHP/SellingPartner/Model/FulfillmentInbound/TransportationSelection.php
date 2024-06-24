@@ -42,7 +42,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static array $openAPITypes = [
         'contact_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation',
-        'delivery_window' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\WindowInput',
         'shipment_id' => 'string',
         'transportation_option_id' => 'string'
     ];
@@ -56,7 +55,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static array $openAPIFormats = [
         'contact_information' => null,
-        'delivery_window' => null,
         'shipment_id' => null,
         'transportation_option_id' => null
     ];
@@ -89,7 +87,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected static array $attributeMap = [
         'contact_information' => 'contactInformation',
-        'delivery_window' => 'deliveryWindow',
         'shipment_id' => 'shipmentId',
         'transportation_option_id' => 'transportationOptionId'
     ];
@@ -101,7 +98,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected static array $setters = [
         'contact_information' => 'setContactInformation',
-        'delivery_window' => 'setDeliveryWindow',
         'shipment_id' => 'setShipmentId',
         'transportation_option_id' => 'setTransportationOptionId'
     ];
@@ -113,7 +109,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected static array $getters = [
         'contact_information' => 'getContactInformation',
-        'delivery_window' => 'getDeliveryWindow',
         'shipment_id' => 'getShipmentId',
         'transportation_option_id' => 'getTransportationOptionId'
     ];
@@ -176,7 +171,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
     public function __construct(array $data = null)
     {
         $this->container['contact_information'] = $data['contact_information'] ?? null;
-        $this->container['delivery_window'] = $data['delivery_window'] ?? null;
         $this->container['shipment_id'] = $data['shipment_id'] ?? null;
         $this->container['transportation_option_id'] = $data['transportation_option_id'] ?? null;
     }
@@ -190,10 +184,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
     {
             if ($this->container['contact_information'] !== null) {
             $this->container['contact_information']->validate();
-            }
-
-            if ($this->container['delivery_window'] !== null) {
-            $this->container['delivery_window']->validate();
             }
 
         if ($this->container['shipment_id'] === null) {
@@ -251,30 +241,6 @@ class TransportationSelection implements ModelInterface, ArrayAccess, \JsonSeria
     public function setContactInformation($contact_information) : self
     {
         $this->container['contact_information'] = $contact_information;
-
-        return $this;
-    }
-
-    /**
-     * Gets delivery_window
-     *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\WindowInput|null
-     */
-    public function getDeliveryWindow()
-    {
-        return $this->container['delivery_window'];
-    }
-
-    /**
-     * Sets delivery_window
-     *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\WindowInput|null $delivery_window delivery_window
-     *
-     * @return self
-     */
-    public function setDeliveryWindow($delivery_window) : self
-    {
-        $this->container['delivery_window'] = $delivery_window;
 
         return $this;
     }

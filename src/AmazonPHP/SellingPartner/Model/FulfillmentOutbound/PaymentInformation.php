@@ -258,7 +258,7 @@ class PaymentInformation implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets payment_date
      *
-     * @param \DateTimeInterface $payment_date payment_date
+     * @param \DateTimeInterface $payment_date Date timestamp
      *
      * @return self
      */

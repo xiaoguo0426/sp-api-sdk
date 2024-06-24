@@ -54,7 +54,7 @@ class Weight implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPIFormats = [
         'unit' => null,
-        'value' => 'double'
+        'value' => null
     ];
 
     /**

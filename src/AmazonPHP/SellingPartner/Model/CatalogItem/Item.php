@@ -43,6 +43,7 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPITypes = [
         'asin' => 'string',
         'attributes' => 'array<string,mixed>',
+        'classifications' => '\AmazonPHP\SellingPartner\Model\CatalogItem\ItemBrowseClassificationsByMarketplace[]',
         'dimensions' => '\AmazonPHP\SellingPartner\Model\CatalogItem\ItemDimensionsByMarketplace[]',
         'identifiers' => '\AmazonPHP\SellingPartner\Model\CatalogItem\ItemIdentifiersByMarketplace[]',
         'images' => '\AmazonPHP\SellingPartner\Model\CatalogItem\ItemImagesByMarketplace[]',
@@ -63,6 +64,7 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPIFormats = [
         'asin' => null,
         'attributes' => null,
+        'classifications' => null,
         'dimensions' => null,
         'identifiers' => null,
         'images' => null,
@@ -102,6 +104,7 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $attributeMap = [
         'asin' => 'asin',
         'attributes' => 'attributes',
+        'classifications' => 'classifications',
         'dimensions' => 'dimensions',
         'identifiers' => 'identifiers',
         'images' => 'images',
@@ -120,6 +123,7 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $setters = [
         'asin' => 'setAsin',
         'attributes' => 'setAttributes',
+        'classifications' => 'setClassifications',
         'dimensions' => 'setDimensions',
         'identifiers' => 'setIdentifiers',
         'images' => 'setImages',
@@ -138,6 +142,7 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $getters = [
         'asin' => 'getAsin',
         'attributes' => 'getAttributes',
+        'classifications' => 'getClassifications',
         'dimensions' => 'getDimensions',
         'identifiers' => 'getIdentifiers',
         'images' => 'getImages',
@@ -207,6 +212,7 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->container['asin'] = $data['asin'] ?? null;
         $this->container['attributes'] = $data['attributes'] ?? null;
+        $this->container['classifications'] = $data['classifications'] ?? null;
         $this->container['dimensions'] = $data['dimensions'] ?? null;
         $this->container['identifiers'] = $data['identifiers'] ?? null;
         $this->container['images'] = $data['images'] ?? null;
@@ -275,6 +281,30 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setAttributes($attributes) : self
     {
         $this->container['attributes'] = $attributes;
+
+        return $this;
+    }
+
+    /**
+     * Gets classifications
+     *
+     * @return \AmazonPHP\SellingPartner\Model\CatalogItem\ItemBrowseClassificationsByMarketplace[]|null
+     */
+    public function getClassifications()
+    {
+        return $this->container['classifications'];
+    }
+
+    /**
+     * Sets classifications
+     *
+     * @param \AmazonPHP\SellingPartner\Model\CatalogItem\ItemBrowseClassificationsByMarketplace[]|null $classifications Array of classifications (browse nodes) associated with the item in the Amazon catalog by Amazon marketplace.
+     *
+     * @return self
+     */
+    public function setClassifications($classifications) : self
+    {
+        $this->container['classifications'] = $classifications;
 
         return $this;
     }

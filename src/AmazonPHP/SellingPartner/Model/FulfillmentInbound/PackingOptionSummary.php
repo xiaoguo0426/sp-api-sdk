@@ -220,7 +220,7 @@ class PackingOptionSummary implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets packing_option_id
      *
-     * @param string $packing_option_id Identifier to a packing option.
+     * @param string $packing_option_id Identifier of a packing option.
      *
      * @return self
      */

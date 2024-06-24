@@ -304,7 +304,7 @@ class GetFulfillmentPreviewRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets shipping_speed_categories
      *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\ShippingSpeedCategory[]|null $shipping_speed_categories shipping_speed_categories
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\ShippingSpeedCategory[]|null $shipping_speed_categories ShippingSpeedCategory List
      *
      * @return self
      */

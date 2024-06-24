@@ -41,11 +41,10 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'contact_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation',
         'destination_marketplaces' => 'string[]',
         'items' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ItemInput[]',
         'name' => 'string',
-        'source_address' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Address'
+        'source_address' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\AddressInput'
     ];
 
     /**
@@ -56,7 +55,6 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'contact_information' => null,
         'destination_marketplaces' => null,
         'items' => null,
         'name' => null,
@@ -90,7 +88,6 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
      * @var string[]
      */
     protected static array $attributeMap = [
-        'contact_information' => 'contactInformation',
         'destination_marketplaces' => 'destinationMarketplaces',
         'items' => 'items',
         'name' => 'name',
@@ -103,7 +100,6 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
      * @var string[]
      */
     protected static array $setters = [
-        'contact_information' => 'setContactInformation',
         'destination_marketplaces' => 'setDestinationMarketplaces',
         'items' => 'setItems',
         'name' => 'setName',
@@ -116,7 +112,6 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
      * @var string[]
      */
     protected static array $getters = [
-        'contact_information' => 'getContactInformation',
         'destination_marketplaces' => 'getDestinationMarketplaces',
         'items' => 'getItems',
         'name' => 'getName',
@@ -180,7 +175,6 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function __construct(array $data = null)
     {
-        $this->container['contact_information'] = $data['contact_information'] ?? null;
         $this->container['destination_marketplaces'] = $data['destination_marketplaces'] ?? null;
         $this->container['items'] = $data['items'] ?? null;
         $this->container['name'] = $data['name'] ?? null;
@@ -194,12 +188,6 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function validate() : void
     {
-        if ($this->container['contact_information'] === null) {
-            throw new AssertionException("'contact_information' can't be null");
-        }
-
-            $this->container['contact_information']->validate();
-
         if ($this->container['destination_marketplaces'] === null) {
             throw new AssertionException("'destination_marketplaces' can't be null");
         }
@@ -240,30 +228,6 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
 
     }
 
-
-    /**
-     * Gets contact_information
-     *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation
-     */
-    public function getContactInformation()
-    {
-        return $this->container['contact_information'];
-    }
-
-    /**
-     * Sets contact_information
-     *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation $contact_information contact_information
-     *
-     * @return self
-     */
-    public function setContactInformation($contact_information) : self
-    {
-        $this->container['contact_information'] = $contact_information;
-
-        return $this;
-    }
 
     /**
      * Gets destination_marketplaces
@@ -340,7 +304,7 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets source_address
      *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\Address
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\AddressInput
      */
     public function getSourceAddress()
     {
@@ -350,7 +314,7 @@ class CreateInboundPlanRequest implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets source_address
      *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\Address $source_address source_address
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\AddressInput $source_address source_address
      *
      * @return self
      */

@@ -416,7 +416,7 @@ class PackageTrackingDetails implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets ship_date
      *
-     * @param \DateTimeInterface|null $ship_date ship_date
+     * @param \DateTimeInterface|null $ship_date Date timestamp
      *
      * @return self
      */
@@ -440,7 +440,7 @@ class PackageTrackingDetails implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets estimated_arrival_date
      *
-     * @param \DateTimeInterface|null $estimated_arrival_date estimated_arrival_date
+     * @param \DateTimeInterface|null $estimated_arrival_date Date timestamp
      *
      * @return self
      */

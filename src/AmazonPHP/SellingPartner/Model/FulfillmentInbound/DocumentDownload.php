@@ -206,7 +206,7 @@ class DocumentDownload implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets download_type
      *
-     * @param string $download_type The type of download. Can be `URL` or `PDF_BASE64`.
+     * @param string $download_type The type of download. Can be `URL`.
      *
      * @return self
      */

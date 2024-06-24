@@ -346,7 +346,7 @@ class FulfillmentShipment implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets shipping_date
      *
-     * @param \DateTimeInterface|null $shipping_date shipping_date
+     * @param \DateTimeInterface|null $shipping_date Date timestamp
      *
      * @return self
      */
@@ -370,7 +370,7 @@ class FulfillmentShipment implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets estimated_arrival_date
      *
-     * @param \DateTimeInterface|null $estimated_arrival_date estimated_arrival_date
+     * @param \DateTimeInterface|null $estimated_arrival_date Date timestamp
      *
      * @return self
      */

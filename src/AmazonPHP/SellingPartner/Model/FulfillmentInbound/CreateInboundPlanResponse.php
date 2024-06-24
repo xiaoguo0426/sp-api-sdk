@@ -224,7 +224,7 @@ class CreateInboundPlanResponse implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets inbound_plan_id
      *
-     * @param string $inbound_plan_id Identifier to an inbound plan.
+     * @param string $inbound_plan_id Identifier of an inbound plan.
      *
      * @return self
      */

@@ -41,10 +41,9 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'appointment_slot' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\AppointmentSlot',
         'carrier' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Carrier',
-        'inbound_plan_id' => 'string',
-        'placement_option_id' => 'string',
+        'carrier_appointment' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\CarrierAppointment',
+        'preconditions' => 'string[]',
         'quote' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Quote',
         'shipment_id' => 'string',
         'shipping_mode' => 'string',
@@ -60,10 +59,9 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'appointment_slot' => null,
         'carrier' => null,
-        'inbound_plan_id' => null,
-        'placement_option_id' => null,
+        'carrier_appointment' => null,
+        'preconditions' => null,
         'quote' => null,
         'shipment_id' => null,
         'shipping_mode' => null,
@@ -98,10 +96,9 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static array $attributeMap = [
-        'appointment_slot' => 'appointmentSlot',
         'carrier' => 'carrier',
-        'inbound_plan_id' => 'inboundPlanId',
-        'placement_option_id' => 'placementOptionId',
+        'carrier_appointment' => 'carrierAppointment',
+        'preconditions' => 'preconditions',
         'quote' => 'quote',
         'shipment_id' => 'shipmentId',
         'shipping_mode' => 'shippingMode',
@@ -115,10 +112,9 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static array $setters = [
-        'appointment_slot' => 'setAppointmentSlot',
         'carrier' => 'setCarrier',
-        'inbound_plan_id' => 'setInboundPlanId',
-        'placement_option_id' => 'setPlacementOptionId',
+        'carrier_appointment' => 'setCarrierAppointment',
+        'preconditions' => 'setPreconditions',
         'quote' => 'setQuote',
         'shipment_id' => 'setShipmentId',
         'shipping_mode' => 'setShippingMode',
@@ -132,10 +128,9 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static array $getters = [
-        'appointment_slot' => 'getAppointmentSlot',
         'carrier' => 'getCarrier',
-        'inbound_plan_id' => 'getInboundPlanId',
-        'placement_option_id' => 'getPlacementOptionId',
+        'carrier_appointment' => 'getCarrierAppointment',
+        'preconditions' => 'getPreconditions',
         'quote' => 'getQuote',
         'shipment_id' => 'getShipmentId',
         'shipping_mode' => 'getShippingMode',
@@ -200,10 +195,9 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function __construct(array $data = null)
     {
-        $this->container['appointment_slot'] = $data['appointment_slot'] ?? null;
         $this->container['carrier'] = $data['carrier'] ?? null;
-        $this->container['inbound_plan_id'] = $data['inbound_plan_id'] ?? null;
-        $this->container['placement_option_id'] = $data['placement_option_id'] ?? null;
+        $this->container['carrier_appointment'] = $data['carrier_appointment'] ?? null;
+        $this->container['preconditions'] = $data['preconditions'] ?? null;
         $this->container['quote'] = $data['quote'] ?? null;
         $this->container['shipment_id'] = $data['shipment_id'] ?? null;
         $this->container['shipping_mode'] = $data['shipping_mode'] ?? null;
@@ -218,46 +212,18 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function validate() : void
     {
-            if ($this->container['appointment_slot'] !== null) {
-            $this->container['appointment_slot']->validate();
-            }
-
         if ($this->container['carrier'] === null) {
             throw new AssertionException("'carrier' can't be null");
         }
 
             $this->container['carrier']->validate();
 
-        if ($this->container['inbound_plan_id'] === null) {
-            throw new AssertionException("'inbound_plan_id' can't be null");
-        }
+            if ($this->container['carrier_appointment'] !== null) {
+            $this->container['carrier_appointment']->validate();
+            }
 
-        if ((mb_strlen($this->container['inbound_plan_id']) > 38)) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', the character length must be smaller than or equal to 38.");
-        }
-
-        if ((mb_strlen($this->container['inbound_plan_id']) < 38)) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', the character length must be bigger than or equal to 38.");
-        }
-
-        if (!preg_match("/^[a-zA-Z0-9-]*$/", $this->container['inbound_plan_id'])) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', must be conform to the pattern /^[a-zA-Z0-9-]*$/.");
-        }
-
-        if ($this->container['placement_option_id'] === null) {
-            throw new AssertionException("'placement_option_id' can't be null");
-        }
-
-        if ((mb_strlen($this->container['placement_option_id']) > 38)) {
-            throw new AssertionException("invalid value for 'placement_option_id', the character length must be smaller than or equal to 38.");
-        }
-
-        if ((mb_strlen($this->container['placement_option_id']) < 38)) {
-            throw new AssertionException("invalid value for 'placement_option_id', the character length must be bigger than or equal to 38.");
-        }
-
-        if (!preg_match("/^[a-zA-Z0-9-]*$/", $this->container['placement_option_id'])) {
-            throw new AssertionException("invalid value for 'placement_option_id', must be conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        if ($this->container['preconditions'] === null) {
+            throw new AssertionException("'preconditions' can't be null");
         }
 
             if ($this->container['quote'] !== null) {
@@ -324,30 +290,6 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
 
 
     /**
-     * Gets appointment_slot
-     *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\AppointmentSlot|null
-     */
-    public function getAppointmentSlot()
-    {
-        return $this->container['appointment_slot'];
-    }
-
-    /**
-     * Sets appointment_slot
-     *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\AppointmentSlot|null $appointment_slot appointment_slot
-     *
-     * @return self
-     */
-    public function setAppointmentSlot($appointment_slot) : self
-    {
-        $this->container['appointment_slot'] = $appointment_slot;
-
-        return $this;
-    }
-
-    /**
      * Gets carrier
      *
      * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\Carrier
@@ -372,49 +314,49 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
     }
 
     /**
-     * Gets inbound_plan_id
+     * Gets carrier_appointment
      *
-     * @return string
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CarrierAppointment|null
      */
-    public function getInboundPlanId()
+    public function getCarrierAppointment()
     {
-        return $this->container['inbound_plan_id'];
+        return $this->container['carrier_appointment'];
     }
 
     /**
-     * Sets inbound_plan_id
+     * Sets carrier_appointment
      *
-     * @param string $inbound_plan_id Identifier to an inbound plan.
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CarrierAppointment|null $carrier_appointment carrier_appointment
      *
      * @return self
      */
-    public function setInboundPlanId($inbound_plan_id) : self
+    public function setCarrierAppointment($carrier_appointment) : self
     {
-        $this->container['inbound_plan_id'] = $inbound_plan_id;
+        $this->container['carrier_appointment'] = $carrier_appointment;
 
         return $this;
     }
 
     /**
-     * Gets placement_option_id
+     * Gets preconditions
      *
-     * @return string
+     * @return string[]
      */
-    public function getPlacementOptionId()
+    public function getPreconditions()
     {
-        return $this->container['placement_option_id'];
+        return $this->container['preconditions'];
     }
 
     /**
-     * Sets placement_option_id
+     * Sets preconditions
      *
-     * @param string $placement_option_id The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs.
+     * @param string[] $preconditions Identifies a list of preconditions for confirming the transportation option.
      *
      * @return self
      */
-    public function setPlacementOptionId($placement_option_id) : self
+    public function setPreconditions($preconditions) : self
     {
-        $this->container['placement_option_id'] = $placement_option_id;
+        $this->container['preconditions'] = $preconditions;
 
         return $this;
     }
@@ -456,7 +398,7 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets shipment_id
      *
-     * @param string $shipment_id Identifier to a shipment. A shipment contains the boxes and units being inbounded.
+     * @param string $shipment_id Identifier of a shipment. A shipment contains the boxes and units being inbounded.
      *
      * @return self
      */
@@ -480,7 +422,7 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets shipping_mode
      *
-     * @param string $shipping_mode The shipping mode associated with the transportation option. Available modes are ground small parcel, freight less-than-truckload (LTL), freight full-truckload (FTL) palletized, freight FTL non-palletized, ocean less-than-container-load (LCL), ocean full-container load (FCL), air small parcel, and air small parcel express.
+     * @param string $shipping_mode Mode of shipment transportation that this option will provide. Can be: `GROUND_SMALL_PARCEL`, `FREIGHT_LTL`, `FREIGHT_FTL_PALLET`, `FREIGHT_FTL_NONPALLET`, `OCEAN_LCL`, `OCEAN_FCL`, `AIR_SMALL_PARCEL`, `AIR_SMALL_PARCEL_EXPRESS`.
      *
      * @return self
      */
@@ -504,7 +446,7 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets shipping_solution
      *
-     * @param string $shipping_solution The shipping solution associated with the transportation option. Available solutions are Amazon-partnered carrier or 'use your own carrier'.
+     * @param string $shipping_solution Shipping program for the option. Can be: `AMAZON_PARTNERED_CARRIER`, `USE_YOUR_OWN_CARRIER`.
      *
      * @return self
      */
@@ -528,7 +470,7 @@ class TransportationOption implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets transportation_option_id
      *
-     * @param string $transportation_option_id Identifier to a transportation option. A transportation option represent one option for how to send a shipment.
+     * @param string $transportation_option_id Identifier of a transportation option. A transportation option represent one option for how to send a shipment.
      *
      * @return self
      */

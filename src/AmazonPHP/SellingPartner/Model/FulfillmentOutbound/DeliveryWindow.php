@@ -200,7 +200,7 @@ class DeliveryWindow implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets start_date
      *
-     * @param \DateTimeInterface $start_date start_date
+     * @param \DateTimeInterface $start_date Date timestamp
      *
      * @return self
      */
@@ -224,7 +224,7 @@ class DeliveryWindow implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets end_date
      *
-     * @param \DateTimeInterface $end_date end_date
+     * @param \DateTimeInterface $end_date Date timestamp
      *
      * @return self
      */

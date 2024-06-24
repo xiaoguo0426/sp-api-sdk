@@ -376,7 +376,7 @@ class Item implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets label_owner
      *
-     * @param string $label_owner Specifies who will label the items. Options include `AMAZON` and `SELLER`.
+     * @param string $label_owner Specifies who will label the items. Options include `AMAZON`, `SELLER`, and `NONE`.
      *
      * @return self
      */

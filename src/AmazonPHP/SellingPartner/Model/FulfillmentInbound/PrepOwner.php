@@ -27,6 +27,8 @@ class PrepOwner
 
     const SELLER = 'SELLER';
 
+    const NONE = 'NONE';
+
     private string $value;
 
     /**
@@ -37,7 +39,8 @@ class PrepOwner
     {
         return [
             self::AMAZON,
-            self::SELLER
+            self::SELLER,
+            self::NONE
         ];
     }
 

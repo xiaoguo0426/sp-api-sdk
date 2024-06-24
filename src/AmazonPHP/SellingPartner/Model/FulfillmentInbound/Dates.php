@@ -41,7 +41,6 @@ class Dates implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'delivery_window' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Window',
         'ready_to_ship_window' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Window'
     ];
 
@@ -53,7 +52,6 @@ class Dates implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'delivery_window' => null,
         'ready_to_ship_window' => null
     ];
 
@@ -84,7 +82,6 @@ class Dates implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $attributeMap = [
-        'delivery_window' => 'deliveryWindow',
         'ready_to_ship_window' => 'readyToShipWindow'
     ];
 
@@ -94,7 +91,6 @@ class Dates implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $setters = [
-        'delivery_window' => 'setDeliveryWindow',
         'ready_to_ship_window' => 'setReadyToShipWindow'
     ];
 
@@ -104,7 +100,6 @@ class Dates implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $getters = [
-        'delivery_window' => 'getDeliveryWindow',
         'ready_to_ship_window' => 'getReadyToShipWindow'
     ];
 
@@ -165,7 +160,6 @@ class Dates implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['delivery_window'] = $data['delivery_window'] ?? null;
         $this->container['ready_to_ship_window'] = $data['ready_to_ship_window'] ?? null;
     }
 
@@ -176,40 +170,12 @@ class Dates implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function validate() : void
     {
-            if ($this->container['delivery_window'] !== null) {
-            $this->container['delivery_window']->validate();
-            }
-
             if ($this->container['ready_to_ship_window'] !== null) {
             $this->container['ready_to_ship_window']->validate();
             }
 
     }
 
-
-    /**
-     * Gets delivery_window
-     *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\Window|null
-     */
-    public function getDeliveryWindow()
-    {
-        return $this->container['delivery_window'];
-    }
-
-    /**
-     * Sets delivery_window
-     *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\Window|null $delivery_window delivery_window
-     *
-     * @return self
-     */
-    public function setDeliveryWindow($delivery_window) : self
-    {
-        $this->container['delivery_window'] = $delivery_window;
-
-        return $this;
-    }
 
     /**
      * Gets ready_to_ship_window

@@ -192,7 +192,7 @@ class SelfShipAppointmentSlotsAvailability implements ModelInterface, ArrayAcces
     /**
      * Sets expires_at
      *
-     * @param \DateTimeInterface|null $expires_at ISO 8601 datetime with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
+     * @param \DateTimeInterface|null $expires_at The ISO 8601 datetime with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
      *
      * @return self
      */

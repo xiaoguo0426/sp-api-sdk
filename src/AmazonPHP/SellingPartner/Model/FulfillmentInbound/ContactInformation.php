@@ -190,11 +190,15 @@ class ContactInformation implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new AssertionException("invalid value for 'email', the character length must be bigger than or equal to 1.");
         }
 
-        if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 1024)) {
-            throw new AssertionException("invalid value for 'name', the character length must be smaller than or equal to 1024.");
+        if ($this->container['name'] === null) {
+            throw new AssertionException("'name' can't be null");
         }
 
-        if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) < 1)) {
+        if ((mb_strlen($this->container['name']) > 50)) {
+            throw new AssertionException("invalid value for 'name', the character length must be smaller than or equal to 50.");
+        }
+
+        if ((mb_strlen($this->container['name']) < 1)) {
             throw new AssertionException("invalid value for 'name', the character length must be bigger than or equal to 1.");
         }
 
@@ -226,7 +230,7 @@ class ContactInformation implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets email
      *
-     * @param string|null $email Email address.
+     * @param string|null $email The email address.
      *
      * @return self
      */
@@ -240,7 +244,7 @@ class ContactInformation implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -250,7 +254,7 @@ class ContactInformation implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets name
      *
-     * @param string|null $name The name belonging to the contact. This field is required when contact information is being provided for         Less-Than-Truckload (LTL) carrier shipments.
+     * @param string $name The contact's name.
      *
      * @return self
      */
@@ -274,7 +278,7 @@ class ContactInformation implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets phone_number
      *
-     * @param string $phone_number The phone number of the seller.
+     * @param string $phone_number The phone number.
      *
      * @return self
      */

@@ -55,10 +55,10 @@ class Dimensions implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'height' => 'double',
-        'length' => 'double',
+        'height' => null,
+        'length' => null,
         'unit_of_measurement' => null,
-        'width' => 'double'
+        'width' => null
     ];
 
     /**
@@ -244,7 +244,7 @@ class Dimensions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets height
      *
-     * @param float $height Height.
+     * @param float $height The height of a package.
      *
      * @return self
      */
@@ -268,7 +268,7 @@ class Dimensions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets length
      *
-     * @param float $length Length.
+     * @param float $length The length of a package.
      *
      * @return self
      */
@@ -316,7 +316,7 @@ class Dimensions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets width
      *
-     * @param float $width Width.
+     * @param float $width The width of a package.
      *
      * @return self
      */

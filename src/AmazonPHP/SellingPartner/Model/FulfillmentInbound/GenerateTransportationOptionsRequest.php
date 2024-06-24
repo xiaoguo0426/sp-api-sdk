@@ -196,6 +196,10 @@ class GenerateTransportationOptionsRequest implements ModelInterface, ArrayAcces
             throw new AssertionException("'shipment_transportation_configurations' can't be null");
         }
 
+        if ((count($this->container['shipment_transportation_configurations']) < 1)) {
+            throw new AssertionException("invalid value for 'shipment_transportation_configurations', number of items must be greater than or equal to 1.");
+        }
+
     }
 
 

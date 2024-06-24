@@ -312,7 +312,7 @@ class UpdateFulfillmentOrderRequest implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets displayable_order_date
      *
-     * @param \DateTimeInterface|null $displayable_order_date displayable_order_date
+     * @param \DateTimeInterface|null $displayable_order_date Date timestamp
      *
      * @return self
      */

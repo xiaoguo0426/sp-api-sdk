@@ -320,7 +320,7 @@ class OperationProblem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets severity
      *
-     * @param string $severity The severity of the problem. Can be 'WARNING', or 'ERROR'.
+     * @param string $severity The severity of the problem. Can be: `WARNING`, `ERROR`.
      *
      * @return self
      */

@@ -186,7 +186,7 @@ class GeneratePlacementOptionsRequest implements ModelInterface, ArrayAccess, \J
     /**
      * Sets custom_placement
      *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CustomPlacementInput[]|null $custom_placement Custom placements options to be added to the plan.
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CustomPlacementInput[]|null $custom_placement Custom placement options to be added to the plan.
      *
      * @return self
      */

@@ -332,7 +332,7 @@ class ItemInput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets msku
      *
-     * @param string $msku The merchant SKU.
+     * @param string $msku Merchant SKU.
      *
      * @return self
      */
@@ -380,7 +380,7 @@ class ItemInput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets quantity
      *
-     * @param int $quantity The number of units of the specified MSKU that will be shipped.
+     * @param int $quantity The number of units of the specified msku that will be shipped.
      *
      * @return self
      */

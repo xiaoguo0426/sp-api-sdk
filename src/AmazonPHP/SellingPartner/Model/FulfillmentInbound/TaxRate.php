@@ -54,8 +54,8 @@ class TaxRate implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'cess_rate' => 'double',
-        'gst_rate' => 'double',
+        'cess_rate' => null,
+        'gst_rate' => null,
         'tax_type' => null
     ];
 
@@ -254,7 +254,7 @@ class TaxRate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tax_type
      *
-     * @param string|null $tax_type Type of tax. Can be `CGST`, `SGST`, `IGST`, or `TOTAL_TAX`.
+     * @param string|null $tax_type Type of tax. Can be: `CGST`, `SGST`, `IGST`, `TOTAL_TAX`.
      *
      * @return self
      */

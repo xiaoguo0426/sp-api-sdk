@@ -45,10 +45,10 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
         'contact_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation',
         'dates' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Dates',
         'destination' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ShipmentDestination',
-        'inbound_plan_id' => 'string',
+        'freight_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\FreightInformation',
         'name' => 'string',
-        'pallet_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInformation',
         'placement_option_id' => 'string',
+        'selected_delivery_window' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\SelectedDeliveryWindow',
         'selected_transportation_option_id' => 'string',
         'self_ship_appointment_details' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\SelfShipAppointmentDetails[]',
         'shipment_confirmation_id' => 'string',
@@ -70,10 +70,10 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
         'contact_information' => null,
         'dates' => null,
         'destination' => null,
-        'inbound_plan_id' => null,
+        'freight_information' => null,
         'name' => null,
-        'pallet_information' => null,
         'placement_option_id' => null,
+        'selected_delivery_window' => null,
         'selected_transportation_option_id' => null,
         'self_ship_appointment_details' => null,
         'shipment_confirmation_id' => null,
@@ -114,10 +114,10 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
         'contact_information' => 'contactInformation',
         'dates' => 'dates',
         'destination' => 'destination',
-        'inbound_plan_id' => 'inboundPlanId',
+        'freight_information' => 'freightInformation',
         'name' => 'name',
-        'pallet_information' => 'palletInformation',
         'placement_option_id' => 'placementOptionId',
+        'selected_delivery_window' => 'selectedDeliveryWindow',
         'selected_transportation_option_id' => 'selectedTransportationOptionId',
         'self_ship_appointment_details' => 'selfShipAppointmentDetails',
         'shipment_confirmation_id' => 'shipmentConfirmationId',
@@ -137,10 +137,10 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
         'contact_information' => 'setContactInformation',
         'dates' => 'setDates',
         'destination' => 'setDestination',
-        'inbound_plan_id' => 'setInboundPlanId',
+        'freight_information' => 'setFreightInformation',
         'name' => 'setName',
-        'pallet_information' => 'setPalletInformation',
         'placement_option_id' => 'setPlacementOptionId',
+        'selected_delivery_window' => 'setSelectedDeliveryWindow',
         'selected_transportation_option_id' => 'setSelectedTransportationOptionId',
         'self_ship_appointment_details' => 'setSelfShipAppointmentDetails',
         'shipment_confirmation_id' => 'setShipmentConfirmationId',
@@ -160,10 +160,10 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
         'contact_information' => 'getContactInformation',
         'dates' => 'getDates',
         'destination' => 'getDestination',
-        'inbound_plan_id' => 'getInboundPlanId',
+        'freight_information' => 'getFreightInformation',
         'name' => 'getName',
-        'pallet_information' => 'getPalletInformation',
         'placement_option_id' => 'getPlacementOptionId',
+        'selected_delivery_window' => 'getSelectedDeliveryWindow',
         'selected_transportation_option_id' => 'getSelectedTransportationOptionId',
         'self_ship_appointment_details' => 'getSelfShipAppointmentDetails',
         'shipment_confirmation_id' => 'getShipmentConfirmationId',
@@ -234,10 +234,10 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['contact_information'] = $data['contact_information'] ?? null;
         $this->container['dates'] = $data['dates'] ?? null;
         $this->container['destination'] = $data['destination'] ?? null;
-        $this->container['inbound_plan_id'] = $data['inbound_plan_id'] ?? null;
+        $this->container['freight_information'] = $data['freight_information'] ?? null;
         $this->container['name'] = $data['name'] ?? null;
-        $this->container['pallet_information'] = $data['pallet_information'] ?? null;
         $this->container['placement_option_id'] = $data['placement_option_id'] ?? null;
+        $this->container['selected_delivery_window'] = $data['selected_delivery_window'] ?? null;
         $this->container['selected_transportation_option_id'] = $data['selected_transportation_option_id'] ?? null;
         $this->container['self_ship_appointment_details'] = $data['self_ship_appointment_details'] ?? null;
         $this->container['shipment_confirmation_id'] = $data['shipment_confirmation_id'] ?? null;
@@ -276,24 +276,8 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
 
             $this->container['destination']->validate();
 
-        if ($this->container['inbound_plan_id'] === null) {
-            throw new AssertionException("'inbound_plan_id' can't be null");
-        }
-
-        if ((mb_strlen($this->container['inbound_plan_id']) > 38)) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', the character length must be smaller than or equal to 38.");
-        }
-
-        if ((mb_strlen($this->container['inbound_plan_id']) < 38)) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', the character length must be bigger than or equal to 38.");
-        }
-
-        if (!preg_match("/^[a-zA-Z0-9-]*$/", $this->container['inbound_plan_id'])) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', must be conform to the pattern /^[a-zA-Z0-9-]*$/.");
-        }
-
-            if ($this->container['pallet_information'] !== null) {
-            $this->container['pallet_information']->validate();
+            if ($this->container['freight_information'] !== null) {
+            $this->container['freight_information']->validate();
             }
 
         if ($this->container['placement_option_id'] === null) {
@@ -311,6 +295,10 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
         if (!preg_match("/^[a-zA-Z0-9-]*$/", $this->container['placement_option_id'])) {
             throw new AssertionException("invalid value for 'placement_option_id', must be conform to the pattern /^[a-zA-Z0-9-]*$/.");
         }
+
+            if ($this->container['selected_delivery_window'] !== null) {
+            $this->container['selected_delivery_window']->validate();
+            }
 
         if (!is_null($this->container['selected_transportation_option_id']) && (mb_strlen($this->container['selected_transportation_option_id']) > 38)) {
             throw new AssertionException("invalid value for 'selected_transportation_option_id', the character length must be smaller than or equal to 38.");
@@ -466,25 +454,25 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets inbound_plan_id
+     * Gets freight_information
      *
-     * @return string
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\FreightInformation|null
      */
-    public function getInboundPlanId()
+    public function getFreightInformation()
     {
-        return $this->container['inbound_plan_id'];
+        return $this->container['freight_information'];
     }
 
     /**
-     * Sets inbound_plan_id
+     * Sets freight_information
      *
-     * @param string $inbound_plan_id Identifier to an inbound plan.
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\FreightInformation|null $freight_information freight_information
      *
      * @return self
      */
-    public function setInboundPlanId($inbound_plan_id) : self
+    public function setFreightInformation($freight_information) : self
     {
-        $this->container['inbound_plan_id'] = $inbound_plan_id;
+        $this->container['freight_information'] = $freight_information;
 
         return $this;
     }
@@ -514,30 +502,6 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets pallet_information
-     *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInformation|null
-     */
-    public function getPalletInformation()
-    {
-        return $this->container['pallet_information'];
-    }
-
-    /**
-     * Sets pallet_information
-     *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInformation|null $pallet_information pallet_information
-     *
-     * @return self
-     */
-    public function setPalletInformation($pallet_information) : self
-    {
-        $this->container['pallet_information'] = $pallet_information;
-
-        return $this;
-    }
-
-    /**
      * Gets placement_option_id
      *
      * @return string
@@ -550,13 +514,37 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets placement_option_id
      *
-     * @param string $placement_option_id Identifier to a placement option. A placement option represents the shipment splits and destinations of SKUs.
+     * @param string $placement_option_id The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs.
      *
      * @return self
      */
     public function setPlacementOptionId($placement_option_id) : self
     {
         $this->container['placement_option_id'] = $placement_option_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets selected_delivery_window
+     *
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\SelectedDeliveryWindow|null
+     */
+    public function getSelectedDeliveryWindow()
+    {
+        return $this->container['selected_delivery_window'];
+    }
+
+    /**
+     * Sets selected_delivery_window
+     *
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\SelectedDeliveryWindow|null $selected_delivery_window selected_delivery_window
+     *
+     * @return self
+     */
+    public function setSelectedDeliveryWindow($selected_delivery_window) : self
+    {
+        $this->container['selected_delivery_window'] = $selected_delivery_window;
 
         return $this;
     }
@@ -574,7 +562,7 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets selected_transportation_option_id
      *
-     * @param string|null $selected_transportation_option_id Identifier to a transportation option. A transportation option represent one option for how to send a shipment.
+     * @param string|null $selected_transportation_option_id Identifier of a transportation option. A transportation option represent one option for how to send a shipment.
      *
      * @return self
      */
@@ -622,7 +610,7 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shipment_confirmation_id
      *
-     * @param string|null $shipment_confirmation_id The confirmed shipment ID which shows up on labels (for example, FBA1234ABCD).
+     * @param string|null $shipment_confirmation_id The confirmed shipment ID which shows up on labels (for example, `FBA1234ABCD`).
      *
      * @return self
      */
@@ -646,7 +634,7 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shipment_id
      *
-     * @param string $shipment_id Identifier to a shipment. A shipment contains the boxes and units being inbounded.
+     * @param string $shipment_id Identifier of a shipment. A shipment contains the boxes and units being inbounded.
      *
      * @return self
      */
