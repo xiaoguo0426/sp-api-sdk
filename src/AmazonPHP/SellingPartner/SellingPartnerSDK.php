@@ -9,6 +9,8 @@ use AmazonPHP\SellingPartner\Api\AplusContentApi\APlusSDKInterface;
 use AmazonPHP\SellingPartner\Api\ApprovalsApi\OrdersSDKInterface;
 use AmazonPHP\SellingPartner\Api\AuthorizationApi\AuthorizationSDK;
 use AmazonPHP\SellingPartner\Api\AuthorizationApi\AuthorizationSDKInterface;
+use AmazonPHP\SellingPartner\Api\AwdApi\AmazonWarehousingAndDistributionSDK;
+use AmazonPHP\SellingPartner\Api\AwdApi\AmazonWarehousingAndDistributionSDKInterface;
 use AmazonPHP\SellingPartner\Api\CatalogApi\CatalogItemSDK;
 use AmazonPHP\SellingPartner\Api\CatalogApi\CatalogItemSDKInterface;
 use AmazonPHP\SellingPartner\Api\DefaultApi\FinancesSDK;
@@ -34,6 +36,8 @@ use AmazonPHP\SellingPartner\Api\MessagingApi\MessagingSDK;
 use AmazonPHP\SellingPartner\Api\MessagingApi\MessagingSDKInterface;
 use AmazonPHP\SellingPartner\Api\NotificationsApi\NotificationsSDK;
 use AmazonPHP\SellingPartner\Api\NotificationsApi\NotificationsSDKInterface;
+use AmazonPHP\SellingPartner\Api\OffersApi\ReplenishmentSDK as OffersApiReplenishmentSDK;
+use AmazonPHP\SellingPartner\Api\OffersApi\ReplenishmentSDKInterface as OffersApiReplenishmentSDKInterface;
 use AmazonPHP\SellingPartner\Api\OrdersV0Api;
 use AmazonPHP\SellingPartner\Api\ProductPricingApi\ProductPricingSDK;
 use AmazonPHP\SellingPartner\Api\ProductPricingApi\ProductPricingSDKInterface;
@@ -45,6 +49,8 @@ use AmazonPHP\SellingPartner\Api\SalesApi\SalesSDK;
 use AmazonPHP\SellingPartner\Api\SalesApi\SalesSDKInterface;
 use AmazonPHP\SellingPartner\Api\SellersApi\SellersSDK;
 use AmazonPHP\SellingPartner\Api\SellersApi\SellersSDKInterface;
+use AmazonPHP\SellingPartner\Api\SellingpartnersApi\ReplenishmentSDK as SellingpartnersApiReplenishmentSDK;
+use AmazonPHP\SellingPartner\Api\SellingpartnersAPI\ReplenishmentSDKInterface as SellingpartnersApiReplenishmentSDKInterface;
 use AmazonPHP\SellingPartner\Api\ServiceApi\ServicesSDK;
 use AmazonPHP\SellingPartner\Api\ServiceApi\ServicesSDKInterface;
 use AmazonPHP\SellingPartner\Api\ShipmentApi;
@@ -75,188 +81,205 @@ final class SellingPartnerSDK
     private readonly HttpFactory $httpFactory;
 
     public function __construct(
-        private readonly ClientInterface $httpClient,
+        private readonly ClientInterface         $httpClient,
         private readonly RequestFactoryInterface $requestFactory,
-        private readonly StreamFactoryInterface $streamFactory,
-        private readonly Configuration $configuration,
-        private readonly LoggerInterface $logger
-    ) {
+        private readonly StreamFactoryInterface  $streamFactory,
+        private readonly Configuration           $configuration,
+        private readonly LoggerInterface         $logger
+    )
+    {
         $this->instances = [];
 
         $this->httpFactory = new HttpFactory($requestFactory, $streamFactory);
     }
 
     public static function create(
-        ClientInterface $httpClient,
+        ClientInterface         $httpClient,
         RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory,
-        Configuration $configuration,
-        LoggerInterface $logger
-    ) : self {
+        StreamFactoryInterface  $streamFactory,
+        Configuration           $configuration,
+        LoggerInterface         $logger
+    ): self
+    {
         return new self($httpClient, $requestFactory, $streamFactory, $configuration, $logger);
     }
 
-    public function configuration() : Configuration
+    public function configuration(): Configuration
     {
         return $this->configuration;
     }
 
-    public function oAuth() : OAuth
+    public function oAuth(): OAuth
     {
         return $this->instantiateSDK(OAuth::class);
     }
 
-    public function aPlus() : APlusSDKInterface
+    public function aPlus(): APlusSDKInterface
     {
         return $this->instantiateSDK(APlusSDK::class);
     }
 
-    public function approvals() : OrdersSDKInterface
+    public function approvals(): OrdersSDKInterface
     {
         return $this->instantiateSDK(OrdersSDKInterface::class);
     }
 
-    public function authorization() : AuthorizationSDKInterface
+    public function authorization(): AuthorizationSDKInterface
     {
         return $this->instantiateSDK(AuthorizationSDK::class);
     }
 
-    public function catalogItem() : CatalogItemSDKInterface
+    public function amazonWarehousingAndDistribution(): AmazonWarehousingAndDistributionSDKInterface
+    {
+        return $this->instantiateSDK(AmazonWarehousingAndDistributionSDK::class);
+    }
+
+    public function catalogItem(): CatalogItemSDKInterface
     {
         return $this->instantiateSDK(CatalogItemSDK::class);
     }
 
-    public function dataKiosk() : DataKioskSDKInterface
+    public function dataKiosk(): DataKioskSDKInterface
     {
         return $this->instantiateSDK(DataKioskSDK::class);
     }
 
-    public function fbaInbound() : FBAInboundSDKInterface
+    public function fbaInbound(): FBAInboundSDKInterface
     {
         return $this->instantiateSDK(FBAInboundSDK::class);
     }
 
-    public function fbaInventory() : FBAInventorySDKInterface
+    public function fbaInventory(): FBAInventorySDKInterface
     {
         return $this->instantiateSDK(FBAInventorySDK::class);
     }
 
-    public function fbaSmallAndLight() : FBASmallAndLightSDKInterface
+    public function fbaSmallAndLight(): FBASmallAndLightSDKInterface
     {
         return $this->instantiateSDK(FBASmallAndLightSDK::class);
     }
 
-    public function feeds() : FeedsSDKInterface
+    public function feeds(): FeedsSDKInterface
     {
         return $this->instantiateSDK(FeedsSDK::class);
     }
 
-    public function finances() : FinancesSDKInterface
+    public function finances(): FinancesSDKInterface
     {
         return $this->instantiateSDK(FinancesSDK::class);
     }
 
-    public function fulfillmentInbound() : FulfillmentInboundSDKInterface
+    public function fulfillmentInbound(): FulfillmentInboundSDKInterface
     {
         return $this->instantiateSDK(FulfillmentInboundSDK::class);
     }
 
-    public function fulfillmentOutbound() : FulfillmentOutboundSDKInterface
+    public function fulfillmentOutbound(): FulfillmentOutboundSDKInterface
     {
         return $this->instantiateSDK(FulfillmentOutboundSDK::class);
     }
 
-    public function listingsItems() : ListingsItemsSDK
+    public function listingsItems(): ListingsItemsSDK
     {
         return $this->instantiateSDK(ListingsItemsSDK::class);
     }
 
-    public function merchantFulfillment() : MerchantFulfillmentSDKInterface
+    public function merchantFulfillment(): MerchantFulfillmentSDKInterface
     {
         return $this->instantiateSDK(MerchantFulfillmentSDK::class);
     }
 
-    public function messaging() : MessagingSDKInterface
+    public function messaging(): MessagingSDKInterface
     {
         return $this->instantiateSDK(MessagingSDK::class);
     }
 
-    public function notifications() : NotificationsSDKInterface
+    public function notifications(): NotificationsSDKInterface
     {
         return $this->instantiateSDK(NotificationsSDK::class);
     }
 
-    public function orders() : OrdersV0Api\OrdersSDKInterface
+    public function orders(): OrdersV0Api\OrdersSDKInterface
     {
         return $this->instantiateSDK(OrdersV0Api\OrdersSDK::class);
     }
 
-    public function orderShipment() : ShipmentApi\OrdersSDKInterface
+    public function orderShipment(): ShipmentApi\OrdersSDKInterface
     {
         return $this->instantiateSDK(ShipmentApi\OrdersSDK::class);
     }
 
-    public function productFees() : ProductFeesSDKInterface
+    public function productFees(): ProductFeesSDKInterface
     {
         return $this->instantiateSDK(ProductFeesSDK::class);
     }
 
-    public function productPricing() : ProductPricingSDKInterface
+    public function productPricing(): ProductPricingSDKInterface
     {
         return $this->instantiateSDK(ProductPricingSDK::class);
     }
 
-    public function productTypesDefinitions() : ProductTypesDefinitionsSDKInterface
+    public function productTypesDefinitions(): ProductTypesDefinitionsSDKInterface
     {
         return $this->instantiateSDK(ProductTypesDefinitionsSDK::class);
     }
 
-    public function reports() : ReportsSDKInterface
+    public function offersReplenishment(): OffersApiReplenishmentSDKInterface
+    {
+        return $this->instantiateSDK(OffersApiReplenishmentSDK::class);
+    }
+
+    public function sellingPartnersReplenishment(): SellingpartnersApiReplenishmentSDKInterface
+    {
+        return $this->instantiateSDK(SellingpartnersApiReplenishmentSDK::class);
+    }
+
+    public function reports(): ReportsSDKInterface
     {
         return $this->instantiateSDK(ReportsSDK::class);
     }
 
-    public function sales() : SalesSDKInterface
+    public function sales(): SalesSDKInterface
     {
         return $this->instantiateSDK(SalesSDK::class);
     }
 
-    public function sellers() : SellersSDKInterface
+    public function sellers(): SellersSDKInterface
     {
         return $this->instantiateSDK(SellersSDK::class);
     }
 
-    public function services() : ServicesSDKInterface
+    public function services(): ServicesSDKInterface
     {
         return $this->instantiateSDK(ServicesSDK::class);
     }
 
-    public function shipmentInvoicing() : ShipmentInvoicingSDKInterface
+    public function shipmentInvoicing(): ShipmentInvoicingSDKInterface
     {
         return $this->instantiateSDK(ShipmentInvoicingSDK::class);
     }
 
-    public function shipping() : ShippingSDKInterface
+    public function shipping(): ShippingSDKInterface
     {
         return $this->instantiateSDK(ShippingSDK::class);
     }
 
-    public function solicitations() : SolicitationsSDKInterface
+    public function solicitations(): SolicitationsSDKInterface
     {
         return $this->instantiateSDK(SolicitationsSDK::class);
     }
 
-    public function tokens() : TokensSDKInterface
+    public function tokens(): TokensSDKInterface
     {
         return $this->instantiateSDK(TokensSDK::class);
     }
 
-    public function uploads() : UploadsSDKInterface
+    public function uploads(): UploadsSDKInterface
     {
         return $this->instantiateSDK(UploadsSDK::class);
     }
 
-    public function vendor() : VendorSDK
+    public function vendor(): VendorSDK
     {
         return $this->instantiateSDK(VendorSDK::class);
     }
@@ -268,7 +291,7 @@ final class SellingPartnerSDK
      *
      * @return T
      */
-    private function instantiateSDK(string $sdkClass) : string|object
+    private function instantiateSDK(string $sdkClass): string|object
     {
         if (isset($this->instances[$sdkClass])) {
             return $this->instances[$sdkClass];
