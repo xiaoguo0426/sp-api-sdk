@@ -41,12 +41,10 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'box_id' => 'string',
         'content_information_source' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\BoxContentInformationSource',
-        'contents' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\BoxContent[]',
         'dimensions' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Dimensions',
+        'items' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ItemInput[]',
         'quantity' => 'int',
-        'template_name' => 'string',
         'weight' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Weight'
     ];
 
@@ -58,12 +56,10 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'box_id' => null,
         'content_information_source' => null,
-        'contents' => null,
         'dimensions' => null,
+        'items' => null,
         'quantity' => null,
-        'template_name' => null,
         'weight' => null
     ];
 
@@ -94,12 +90,10 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $attributeMap = [
-        'box_id' => 'boxId',
         'content_information_source' => 'contentInformationSource',
-        'contents' => 'contents',
         'dimensions' => 'dimensions',
+        'items' => 'items',
         'quantity' => 'quantity',
-        'template_name' => 'templateName',
         'weight' => 'weight'
     ];
 
@@ -109,12 +103,10 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $setters = [
-        'box_id' => 'setBoxId',
         'content_information_source' => 'setContentInformationSource',
-        'contents' => 'setContents',
         'dimensions' => 'setDimensions',
+        'items' => 'setItems',
         'quantity' => 'setQuantity',
-        'template_name' => 'setTemplateName',
         'weight' => 'setWeight'
     ];
 
@@ -124,12 +116,10 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $getters = [
-        'box_id' => 'getBoxId',
         'content_information_source' => 'getContentInformationSource',
-        'contents' => 'getContents',
         'dimensions' => 'getDimensions',
+        'items' => 'getItems',
         'quantity' => 'getQuantity',
-        'template_name' => 'getTemplateName',
         'weight' => 'getWeight'
     ];
 
@@ -190,12 +180,10 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['box_id'] = $data['box_id'] ?? null;
         $this->container['content_information_source'] = $data['content_information_source'] ?? null;
-        $this->container['contents'] = $data['contents'] ?? null;
         $this->container['dimensions'] = $data['dimensions'] ?? null;
+        $this->container['items'] = $data['items'] ?? null;
         $this->container['quantity'] = $data['quantity'] ?? null;
-        $this->container['template_name'] = $data['template_name'] ?? null;
         $this->container['weight'] = $data['weight'] ?? null;
     }
 
@@ -206,14 +194,6 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function validate() : void
     {
-        if (!is_null($this->container['box_id']) && (mb_strlen($this->container['box_id']) > 1024)) {
-            throw new AssertionException("invalid value for 'box_id', the character length must be smaller than or equal to 1024.");
-        }
-
-        if (!is_null($this->container['box_id']) && (mb_strlen($this->container['box_id']) < 1)) {
-            throw new AssertionException("invalid value for 'box_id', the character length must be bigger than or equal to 1.");
-        }
-
         if ($this->container['content_information_source'] === null) {
             throw new AssertionException("'content_information_source' can't be null");
         }
@@ -236,18 +216,6 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new AssertionException("invalid value for 'quantity', must be bigger than or equal to 1.");
         }
 
-        if ($this->container['template_name'] === null) {
-            throw new AssertionException("'template_name' can't be null");
-        }
-
-        if ((mb_strlen($this->container['template_name']) > 1024)) {
-            throw new AssertionException("invalid value for 'template_name', the character length must be smaller than or equal to 1024.");
-        }
-
-        if ((mb_strlen($this->container['template_name']) < 1)) {
-            throw new AssertionException("invalid value for 'template_name', the character length must be bigger than or equal to 1.");
-        }
-
         if ($this->container['weight'] === null) {
             throw new AssertionException("'weight' can't be null");
         }
@@ -256,30 +224,6 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
 
     }
 
-
-    /**
-     * Gets box_id
-     *
-     * @return string|null
-     */
-    public function getBoxId()
-    {
-        return $this->container['box_id'];
-    }
-
-    /**
-     * Sets box_id
-     *
-     * @param string|null $box_id The ID of the box to update that was provided by Amazon. This ID is comprised of the external shipment ID         (which is generated after transportation has been confirmed) and the index of the box.
-     *
-     * @return self
-     */
-    public function setBoxId($box_id) : self
-    {
-        $this->container['box_id'] = $box_id;
-
-        return $this;
-    }
 
     /**
      * Gets content_information_source
@@ -301,30 +245,6 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setContentInformationSource($content_information_source) : self
     {
         $this->container['content_information_source'] = $content_information_source;
-
-        return $this;
-    }
-
-    /**
-     * Gets contents
-     *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\BoxContent[]|null
-     */
-    public function getContents()
-    {
-        return $this->container['contents'];
-    }
-
-    /**
-     * Sets contents
-     *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\BoxContent[]|null $contents The Contents of the box containing a list of MSKUs and their quantity. If `boxAttribute` is `BARCODE_2D` or `MANUAL_PROCESS`, user should provide ALL of the items that could be in the box, without specifying item quantities.
-     *
-     * @return self
-     */
-    public function setContents($contents) : self
-    {
-        $this->container['contents'] = $contents;
 
         return $this;
     }
@@ -354,6 +274,30 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets items
+     *
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ItemInput[]|null
+     */
+    public function getItems()
+    {
+        return $this->container['items'];
+    }
+
+    /**
+     * Sets items
+     *
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ItemInput[]|null $items The items and their quantity in the box. This must be empty if the box `contentInformationSource` is `BARCODE_2D` or `MANUAL_PROCESS`.
+     *
+     * @return self
+     */
+    public function setItems($items) : self
+    {
+        $this->container['items'] = $items;
+
+        return $this;
+    }
+
+    /**
      * Gets quantity
      *
      * @return int
@@ -373,30 +317,6 @@ class BoxInput implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setQuantity($quantity) : self
     {
         $this->container['quantity'] = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Gets template_name
-     *
-     * @return string
-     */
-    public function getTemplateName()
-    {
-        return $this->container['template_name'];
-    }
-
-    /**
-     * Sets template_name
-     *
-     * @param string $template_name The seller-provided name for a 'type' of box (or a group of boxes with the same contents), which will be used to identify all created boxes of that type. When providing bulk box information, this value must be unique from the other box types. When providing individual boxes with existing IDs, this value can be shared between many boxes that have the same contents.
-     *
-     * @return self
-     */
-    public function setTemplateName($template_name) : self
-    {
-        $this->container['template_name'] = $template_name;
 
         return $this;
     }

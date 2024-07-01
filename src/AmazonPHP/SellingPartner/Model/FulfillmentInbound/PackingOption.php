@@ -44,7 +44,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
         'discounts' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Incentive[]',
         'expiration' => '\DateTimeInterface',
         'fees' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Incentive[]',
-        'inbound_plan_id' => 'string',
         'packing_groups' => 'string[]',
         'packing_option_id' => 'string',
         'status' => 'string',
@@ -62,7 +61,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
         'discounts' => null,
         'expiration' => 'date-time',
         'fees' => null,
-        'inbound_plan_id' => null,
         'packing_groups' => null,
         'packing_option_id' => null,
         'status' => null,
@@ -99,7 +97,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
         'discounts' => 'discounts',
         'expiration' => 'expiration',
         'fees' => 'fees',
-        'inbound_plan_id' => 'inboundPlanId',
         'packing_groups' => 'packingGroups',
         'packing_option_id' => 'packingOptionId',
         'status' => 'status',
@@ -115,7 +112,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
         'discounts' => 'setDiscounts',
         'expiration' => 'setExpiration',
         'fees' => 'setFees',
-        'inbound_plan_id' => 'setInboundPlanId',
         'packing_groups' => 'setPackingGroups',
         'packing_option_id' => 'setPackingOptionId',
         'status' => 'setStatus',
@@ -131,7 +127,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
         'discounts' => 'getDiscounts',
         'expiration' => 'getExpiration',
         'fees' => 'getFees',
-        'inbound_plan_id' => 'getInboundPlanId',
         'packing_groups' => 'getPackingGroups',
         'packing_option_id' => 'getPackingOptionId',
         'status' => 'getStatus',
@@ -198,7 +193,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['discounts'] = $data['discounts'] ?? null;
         $this->container['expiration'] = $data['expiration'] ?? null;
         $this->container['fees'] = $data['fees'] ?? null;
-        $this->container['inbound_plan_id'] = $data['inbound_plan_id'] ?? null;
         $this->container['packing_groups'] = $data['packing_groups'] ?? null;
         $this->container['packing_option_id'] = $data['packing_option_id'] ?? null;
         $this->container['status'] = $data['status'] ?? null;
@@ -218,22 +212,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ($this->container['fees'] === null) {
             throw new AssertionException("'fees' can't be null");
-        }
-
-        if ($this->container['inbound_plan_id'] === null) {
-            throw new AssertionException("'inbound_plan_id' can't be null");
-        }
-
-        if ((mb_strlen($this->container['inbound_plan_id']) > 38)) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', the character length must be smaller than or equal to 38.");
-        }
-
-        if ((mb_strlen($this->container['inbound_plan_id']) < 38)) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', the character length must be bigger than or equal to 38.");
-        }
-
-        if (!preg_match("/^[a-zA-Z0-9-]*$/", $this->container['inbound_plan_id'])) {
-            throw new AssertionException("invalid value for 'inbound_plan_id', must be conform to the pattern /^[a-zA-Z0-9-]*$/.");
         }
 
         if ($this->container['packing_groups'] === null) {
@@ -312,7 +290,7 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets expiration
      *
-     * @param \DateTimeInterface|null $expiration The timestamp at which this packing option becomes no longer valid. This is in ISO 8601 datetime format with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
+     * @param \DateTimeInterface|null $expiration The timestamp at which this packing option becomes no longer valid. This is based in ISO 8601 datetime with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
      *
      * @return self
      */
@@ -343,30 +321,6 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setFees($fees) : self
     {
         $this->container['fees'] = $fees;
-
-        return $this;
-    }
-
-    /**
-     * Gets inbound_plan_id
-     *
-     * @return string
-     */
-    public function getInboundPlanId()
-    {
-        return $this->container['inbound_plan_id'];
-    }
-
-    /**
-     * Sets inbound_plan_id
-     *
-     * @param string $inbound_plan_id Identifier to an inbound plan.
-     *
-     * @return self
-     */
-    public function setInboundPlanId($inbound_plan_id) : self
-    {
-        $this->container['inbound_plan_id'] = $inbound_plan_id;
 
         return $this;
     }
@@ -408,7 +362,7 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets packing_option_id
      *
-     * @param string $packing_option_id Identifier to a packing option.
+     * @param string $packing_option_id Identifier of a packing option.
      *
      * @return self
      */
@@ -432,7 +386,7 @@ class PackingOption implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string $status The status of the packing option. Can be `OFFERED`, `ACCEPTED`, or `EXPIRED`.
+     * @param string $status The status of the packing option. Can be: `OFFERED`, `ACCEPTED`, or `EXPIRED`.
      *
      * @return self
      */

@@ -44,7 +44,8 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
         'package_number' => 'int',
         'carrier_code' => 'string',
         'tracking_number' => 'string',
-        'estimated_arrival_date' => '\DateTimeInterface'
+        'estimated_arrival_date' => '\DateTimeInterface',
+        'locker_details' => '\AmazonPHP\SellingPartner\Model\FulfillmentOutbound\LockerDetails'
     ];
 
     /**
@@ -58,7 +59,8 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
         'package_number' => 'int32',
         'carrier_code' => null,
         'tracking_number' => null,
-        'estimated_arrival_date' => 'date-time'
+        'estimated_arrival_date' => 'date-time',
+        'locker_details' => null
     ];
 
     /**
@@ -91,7 +93,8 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
         'package_number' => 'packageNumber',
         'carrier_code' => 'carrierCode',
         'tracking_number' => 'trackingNumber',
-        'estimated_arrival_date' => 'estimatedArrivalDate'
+        'estimated_arrival_date' => 'estimatedArrivalDate',
+        'locker_details' => 'lockerDetails'
     ];
 
     /**
@@ -103,7 +106,8 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
         'package_number' => 'setPackageNumber',
         'carrier_code' => 'setCarrierCode',
         'tracking_number' => 'setTrackingNumber',
-        'estimated_arrival_date' => 'setEstimatedArrivalDate'
+        'estimated_arrival_date' => 'setEstimatedArrivalDate',
+        'locker_details' => 'setLockerDetails'
     ];
 
     /**
@@ -115,7 +119,8 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
         'package_number' => 'getPackageNumber',
         'carrier_code' => 'getCarrierCode',
         'tracking_number' => 'getTrackingNumber',
-        'estimated_arrival_date' => 'getEstimatedArrivalDate'
+        'estimated_arrival_date' => 'getEstimatedArrivalDate',
+        'locker_details' => 'getLockerDetails'
     ];
 
     /**
@@ -179,6 +184,7 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
         $this->container['carrier_code'] = $data['carrier_code'] ?? null;
         $this->container['tracking_number'] = $data['tracking_number'] ?? null;
         $this->container['estimated_arrival_date'] = $data['estimated_arrival_date'] ?? null;
+        $this->container['locker_details'] = $data['locker_details'] ?? null;
     }
 
     /**
@@ -195,6 +201,10 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
         if ($this->container['carrier_code'] === null) {
             throw new AssertionException("'carrier_code' can't be null");
         }
+
+            if ($this->container['locker_details'] !== null) {
+            $this->container['locker_details']->validate();
+            }
 
     }
 
@@ -284,13 +294,37 @@ class FulfillmentShipmentPackage implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets estimated_arrival_date
      *
-     * @param \DateTimeInterface|null $estimated_arrival_date estimated_arrival_date
+     * @param \DateTimeInterface|null $estimated_arrival_date Date timestamp
      *
      * @return self
      */
     public function setEstimatedArrivalDate($estimated_arrival_date) : self
     {
         $this->container['estimated_arrival_date'] = $estimated_arrival_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets locker_details
+     *
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\LockerDetails|null
+     */
+    public function getLockerDetails()
+    {
+        return $this->container['locker_details'];
+    }
+
+    /**
+     * Sets locker_details
+     *
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\LockerDetails|null $locker_details locker_details
+     *
+     * @return self
+     */
+    public function setLockerDetails($locker_details) : self
+    {
+        $this->container['locker_details'] = $locker_details;
 
         return $this;
     }

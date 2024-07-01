@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Orders
 *
-* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  _Note:_ The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
+* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  **Note:** The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
 *
 * The version of the OpenAPI document: v0
 *
@@ -61,7 +61,7 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'promotion_ids' => 'string[]',
         'cod_fee' => '\AmazonPHP\SellingPartner\Model\Orders\Money',
         'cod_fee_discount' => '\AmazonPHP\SellingPartner\Model\Orders\Money',
-        'is_gift' => 'bool',
+        'is_gift' => 'string',
         'condition_note' => 'string',
         'condition_id' => 'string',
         'condition_subtype_id' => 'string',
@@ -78,7 +78,8 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'buyer_requested_cancel' => '\AmazonPHP\SellingPartner\Model\Orders\BuyerRequestedCancel',
         'serial_numbers' => 'string[]',
         'substitution_preferences' => '\AmazonPHP\SellingPartner\Model\Orders\SubstitutionPreferences',
-        'measurement' => '\AmazonPHP\SellingPartner\Model\Orders\Measurement'
+        'measurement' => '\AmazonPHP\SellingPartner\Model\Orders\Measurement',
+        'shipping_constraints' => '\AmazonPHP\SellingPartner\Model\Orders\ShippingConstraints'
     ];
 
     /**
@@ -126,7 +127,8 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'buyer_requested_cancel' => null,
         'serial_numbers' => null,
         'substitution_preferences' => null,
-        'measurement' => null
+        'measurement' => null,
+        'shipping_constraints' => null
     ];
 
     /**
@@ -193,7 +195,8 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'buyer_requested_cancel' => 'BuyerRequestedCancel',
         'serial_numbers' => 'SerialNumbers',
         'substitution_preferences' => 'SubstitutionPreferences',
-        'measurement' => 'Measurement'
+        'measurement' => 'Measurement',
+        'shipping_constraints' => 'ShippingConstraints'
     ];
 
     /**
@@ -239,7 +242,8 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'buyer_requested_cancel' => 'setBuyerRequestedCancel',
         'serial_numbers' => 'setSerialNumbers',
         'substitution_preferences' => 'setSubstitutionPreferences',
-        'measurement' => 'setMeasurement'
+        'measurement' => 'setMeasurement',
+        'shipping_constraints' => 'setShippingConstraints'
     ];
 
     /**
@@ -285,7 +289,8 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'buyer_requested_cancel' => 'getBuyerRequestedCancel',
         'serial_numbers' => 'getSerialNumbers',
         'substitution_preferences' => 'getSubstitutionPreferences',
-        'measurement' => 'getMeasurement'
+        'measurement' => 'getMeasurement',
+        'shipping_constraints' => 'getShippingConstraints'
     ];
 
     /**
@@ -398,6 +403,7 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['serial_numbers'] = $data['serial_numbers'] ?? null;
         $this->container['substitution_preferences'] = $data['substitution_preferences'] ?? null;
         $this->container['measurement'] = $data['measurement'] ?? null;
+        $this->container['shipping_constraints'] = $data['shipping_constraints'] ?? null;
     }
 
     /**
@@ -496,6 +502,10 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
 
             if ($this->container['measurement'] !== null) {
             $this->container['measurement']->validate();
+            }
+
+            if ($this->container['shipping_constraints'] !== null) {
+            $this->container['shipping_constraints']->validate();
             }
 
     }
@@ -984,7 +994,7 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets is_gift
      *
-     * @return bool|null
+     * @return string|null
      */
     public function getIsGift()
     {
@@ -994,7 +1004,7 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets is_gift
      *
-     * @param bool|null $is_gift When true, the item is a gift.
+     * @param string|null $is_gift Indicates whether the item is a gift.  **Possible values**: `true`, `false`.
      *
      * @return self
      */
@@ -1042,7 +1052,7 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets condition_id
      *
-     * @param string|null $condition_id The condition of the item.  Possible values: New, Used, Collectible, Refurbished, Preorder, Club.
+     * @param string|null $condition_id The condition of the item.  **Possible values**: `New`, `Used`, `Collectible`, `Refurbished`, `Preorder`, `Club`.
      *
      * @return self
      */
@@ -1066,7 +1076,7 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets condition_subtype_id
      *
-     * @param string|null $condition_subtype_id The subcondition of the item.  Possible values: New, Mint, Very Good, Good, Acceptable, Poor, Club, OEM, Warranty, Refurbished Warranty, Refurbished, Open Box, Any, Other.
+     * @param string|null $condition_subtype_id The subcondition of the item.  **Possible values**: `New`, `Mint`, `Very Good`, `Good`, `Acceptable`, `Poor`, `Club`, `OEM`, `Warranty`, `Refurbished Warranty`, `Refurbished`, `Open Box`, `Any`, `Other`.
      *
      * @return self
      */
@@ -1138,7 +1148,7 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets price_designation
      *
-     * @param string|null $price_designation Indicates that the selling price is a special price that is available only for Amazon Business orders. For more information about the Amazon Business Seller Program, see the [Amazon Business website](https://www.amazon.com/b2b/info/amazon-business).   Possible values: BusinessPrice - A special price that is available only for Amazon Business orders.
+     * @param string|null $price_designation Indicates that the selling price is a special price that is available only for Amazon Business orders. For more information about the Amazon Business Seller Program, refer to [Amazon Business](https://business.amazon.com).   **Possible values**: `BusinessPrice` - A special price that is available only for Amazon Business orders.
      *
      * @return self
      */
@@ -1409,6 +1419,30 @@ class OrderItem implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setMeasurement($measurement) : self
     {
         $this->container['measurement'] = $measurement;
+
+        return $this;
+    }
+
+    /**
+     * Gets shipping_constraints
+     *
+     * @return \AmazonPHP\SellingPartner\Model\Orders\ShippingConstraints|null
+     */
+    public function getShippingConstraints()
+    {
+        return $this->container['shipping_constraints'];
+    }
+
+    /**
+     * Sets shipping_constraints
+     *
+     * @param \AmazonPHP\SellingPartner\Model\Orders\ShippingConstraints|null $shipping_constraints shipping_constraints
+     *
+     * @return self
+     */
+    public function setShippingConstraints($shipping_constraints) : self
+    {
+        $this->container['shipping_constraints'] = $shipping_constraints;
 
         return $this;
     }

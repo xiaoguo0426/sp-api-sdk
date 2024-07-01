@@ -222,7 +222,7 @@ class SpdTrackingItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets box_id
      *
-     * @param string|null $box_id The ID provided by Amazon that identifies a given box. This ID is comprised of the external shipment ID (which         is generated after transportation has been confirmed) and the index of the box.
+     * @param string|null $box_id The ID provided by Amazon that identifies a given box. This ID is comprised of the external shipment ID (which is generated after transportation has been confirmed) and the index of the box.
      *
      * @return self
      */
@@ -270,7 +270,7 @@ class SpdTrackingItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tracking_number_validation_status
      *
-     * @param string|null $tracking_number_validation_status Whether or not Amazon has validated the tracking number. If more than 24 hours have passed and the status is         not yet 'VALIDATED', please verify the number and update if necessary. Can be `VALIDATED` or `NOT_VALIDATED`.
+     * @param string|null $tracking_number_validation_status Whether or not Amazon has validated the tracking number. If more than 24 hours have passed and the status is not yet 'VALIDATED', please verify the number and update if necessary. Can be: `VALIDATED`, `NOT_VALIDATED`.
      *
      * @return self
      */

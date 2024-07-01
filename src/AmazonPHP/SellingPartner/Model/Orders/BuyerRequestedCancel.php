@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Orders
 *
-* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  _Note:_ The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
+* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  **Note:** The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
 *
 * The version of the OpenAPI document: v0
 *
@@ -41,7 +41,7 @@ class BuyerRequestedCancel implements ModelInterface, ArrayAccess, \JsonSerializ
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'is_buyer_requested_cancel' => 'bool',
+        'is_buyer_requested_cancel' => 'string',
         'buyer_cancel_reason' => 'string'
     ];
 
@@ -182,7 +182,7 @@ class BuyerRequestedCancel implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Gets is_buyer_requested_cancel
      *
-     * @return bool|null
+     * @return string|null
      */
     public function getIsBuyerRequestedCancel()
     {
@@ -192,7 +192,7 @@ class BuyerRequestedCancel implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets is_buyer_requested_cancel
      *
-     * @param bool|null $is_buyer_requested_cancel When true, the buyer has requested cancellation.
+     * @param string|null $is_buyer_requested_cancel Indicate whether the buyer has requested cancellation.  **Possible Values**: `true`, `false`.
      *
      * @return self
      */

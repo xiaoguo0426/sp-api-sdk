@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Merchant Fulfillment
 *
-* The Selling Partner API for Merchant Fulfillment helps you build applications that let sellers purchase shipping for non-Prime and Prime orders using Amazon’s Buy Shipping Services.
+* With the Selling Partner API for Merchant Fulfillment, you can build applications that sellers can use to purchase shipping for non-Prime and Prime orders using Amazon's Buy Shipping Services.
 *
 * The version of the OpenAPI document: v0
 *
@@ -232,7 +232,7 @@ class GetEligibleShipmentServicesResult implements ModelInterface, ArrayAccess, 
     /**
      * Sets rejected_shipping_service_list
      *
-     * @param \AmazonPHP\SellingPartner\Model\MerchantFulfillment\RejectedShippingService[]|null $rejected_shipping_service_list List of services that were for some reason unavailable for this request
+     * @param \AmazonPHP\SellingPartner\Model\MerchantFulfillment\RejectedShippingService[]|null $rejected_shipping_service_list List of services that are for some reason unavailable for this request
      *
      * @return self
      */

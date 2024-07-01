@@ -216,7 +216,7 @@ class SpdTrackingItemInput implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets box_id
      *
-     * @param string $box_id The ID provided by Amazon that identifies a given box. This ID is comprised of the external shipment ID (which         is generated after transportation has been confirmed) and the index of the box.
+     * @param string $box_id The ID provided by Amazon that identifies a given box. This ID is comprised of the external shipment ID (which is generated after transportation has been confirmed) and the index of the box.
      *
      * @return self
      */

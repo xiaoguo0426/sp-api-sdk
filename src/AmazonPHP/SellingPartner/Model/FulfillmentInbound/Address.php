@@ -46,7 +46,9 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
         'city' => 'string',
         'company_name' => 'string',
         'country_code' => 'string',
+        'email' => 'string',
         'name' => 'string',
+        'phone_number' => 'string',
         'postal_code' => 'string',
         'state_or_province_code' => 'string'
     ];
@@ -64,7 +66,9 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
         'city' => null,
         'company_name' => null,
         'country_code' => null,
+        'email' => null,
         'name' => null,
+        'phone_number' => null,
         'postal_code' => null,
         'state_or_province_code' => null
     ];
@@ -101,7 +105,9 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
         'city' => 'city',
         'company_name' => 'companyName',
         'country_code' => 'countryCode',
+        'email' => 'email',
         'name' => 'name',
+        'phone_number' => 'phoneNumber',
         'postal_code' => 'postalCode',
         'state_or_province_code' => 'stateOrProvinceCode'
     ];
@@ -117,7 +123,9 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
         'city' => 'setCity',
         'company_name' => 'setCompanyName',
         'country_code' => 'setCountryCode',
+        'email' => 'setEmail',
         'name' => 'setName',
+        'phone_number' => 'setPhoneNumber',
         'postal_code' => 'setPostalCode',
         'state_or_province_code' => 'setStateOrProvinceCode'
     ];
@@ -133,7 +141,9 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
         'city' => 'getCity',
         'company_name' => 'getCompanyName',
         'country_code' => 'getCountryCode',
+        'email' => 'getEmail',
         'name' => 'getName',
+        'phone_number' => 'getPhoneNumber',
         'postal_code' => 'getPostalCode',
         'state_or_province_code' => 'getStateOrProvinceCode'
     ];
@@ -200,7 +210,9 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['city'] = $data['city'] ?? null;
         $this->container['company_name'] = $data['company_name'] ?? null;
         $this->container['country_code'] = $data['country_code'] ?? null;
+        $this->container['email'] = $data['email'] ?? null;
         $this->container['name'] = $data['name'] ?? null;
+        $this->container['phone_number'] = $data['phone_number'] ?? null;
         $this->container['postal_code'] = $data['postal_code'] ?? null;
         $this->container['state_or_province_code'] = $data['state_or_province_code'] ?? null;
     }
@@ -268,6 +280,14 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new AssertionException("invalid value for 'country_code', must be conform to the pattern /^[A-Z]{2}$/.");
         }
 
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 1024)) {
+            throw new AssertionException("invalid value for 'email', the character length must be smaller than or equal to 1024.");
+        }
+
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 1)) {
+            throw new AssertionException("invalid value for 'email', the character length must be bigger than or equal to 1.");
+        }
+
         if ($this->container['name'] === null) {
             throw new AssertionException("'name' can't be null");
         }
@@ -278,6 +298,14 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ((mb_strlen($this->container['name']) < 1)) {
             throw new AssertionException("invalid value for 'name', the character length must be bigger than or equal to 1.");
+        }
+
+        if (!is_null($this->container['phone_number']) && (mb_strlen($this->container['phone_number']) > 20)) {
+            throw new AssertionException("invalid value for 'phone_number', the character length must be smaller than or equal to 20.");
+        }
+
+        if (!is_null($this->container['phone_number']) && (mb_strlen($this->container['phone_number']) < 1)) {
+            throw new AssertionException("invalid value for 'phone_number', the character length must be bigger than or equal to 1.");
         }
 
         if ($this->container['postal_code'] === null) {
@@ -424,6 +452,30 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets email
+     *
+     * @return string|null
+     */
+    public function getEmail()
+    {
+        return $this->container['email'];
+    }
+
+    /**
+     * Sets email
+     *
+     * @param string|null $email The email address.
+     *
+     * @return self
+     */
+    public function setEmail($email) : self
+    {
+        $this->container['email'] = $email;
+
+        return $this;
+    }
+
+    /**
      * Gets name
      *
      * @return string
@@ -436,13 +488,37 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string $name The name of the individual or business.
+     * @param string $name The name of the individual who is the primary contact.
      *
      * @return self
      */
     public function setName($name) : self
     {
         $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets phone_number
+     *
+     * @return string|null
+     */
+    public function getPhoneNumber()
+    {
+        return $this->container['phone_number'];
+    }
+
+    /**
+     * Sets phone_number
+     *
+     * @param string|null $phone_number The phone number.
+     *
+     * @return self
+     */
+    public function setPhoneNumber($phone_number) : self
+    {
+        $this->container['phone_number'] = $phone_number;
 
         return $this;
     }

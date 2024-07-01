@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Merchant Fulfillment
 *
-* The Selling Partner API for Merchant Fulfillment helps you build applications that let sellers purchase shipping for non-Prime and Prime orders using Amazon’s Buy Shipping Services.
+* With the Selling Partner API for Merchant Fulfillment, you can build applications that sellers can use to purchase shipping for non-Prime and Prime orders using Amazon's Buy Shipping Services.
 *
 * The version of the OpenAPI document: v0
 *
@@ -53,7 +53,8 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
         'available_shipping_service_options' => '\AmazonPHP\SellingPartner\Model\MerchantFulfillment\AvailableShippingServiceOptions',
         'available_label_formats' => '\AmazonPHP\SellingPartner\Model\MerchantFulfillment\LabelFormat[]',
         'available_format_options_for_label' => '\AmazonPHP\SellingPartner\Model\MerchantFulfillment\LabelFormatOption[]',
-        'requires_additional_seller_inputs' => 'bool'
+        'requires_additional_seller_inputs' => 'bool',
+        'benefits' => '\AmazonPHP\SellingPartner\Model\MerchantFulfillment\Benefits'
     ];
 
     /**
@@ -76,7 +77,8 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
         'available_shipping_service_options' => null,
         'available_label_formats' => null,
         'available_format_options_for_label' => null,
-        'requires_additional_seller_inputs' => null
+        'requires_additional_seller_inputs' => null,
+        'benefits' => null
     ];
 
     /**
@@ -118,7 +120,8 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
         'available_shipping_service_options' => 'AvailableShippingServiceOptions',
         'available_label_formats' => 'AvailableLabelFormats',
         'available_format_options_for_label' => 'AvailableFormatOptionsForLabel',
-        'requires_additional_seller_inputs' => 'RequiresAdditionalSellerInputs'
+        'requires_additional_seller_inputs' => 'RequiresAdditionalSellerInputs',
+        'benefits' => 'Benefits'
     ];
 
     /**
@@ -139,7 +142,8 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
         'available_shipping_service_options' => 'setAvailableShippingServiceOptions',
         'available_label_formats' => 'setAvailableLabelFormats',
         'available_format_options_for_label' => 'setAvailableFormatOptionsForLabel',
-        'requires_additional_seller_inputs' => 'setRequiresAdditionalSellerInputs'
+        'requires_additional_seller_inputs' => 'setRequiresAdditionalSellerInputs',
+        'benefits' => 'setBenefits'
     ];
 
     /**
@@ -160,7 +164,8 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
         'available_shipping_service_options' => 'getAvailableShippingServiceOptions',
         'available_label_formats' => 'getAvailableLabelFormats',
         'available_format_options_for_label' => 'getAvailableFormatOptionsForLabel',
-        'requires_additional_seller_inputs' => 'getRequiresAdditionalSellerInputs'
+        'requires_additional_seller_inputs' => 'getRequiresAdditionalSellerInputs',
+        'benefits' => 'getBenefits'
     ];
 
     /**
@@ -233,6 +238,7 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['available_label_formats'] = $data['available_label_formats'] ?? null;
         $this->container['available_format_options_for_label'] = $data['available_format_options_for_label'] ?? null;
         $this->container['requires_additional_seller_inputs'] = $data['requires_additional_seller_inputs'] ?? null;
+        $this->container['benefits'] = $data['benefits'] ?? null;
     }
 
     /**
@@ -282,6 +288,10 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new AssertionException("'requires_additional_seller_inputs' can't be null");
         }
 
+            if ($this->container['benefits'] !== null) {
+            $this->container['benefits']->validate();
+            }
+
     }
 
 
@@ -298,7 +308,7 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shipping_service_name
      *
-     * @param string $shipping_service_name A plain text representation of a carrier's shipping service. For example, \"UPS Ground\" or \"FedEx Standard Overnight\".
+     * @param string $shipping_service_name A plain text representation of a carrier's shipping service. For example, UPS Ground or FedEx Standard Overnight.
      *
      * @return self
      */
@@ -394,7 +404,7 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets ship_date
      *
-     * @param \DateTimeInterface $ship_date ship_date
+     * @param \DateTimeInterface $ship_date Date-time formatted timestamp.
      *
      * @return self
      */
@@ -418,7 +428,7 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets earliest_estimated_delivery_date
      *
-     * @param \DateTimeInterface|null $earliest_estimated_delivery_date earliest_estimated_delivery_date
+     * @param \DateTimeInterface|null $earliest_estimated_delivery_date Date-time formatted timestamp.
      *
      * @return self
      */
@@ -442,7 +452,7 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets latest_estimated_delivery_date
      *
-     * @param \DateTimeInterface|null $latest_estimated_delivery_date latest_estimated_delivery_date
+     * @param \DateTimeInterface|null $latest_estimated_delivery_date Date-time formatted timestamp.
      *
      * @return self
      */
@@ -593,6 +603,30 @@ class ShippingService implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setRequiresAdditionalSellerInputs($requires_additional_seller_inputs) : self
     {
         $this->container['requires_additional_seller_inputs'] = $requires_additional_seller_inputs;
+
+        return $this;
+    }
+
+    /**
+     * Gets benefits
+     *
+     * @return \AmazonPHP\SellingPartner\Model\MerchantFulfillment\Benefits|null
+     */
+    public function getBenefits()
+    {
+        return $this->container['benefits'];
+    }
+
+    /**
+     * Sets benefits
+     *
+     * @param \AmazonPHP\SellingPartner\Model\MerchantFulfillment\Benefits|null $benefits benefits
+     *
+     * @return self
+     */
+    public function setBenefits($benefits) : self
+    {
+        $this->container['benefits'] = $benefits;
 
         return $this;
     }

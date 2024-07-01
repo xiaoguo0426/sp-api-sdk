@@ -220,7 +220,7 @@ class FulfillmentPreviewShipment implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets earliest_ship_date
      *
-     * @param \DateTimeInterface|null $earliest_ship_date earliest_ship_date
+     * @param \DateTimeInterface|null $earliest_ship_date Date timestamp
      *
      * @return self
      */
@@ -244,7 +244,7 @@ class FulfillmentPreviewShipment implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets latest_ship_date
      *
-     * @param \DateTimeInterface|null $latest_ship_date latest_ship_date
+     * @param \DateTimeInterface|null $latest_ship_date Date timestamp
      *
      * @return self
      */
@@ -268,7 +268,7 @@ class FulfillmentPreviewShipment implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets earliest_arrival_date
      *
-     * @param \DateTimeInterface|null $earliest_arrival_date earliest_arrival_date
+     * @param \DateTimeInterface|null $earliest_arrival_date Date timestamp
      *
      * @return self
      */
@@ -292,7 +292,7 @@ class FulfillmentPreviewShipment implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets latest_arrival_date
      *
-     * @param \DateTimeInterface|null $latest_arrival_date latest_arrival_date
+     * @param \DateTimeInterface|null $latest_arrival_date Date timestamp
      *
      * @return self
      */

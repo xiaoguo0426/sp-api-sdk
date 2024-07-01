@@ -170,13 +170,21 @@ class SetPackingInformationRequest implements ModelInterface, ArrayAccess, \Json
      */
     public function validate() : void
     {
+        if ($this->container['package_groupings'] === null) {
+            throw new AssertionException("'package_groupings' can't be null");
+        }
+
+        if ((count($this->container['package_groupings']) < 1)) {
+            throw new AssertionException("invalid value for 'package_groupings', number of items must be greater than or equal to 1.");
+        }
+
     }
 
 
     /**
      * Gets package_groupings
      *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PackageGroupingInput[]|null
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PackageGroupingInput[]
      */
     public function getPackageGroupings()
     {
@@ -186,7 +194,7 @@ class SetPackingInformationRequest implements ModelInterface, ArrayAccess, \Json
     /**
      * Sets package_groupings
      *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PackageGroupingInput[]|null $package_groupings List of packing information for the inbound plan.
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PackageGroupingInput[] $package_groupings List of packing information for the inbound plan.
      *
      * @return self
      */

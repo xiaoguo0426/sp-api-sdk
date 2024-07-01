@@ -220,7 +220,7 @@ class ShipmentSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets shipment_id
      *
-     * @param string $shipment_id Identifier to a shipment. A shipment contains the boxes and units being inbounded.
+     * @param string $shipment_id Identifier of a shipment. A shipment contains the boxes and units being inbounded.
      *
      * @return self
      */
@@ -244,7 +244,7 @@ class ShipmentSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string $status The status of a shipment. The state of the shipment will typically start in `WORKING` and transition to `READY_TO_SHIP` once required actions are complete prior to being picked up or shipped out. Can be `ABANDONED`, `CANCELLED`, `CHECKED_IN`, `CLOSED`, `DELETED`, `DELIVERED`, `IN_TRANSIT`, `MIXED`, `READY_TO_SHIP`, `RECEIVING`, `SHIPPED`, or `WORKING`.
+     * @param string $status The status of a shipment. The state of the shipment will typically start in `WORKING` and transition to `READY_TO_SHIP` once required actions are complete prior to being picked up or shipped out. Can be: `ABANDONED`, `CANCELLED`, `CHECKED_IN`, `CLOSED`, `DELETED`, `DELIVERED`, `IN_TRANSIT`, `MIXED`, `READY_TO_SHIP`, `RECEIVING`, `SHIPPED`, `WORKING`.
      *
      * @return self
      */

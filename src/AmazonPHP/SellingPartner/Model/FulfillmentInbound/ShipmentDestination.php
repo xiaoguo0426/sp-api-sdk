@@ -246,7 +246,7 @@ class ShipmentDestination implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets destination_type
      *
-     * @param string $destination_type The type of destination for this shipment. Can be `AMAZON_OPTIMIZED`, or `AMAZON_WAREHOUSE`.
+     * @param string $destination_type The type of destination for this shipment. Can be: `AMAZON_OPTIMIZED`, `AMAZON_WAREHOUSE`.
      *
      * @return self
      */
@@ -270,7 +270,7 @@ class ShipmentDestination implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets warehouse_id
      *
-     * @param string|null $warehouse_id The warehouse that the shipment should be sent to.  Empty if the destination type is `AMAZON_OPTIMIZED`.
+     * @param string|null $warehouse_id The warehouse that the shipment should be sent to. Empty if the destination type is `AMAZON_OPTIMIZED`.
      *
      * @return self
      */

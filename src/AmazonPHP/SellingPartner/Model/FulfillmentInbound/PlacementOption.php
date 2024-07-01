@@ -280,7 +280,7 @@ class PlacementOption implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets expiration
      *
-     * @param \DateTimeInterface|null $expiration The expiration date of the placement option. This is in ISO 8601 datetime format with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
+     * @param \DateTimeInterface|null $expiration The expiration date of the placement option. This is based in ISO 8601 datetime with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
      *
      * @return self
      */
@@ -328,7 +328,7 @@ class PlacementOption implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets placement_option_id
      *
-     * @param string $placement_option_id Identifier to a placement option. A placement option represents the shipment splits and destinations of SKUs.
+     * @param string $placement_option_id The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs.
      *
      * @return self
      */
@@ -376,7 +376,7 @@ class PlacementOption implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string $status The status of a placement option. Can be `OFFERED`, `ACCEPTED`, or `EXPIRED`.
+     * @param string $status The status of a placement option. Can be: `OFFERED`, `ACCEPTED`, or `EXPIRED`.
      *
      * @return self
      */

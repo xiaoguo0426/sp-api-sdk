@@ -232,7 +232,7 @@ class ShipmentSource implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets source_type
      *
-     * @param string $source_type The type of source for this shipment. Can be `SELLER_FACILITY`.
+     * @param string $source_type The type of source for this shipment. Can be: `SELLER_FACILITY`.
      *
      * @return self
      */

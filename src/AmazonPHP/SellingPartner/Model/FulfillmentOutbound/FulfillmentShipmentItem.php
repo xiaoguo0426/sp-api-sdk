@@ -45,7 +45,8 @@ class FulfillmentShipmentItem implements ModelInterface, ArrayAccess, \JsonSeria
         'seller_fulfillment_order_item_id' => 'string',
         'quantity' => 'int',
         'package_number' => 'int',
-        'serial_number' => 'string'
+        'serial_number' => 'string',
+        'manufacturer_lot_codes' => 'string[]'
     ];
 
     /**
@@ -60,7 +61,8 @@ class FulfillmentShipmentItem implements ModelInterface, ArrayAccess, \JsonSeria
         'seller_fulfillment_order_item_id' => null,
         'quantity' => 'int32',
         'package_number' => 'int32',
-        'serial_number' => null
+        'serial_number' => null,
+        'manufacturer_lot_codes' => null
     ];
 
     /**
@@ -94,7 +96,8 @@ class FulfillmentShipmentItem implements ModelInterface, ArrayAccess, \JsonSeria
         'seller_fulfillment_order_item_id' => 'sellerFulfillmentOrderItemId',
         'quantity' => 'quantity',
         'package_number' => 'packageNumber',
-        'serial_number' => 'serialNumber'
+        'serial_number' => 'serialNumber',
+        'manufacturer_lot_codes' => 'manufacturerLotCodes'
     ];
 
     /**
@@ -107,7 +110,8 @@ class FulfillmentShipmentItem implements ModelInterface, ArrayAccess, \JsonSeria
         'seller_fulfillment_order_item_id' => 'setSellerFulfillmentOrderItemId',
         'quantity' => 'setQuantity',
         'package_number' => 'setPackageNumber',
-        'serial_number' => 'setSerialNumber'
+        'serial_number' => 'setSerialNumber',
+        'manufacturer_lot_codes' => 'setManufacturerLotCodes'
     ];
 
     /**
@@ -120,7 +124,8 @@ class FulfillmentShipmentItem implements ModelInterface, ArrayAccess, \JsonSeria
         'seller_fulfillment_order_item_id' => 'getSellerFulfillmentOrderItemId',
         'quantity' => 'getQuantity',
         'package_number' => 'getPackageNumber',
-        'serial_number' => 'getSerialNumber'
+        'serial_number' => 'getSerialNumber',
+        'manufacturer_lot_codes' => 'getManufacturerLotCodes'
     ];
 
     /**
@@ -185,6 +190,7 @@ class FulfillmentShipmentItem implements ModelInterface, ArrayAccess, \JsonSeria
         $this->container['quantity'] = $data['quantity'] ?? null;
         $this->container['package_number'] = $data['package_number'] ?? null;
         $this->container['serial_number'] = $data['serial_number'] ?? null;
+        $this->container['manufacturer_lot_codes'] = $data['manufacturer_lot_codes'] ?? null;
     }
 
     /**
@@ -325,6 +331,30 @@ class FulfillmentShipmentItem implements ModelInterface, ArrayAccess, \JsonSeria
     public function setSerialNumber($serial_number) : self
     {
         $this->container['serial_number'] = $serial_number;
+
+        return $this;
+    }
+
+    /**
+     * Gets manufacturer_lot_codes
+     *
+     * @return string[]|null
+     */
+    public function getManufacturerLotCodes()
+    {
+        return $this->container['manufacturer_lot_codes'];
+    }
+
+    /**
+     * Sets manufacturer_lot_codes
+     *
+     * @param string[]|null $manufacturer_lot_codes String list
+     *
+     * @return self
+     */
+    public function setManufacturerLotCodes($manufacturer_lot_codes) : self
+    {
+        $this->container['manufacturer_lot_codes'] = $manufacturer_lot_codes;
 
         return $this;
     }

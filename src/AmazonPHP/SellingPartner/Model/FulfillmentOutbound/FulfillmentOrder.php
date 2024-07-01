@@ -398,7 +398,7 @@ class FulfillmentOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets displayable_order_date
      *
-     * @param \DateTimeInterface $displayable_order_date displayable_order_date
+     * @param \DateTimeInterface $displayable_order_date Date timestamp
      *
      * @return self
      */
@@ -590,7 +590,7 @@ class FulfillmentOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets received_date
      *
-     * @param \DateTimeInterface $received_date received_date
+     * @param \DateTimeInterface $received_date Date timestamp
      *
      * @return self
      */
@@ -638,7 +638,7 @@ class FulfillmentOrder implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status_updated_date
      *
-     * @param \DateTimeInterface $status_updated_date status_updated_date
+     * @param \DateTimeInterface $status_updated_date Date timestamp
      *
      * @return self
      */

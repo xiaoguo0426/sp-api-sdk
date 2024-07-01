@@ -239,7 +239,7 @@ final class FeedsSDK implements FeedsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedSpecification $body  body (required)
+     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedSpecification $body  Information required to create the feed. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -339,7 +339,7 @@ final class FeedsSDK implements FeedsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedSpecification $body  (required)
+     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedSpecification $body  Information required to create the feed. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -434,7 +434,7 @@ final class FeedsSDK implements FeedsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedDocumentSpecification $body  body (required)
+     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedDocumentSpecification $body  Specifies the content type for the createFeedDocument operation. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -534,7 +534,7 @@ final class FeedsSDK implements FeedsSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedDocumentSpecification $body  (required)
+     * @param \AmazonPHP\SellingPartner\Model\Feeds\CreateFeedDocumentSpecification $body  Specifies the content type for the createFeedDocument operation. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface

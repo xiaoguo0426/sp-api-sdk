@@ -296,7 +296,7 @@ class UnfulfillablePreviewItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets item_unfulfillable_reasons
      *
-     * @param string[]|null $item_unfulfillable_reasons item_unfulfillable_reasons
+     * @param string[]|null $item_unfulfillable_reasons String list
      *
      * @return self
      */

@@ -220,7 +220,7 @@ class PlacementOptionSummary implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets placement_option_id
      *
-     * @param string $placement_option_id Identifier to a placement option. A placement option represents the shipment splits and destinations of SKUs.
+     * @param string $placement_option_id The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs.
      *
      * @return self
      */
@@ -244,7 +244,7 @@ class PlacementOptionSummary implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets status
      *
-     * @param string $status The status of a placement option. Can be `OFFERED` or `ACCEPTED`.
+     * @param string $status The status of a placement option. Can be: `OFFERED` or `ACCEPTED`.
      *
      * @return self
      */

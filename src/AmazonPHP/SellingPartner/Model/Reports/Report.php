@@ -486,7 +486,7 @@ class Report implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets processing_start_time
      *
-     * @param \DateTimeInterface|null $processing_start_time The date and time when the report processing started, in ISO 8601 date time format.
+     * @param \DateTimeInterface|null $processing_start_time The date and time when the report processing started, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format.
      *
      * @return self
      */
@@ -510,7 +510,7 @@ class Report implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets processing_end_time
      *
-     * @param \DateTimeInterface|null $processing_end_time The date and time when the report processing completed, in ISO 8601 date time format.
+     * @param \DateTimeInterface|null $processing_end_time The date and time when the report processing completed, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format.
      *
      * @return self
      */
@@ -534,7 +534,7 @@ class Report implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets report_document_id
      *
-     * @param string|null $report_document_id The identifier for the report document. Pass this into the getReportDocument operation to get the information you will need to retrieve the report document's contents.
+     * @param string|null $report_document_id The identifier for the report document. Pass this into the `getReportDocument` operation to get the information you will need to retrieve the report document's contents.
      *
      * @return self
      */

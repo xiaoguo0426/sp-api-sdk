@@ -49,7 +49,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -149,7 +149,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -254,18 +254,17 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param string $slot_id  Identifier to a self-ship appointment slot. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CancelSelfShipAppointmentRequest $body  The body of the request to &#x60;cancelSelfShipAppointment&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
      * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CancelSelfShipAppointmentResponse
      */
-    public function cancelSelfShipAppointment(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $slot_id, $body)
+    public function cancelSelfShipAppointment(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body)
     {
-        $request = $this->cancelSelfShipAppointmentRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $slot_id, $body);
+        $request = $this->cancelSelfShipAppointmentRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $body);
 
         $this->configuration->extensions()->preRequest('FulfillmentInbound', 'cancelSelfShipAppointment', $request);
 
@@ -357,15 +356,14 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param string $slot_id  Identifier to a self-ship appointment slot. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CancelSelfShipAppointmentRequest $body  The body of the request to &#x60;cancelSelfShipAppointment&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
      */
-    public function cancelSelfShipAppointmentRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $slot_id, $body) : RequestInterface
+    public function cancelSelfShipAppointmentRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body) : RequestInterface
     {
         // verify the required parameter 'inbound_plan_id' is set
         if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
@@ -399,22 +397,6 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
             throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.cancelSelfShipAppointment, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
         }
 
-        // verify the required parameter 'slot_id' is set
-        if ($slot_id === null || (is_array($slot_id) && count($slot_id) === 0)) {
-            throw new InvalidArgumentException(
-                'Missing the required parameter $slot_id when calling cancelSelfShipAppointment'
-            );
-        }
-        if (strlen($slot_id) > 38) {
-            throw new InvalidArgumentException('invalid length for "$slot_id" when calling FbaInboundApi.cancelSelfShipAppointment, must be smaller than or equal to 38.');
-        }
-        if (strlen($slot_id) < 38) {
-            throw new InvalidArgumentException('invalid length for "$slot_id" when calling FbaInboundApi.cancelSelfShipAppointment, must be bigger than or equal to 38.');
-        }
-        if (!preg_match("/^[a-zA-Z0-9-]*$/", $slot_id)) {
-            throw new InvalidArgumentException("invalid value for \"slot_id\" when calling FbaInboundApi.cancelSelfShipAppointment, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
-        }
-
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
             throw new InvalidArgumentException(
@@ -422,7 +404,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
             );
         }
 
-        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/selfShipAppointmentSlots/{slotId}/cancellation';
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/selfShipAppointmentCancellation';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -448,14 +430,6 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
             $resourcePath = str_replace(
                 '{' . 'shipmentId' . '}',
                 ObjectSerializer::toPathValue($shipment_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($slot_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slotId' . '}',
-                ObjectSerializer::toPathValue($slot_id),
                 $resourcePath
             );
         }
@@ -523,12 +497,269 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
+     * Operation confirmDeliveryWindowOptions
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  The shipment to confirm the delivery window option for. (required)
+     * @param string $delivery_window_option_id  The id of the delivery window option to be confirmed. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmDeliveryWindowOptionsResponse
+     */
+    public function confirmDeliveryWindowOptions(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $delivery_window_option_id)
+    {
+        $request = $this->confirmDeliveryWindowOptionsRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $delivery_window_option_id);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'confirmDeliveryWindowOptions', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'confirmDeliveryWindowOptions')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'confirmDeliveryWindowOptions'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'confirmDeliveryWindowOptions',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'confirmDeliveryWindowOptions', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'confirmDeliveryWindowOptions')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'confirmDeliveryWindowOptions'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'confirmDeliveryWindowOptions',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmDeliveryWindowOptionsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'confirmDeliveryWindowOptions'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  The shipment to confirm the delivery window option for. (required)
+     * @param string $delivery_window_option_id  The id of the delivery window option to be confirmed. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function confirmDeliveryWindowOptionsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $delivery_window_option_id) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling confirmDeliveryWindowOptions'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.confirmDeliveryWindowOptions, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.confirmDeliveryWindowOptions, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.confirmDeliveryWindowOptions, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling confirmDeliveryWindowOptions'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.confirmDeliveryWindowOptions, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.confirmDeliveryWindowOptions, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.confirmDeliveryWindowOptions, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'delivery_window_option_id' is set
+        if ($delivery_window_option_id === null || (is_array($delivery_window_option_id) && count($delivery_window_option_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $delivery_window_option_id when calling confirmDeliveryWindowOptions'
+            );
+        }
+        if (strlen($delivery_window_option_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$delivery_window_option_id" when calling FbaInboundApi.confirmDeliveryWindowOptions, must be smaller than or equal to 38.');
+        }
+        if (strlen($delivery_window_option_id) < 36) {
+            throw new InvalidArgumentException('invalid length for "$delivery_window_option_id" when calling FbaInboundApi.confirmDeliveryWindowOptions, must be bigger than or equal to 36.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $delivery_window_option_id)) {
+            throw new InvalidArgumentException("invalid value for \"delivery_window_option_id\" when calling FbaInboundApi.confirmDeliveryWindowOptions, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindowOptions/{deliveryWindowOptionId}/confirmation';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($delivery_window_option_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'deliveryWindowOptionId' . '}',
+                ObjectSerializer::toPathValue($delivery_window_option_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'POST',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
      * Operation confirmPackingOption
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $packing_option_id  Identifier to a packing option. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $packing_option_id  Identifier of a packing option. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -628,8 +859,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $packing_option_id  Identifier to a packing option. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $packing_option_id  Identifier of a packing option. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -758,8 +989,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $placement_option_id  Identifier to a placement option. A placement option represents the shipment splits and destinations of SKUs. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $placement_option_id  The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -859,8 +1090,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $placement_option_id  Identifier to a placement option. A placement option represents the shipment splits and destinations of SKUs. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $placement_option_id  The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -985,11 +1216,268 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
+     * Operation confirmShipmentContentUpdatePreview
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $content_update_preview_id  Identifier of a content update preview. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmShipmentContentUpdatePreviewResponse
+     */
+    public function confirmShipmentContentUpdatePreview(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $content_update_preview_id)
+    {
+        $request = $this->confirmShipmentContentUpdatePreviewRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $content_update_preview_id);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'confirmShipmentContentUpdatePreview', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'confirmShipmentContentUpdatePreview')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'confirmShipmentContentUpdatePreview'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'confirmShipmentContentUpdatePreview',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'confirmShipmentContentUpdatePreview', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'confirmShipmentContentUpdatePreview')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'confirmShipmentContentUpdatePreview'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'confirmShipmentContentUpdatePreview',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmShipmentContentUpdatePreviewResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'confirmShipmentContentUpdatePreview'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $content_update_preview_id  Identifier of a content update preview. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function confirmShipmentContentUpdatePreviewRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $content_update_preview_id) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling confirmShipmentContentUpdatePreview'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling confirmShipmentContentUpdatePreview'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'content_update_preview_id' is set
+        if ($content_update_preview_id === null || (is_array($content_update_preview_id) && count($content_update_preview_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $content_update_preview_id when calling confirmShipmentContentUpdatePreview'
+            );
+        }
+        if (strlen($content_update_preview_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$content_update_preview_id" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must be smaller than or equal to 38.');
+        }
+        if (strlen($content_update_preview_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$content_update_preview_id" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $content_update_preview_id)) {
+            throw new InvalidArgumentException("invalid value for \"content_update_preview_id\" when calling FbaInboundApi.confirmShipmentContentUpdatePreview, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews/{contentUpdatePreviewId}/confirmation';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($content_update_preview_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'contentUpdatePreviewId' . '}',
+                ObjectSerializer::toPathValue($content_update_preview_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'POST',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
      * Operation confirmTransportationOptions
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmTransportationOptionsRequest $body  The body of the request to &#x60;confirmTransportationOptions&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
@@ -1090,7 +1578,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmTransportationOptionsRequest $body  The body of the request to &#x60;confirmTransportationOptions&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
@@ -1401,11 +1889,437 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
+     * Operation createMarketplaceItemLabels
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CreateMarketplaceItemLabelsRequest $body  The body of the request to &#x60;createMarketplaceItemLabels&#x60;. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CreateMarketplaceItemLabelsResponse
+     */
+    public function createMarketplaceItemLabels(AccessToken $accessToken, string $region, $body)
+    {
+        $request = $this->createMarketplaceItemLabelsRequest($accessToken, $region, $body);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'createMarketplaceItemLabels', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'createMarketplaceItemLabels')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'createMarketplaceItemLabels'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'createMarketplaceItemLabels',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'createMarketplaceItemLabels', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'createMarketplaceItemLabels')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'createMarketplaceItemLabels'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'createMarketplaceItemLabels',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\CreateMarketplaceItemLabelsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'createMarketplaceItemLabels'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CreateMarketplaceItemLabelsRequest $body  The body of the request to &#x60;createMarketplaceItemLabels&#x60;. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function createMarketplaceItemLabelsRequest(AccessToken $accessToken, string $region, $body) : RequestInterface
+    {
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $body when calling createMarketplaceItemLabels'
+            );
+        }
+
+        $resourcePath = '/inbound/fba/2024-03-20/items/labels';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'POST',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (isset($body)) {
+            if ($headers['content-type'] === ['application/json']) {
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+
+            $request = $request->withBody($this->httpFactory->createStreamFromString($httpBody));
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
+     * Operation generateDeliveryWindowOptions
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  The shipment to generate delivery window options for. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateDeliveryWindowOptionsResponse
+     */
+    public function generateDeliveryWindowOptions(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id)
+    {
+        $request = $this->generateDeliveryWindowOptionsRequest($accessToken, $region, $inbound_plan_id, $shipment_id);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'generateDeliveryWindowOptions', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'generateDeliveryWindowOptions')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'generateDeliveryWindowOptions'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'generateDeliveryWindowOptions',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'generateDeliveryWindowOptions', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'generateDeliveryWindowOptions')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'generateDeliveryWindowOptions'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'generateDeliveryWindowOptions',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateDeliveryWindowOptionsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'generateDeliveryWindowOptions'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  The shipment to generate delivery window options for. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function generateDeliveryWindowOptionsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling generateDeliveryWindowOptions'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.generateDeliveryWindowOptions, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.generateDeliveryWindowOptions, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.generateDeliveryWindowOptions, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling generateDeliveryWindowOptions'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.generateDeliveryWindowOptions, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.generateDeliveryWindowOptions, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.generateDeliveryWindowOptions, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindowOptions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'POST',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
      * Operation generatePackingOptions
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -1505,7 +2419,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -1610,7 +2524,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GeneratePlacementOptionsRequest $body  The body of the request to &#x60;generatePlacementOptions&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
@@ -1711,7 +2625,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GeneratePlacementOptionsRequest $body  The body of the request to &#x60;generatePlacementOptions&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
@@ -1831,9 +2745,9 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateSelfShipAppointmentSlotsRequest $body  The body of the request &#x60;generateSelfShipAppointmentSlots&#x60;. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateSelfShipAppointmentSlotsRequest $body  The body of the request to &#x60;generateSelfShipAppointmentSlots&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -1933,9 +2847,9 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateSelfShipAppointmentSlotsRequest $body  The body of the request &#x60;generateSelfShipAppointmentSlots&#x60;. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateSelfShipAppointmentSlotsRequest $body  The body of the request to &#x60;generateSelfShipAppointmentSlots&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -2074,11 +2988,258 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
+     * Operation generateShipmentContentUpdatePreviews
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateShipmentContentUpdatePreviewsRequest $body  The body of the request to &#x60;generateShipmentContentUpdatePreviews&#x60;. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateShipmentContentUpdatePreviewsResponse
+     */
+    public function generateShipmentContentUpdatePreviews(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body)
+    {
+        $request = $this->generateShipmentContentUpdatePreviewsRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $body);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'generateShipmentContentUpdatePreviews', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'generateShipmentContentUpdatePreviews')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'generateShipmentContentUpdatePreviews'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'generateShipmentContentUpdatePreviews',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'generateShipmentContentUpdatePreviews', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'generateShipmentContentUpdatePreviews')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'generateShipmentContentUpdatePreviews'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'generateShipmentContentUpdatePreviews',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateShipmentContentUpdatePreviewsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'generateShipmentContentUpdatePreviews'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateShipmentContentUpdatePreviewsRequest $body  The body of the request to &#x60;generateShipmentContentUpdatePreviews&#x60;. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function generateShipmentContentUpdatePreviewsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling generateShipmentContentUpdatePreviews'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.generateShipmentContentUpdatePreviews, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.generateShipmentContentUpdatePreviews, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.generateShipmentContentUpdatePreviews, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling generateShipmentContentUpdatePreviews'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.generateShipmentContentUpdatePreviews, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.generateShipmentContentUpdatePreviews, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.generateShipmentContentUpdatePreviews, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $body when calling generateShipmentContentUpdatePreviews'
+            );
+        }
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'POST',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (isset($body)) {
+            if ($headers['content-type'] === ['application/json']) {
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+
+            $request = $request->withBody($this->httpFactory->createStreamFromString($httpBody));
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
      * Operation generateTransportationOptions
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateTransportationOptionsRequest $body  The body of the request to &#x60;generateTransportationOptions&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
@@ -2179,7 +3340,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateTransportationOptionsRequest $body  The body of the request to &#x60;generateTransportationOptions&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
@@ -2299,8 +3460,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -2400,8 +3561,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -2530,7 +3691,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $operation_id  Identifier to an asynchronous operation. (required)
+     * @param string $operation_id  Identifier of an asynchronous operation. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -2630,7 +3791,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $operation_id  Identifier to an asynchronous operation. (required)
+     * @param string $operation_id  Identifier of an asynchronous operation. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -2735,7 +3896,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -2835,7 +3996,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -2940,8 +4101,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      * @param int $page_size  The number of self ship appointment slots to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -3043,8 +4204,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      * @param int $page_size  The number of self ship appointment slots to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -3203,8 +4364,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -3304,8 +4465,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -3430,11 +4591,531 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
+     * Operation getShipmentContentUpdatePreview
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $content_update_preview_id  Identifier of a content update preview. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContentUpdatePreview
+     */
+    public function getShipmentContentUpdatePreview(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $content_update_preview_id)
+    {
+        $request = $this->getShipmentContentUpdatePreviewRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $content_update_preview_id);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'getShipmentContentUpdatePreview', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'getShipmentContentUpdatePreview')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'getShipmentContentUpdatePreview'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'getShipmentContentUpdatePreview',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'getShipmentContentUpdatePreview', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'getShipmentContentUpdatePreview')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'getShipmentContentUpdatePreview'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'getShipmentContentUpdatePreview',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContentUpdatePreview',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'getShipmentContentUpdatePreview'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $content_update_preview_id  Identifier of a content update preview. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function getShipmentContentUpdatePreviewRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $content_update_preview_id) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling getShipmentContentUpdatePreview'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.getShipmentContentUpdatePreview, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.getShipmentContentUpdatePreview, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.getShipmentContentUpdatePreview, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling getShipmentContentUpdatePreview'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.getShipmentContentUpdatePreview, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.getShipmentContentUpdatePreview, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.getShipmentContentUpdatePreview, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'content_update_preview_id' is set
+        if ($content_update_preview_id === null || (is_array($content_update_preview_id) && count($content_update_preview_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $content_update_preview_id when calling getShipmentContentUpdatePreview'
+            );
+        }
+        if (strlen($content_update_preview_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$content_update_preview_id" when calling FbaInboundApi.getShipmentContentUpdatePreview, must be smaller than or equal to 38.');
+        }
+        if (strlen($content_update_preview_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$content_update_preview_id" when calling FbaInboundApi.getShipmentContentUpdatePreview, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $content_update_preview_id)) {
+            throw new InvalidArgumentException("invalid value for \"content_update_preview_id\" when calling FbaInboundApi.getShipmentContentUpdatePreview, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews/{contentUpdatePreviewId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($content_update_preview_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'contentUpdatePreviewId' . '}',
+                ObjectSerializer::toPathValue($content_update_preview_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'GET',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
+     * Operation listDeliveryWindowOptions
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  The shipment to get delivery window options for. (required)
+     * @param int $page_size  The number of delivery window options to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListDeliveryWindowOptionsResponse
+     */
+    public function listDeliveryWindowOptions(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null)
+    {
+        $request = $this->listDeliveryWindowOptionsRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $page_size, $pagination_token);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'listDeliveryWindowOptions', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listDeliveryWindowOptions')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listDeliveryWindowOptions'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listDeliveryWindowOptions',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'listDeliveryWindowOptions', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listDeliveryWindowOptions')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listDeliveryWindowOptions'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listDeliveryWindowOptions',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListDeliveryWindowOptionsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'listDeliveryWindowOptions'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  The shipment to get delivery window options for. (required)
+     * @param int $page_size  The number of delivery window options to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function listDeliveryWindowOptionsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling listDeliveryWindowOptions'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listDeliveryWindowOptions, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listDeliveryWindowOptions, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.listDeliveryWindowOptions, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling listDeliveryWindowOptions'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listDeliveryWindowOptions, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listDeliveryWindowOptions, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.listDeliveryWindowOptions, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        if ($page_size !== null && $page_size > 100) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listDeliveryWindowOptions, must be smaller than or equal to 100.');
+        }
+        if ($page_size !== null && $page_size < 1) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listDeliveryWindowOptions, must be bigger than or equal to 1.');
+        }
+
+        if ($pagination_token !== null && strlen($pagination_token) > 1024) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listDeliveryWindowOptions, must be smaller than or equal to 1024.');
+        }
+        if ($pagination_token !== null && strlen($pagination_token) < 0) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listDeliveryWindowOptions, must be bigger than or equal to 0.');
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindowOptions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+        // query params
+        if (is_array($page_size)) {
+            $page_size = ObjectSerializer::serializeCollection($page_size, '', true);
+        }
+        if ($page_size !== null) {
+            $queryParams['pageSize'] = ObjectSerializer::toString($page_size);
+        }
+        // query params
+        if (is_array($pagination_token)) {
+            $pagination_token = ObjectSerializer::serializeCollection($pagination_token, '', true);
+        }
+        if ($pagination_token !== null) {
+            $queryParams['paginationToken'] = ObjectSerializer::toString($pagination_token);
+        }
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'GET',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
      * Operation listInboundPlanBoxes
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of boxes to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -3536,7 +5217,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of boxes to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -3671,7 +5352,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of items to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -3773,7 +5454,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of items to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -3908,7 +5589,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of pallets to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -4010,7 +5691,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of pallets to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -4383,7 +6064,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string[] $mskus  List of merchant SKUs, a merchant-supplied identifier for a specific SKU. (required)
+     * @param string[] $mskus  List of merchant SKUs - a merchant-supplied identifier for a specific SKU. (required)
      * @param string $marketplace_id  The Marketplace ID. Refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids) for a list of possible values. (required)
      *
      * @throws ApiException on non-2xx response
@@ -4484,7 +6165,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string[] $mskus  List of merchant SKUs, a merchant-supplied identifier for a specific SKU. (required)
+     * @param string[] $mskus  List of merchant SKUs - a merchant-supplied identifier for a specific SKU. (required)
      * @param string $marketplace_id  The Marketplace ID. Refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids) for a list of possible values. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
@@ -4606,13 +6287,275 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
+     * Operation listPackingGroupBoxes
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $packing_group_id  Identifier of a packing group. (required)
+     * @param int $page_size  The number of packing group boxes to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListPackingGroupBoxesResponse
+     */
+    public function listPackingGroupBoxes(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_group_id, $page_size = 10, $pagination_token = null)
+    {
+        $request = $this->listPackingGroupBoxesRequest($accessToken, $region, $inbound_plan_id, $packing_group_id, $page_size, $pagination_token);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'listPackingGroupBoxes', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listPackingGroupBoxes')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listPackingGroupBoxes'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listPackingGroupBoxes',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'listPackingGroupBoxes', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listPackingGroupBoxes')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listPackingGroupBoxes'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listPackingGroupBoxes',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListPackingGroupBoxesResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'listPackingGroupBoxes'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $packing_group_id  Identifier of a packing group. (required)
+     * @param int $page_size  The number of packing group boxes to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function listPackingGroupBoxesRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_group_id, $page_size = 10, $pagination_token = null) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling listPackingGroupBoxes'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listPackingGroupBoxes, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listPackingGroupBoxes, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.listPackingGroupBoxes, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'packing_group_id' is set
+        if ($packing_group_id === null || (is_array($packing_group_id) && count($packing_group_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $packing_group_id when calling listPackingGroupBoxes'
+            );
+        }
+        if (strlen($packing_group_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$packing_group_id" when calling FbaInboundApi.listPackingGroupBoxes, must be smaller than or equal to 38.');
+        }
+        if (strlen($packing_group_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$packing_group_id" when calling FbaInboundApi.listPackingGroupBoxes, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $packing_group_id)) {
+            throw new InvalidArgumentException("invalid value for \"packing_group_id\" when calling FbaInboundApi.listPackingGroupBoxes, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        if ($page_size !== null && $page_size > 100) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listPackingGroupBoxes, must be smaller than or equal to 100.');
+        }
+        if ($page_size !== null && $page_size < 1) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listPackingGroupBoxes, must be bigger than or equal to 1.');
+        }
+
+        if ($pagination_token !== null && strlen($pagination_token) > 1024) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listPackingGroupBoxes, must be smaller than or equal to 1024.');
+        }
+        if ($pagination_token !== null && strlen($pagination_token) < 0) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listPackingGroupBoxes, must be bigger than or equal to 0.');
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingGroups/{packingGroupId}/boxes';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+        // query params
+        if (is_array($page_size)) {
+            $page_size = ObjectSerializer::serializeCollection($page_size, '', true);
+        }
+        if ($page_size !== null) {
+            $queryParams['pageSize'] = ObjectSerializer::toString($page_size);
+        }
+        // query params
+        if (is_array($pagination_token)) {
+            $pagination_token = ObjectSerializer::serializeCollection($pagination_token, '', true);
+        }
+        if ($pagination_token !== null) {
+            $queryParams['paginationToken'] = ObjectSerializer::toString($pagination_token);
+        }
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($packing_group_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'packingGroupId' . '}',
+                ObjectSerializer::toPathValue($packing_group_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'GET',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
      * Operation listPackingGroupItems
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $packing_option_id  Identifier to a packing option. (required)
-     * @param string $packing_group_id  Identifier to a packing group. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $packing_group_id  Identifier of a packing group. (required)
      * @param int $page_size  The number of packing group items to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -4620,9 +6563,9 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      * @throws InvalidArgumentException
      * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListPackingGroupItemsResponse
      */
-    public function listPackingGroupItems(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_option_id, $packing_group_id, $page_size = 10, $pagination_token = null)
+    public function listPackingGroupItems(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_group_id, $page_size = 10, $pagination_token = null)
     {
-        $request = $this->listPackingGroupItemsRequest($accessToken, $region, $inbound_plan_id, $packing_option_id, $packing_group_id, $page_size, $pagination_token);
+        $request = $this->listPackingGroupItemsRequest($accessToken, $region, $inbound_plan_id, $packing_group_id, $page_size, $pagination_token);
 
         $this->configuration->extensions()->preRequest('FulfillmentInbound', 'listPackingGroupItems', $request);
 
@@ -4714,16 +6657,15 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $packing_option_id  Identifier to a packing option. (required)
-     * @param string $packing_group_id  Identifier to a packing group. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $packing_group_id  Identifier of a packing group. (required)
      * @param int $page_size  The number of packing group items to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
      */
-    public function listPackingGroupItemsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_option_id, $packing_group_id, $page_size = 10, $pagination_token = null) : RequestInterface
+    public function listPackingGroupItemsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_group_id, $page_size = 10, $pagination_token = null) : RequestInterface
     {
         // verify the required parameter 'inbound_plan_id' is set
         if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
@@ -4739,22 +6681,6 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
         }
         if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
             throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.listPackingGroupItems, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
-        }
-
-        // verify the required parameter 'packing_option_id' is set
-        if ($packing_option_id === null || (is_array($packing_option_id) && count($packing_option_id) === 0)) {
-            throw new InvalidArgumentException(
-                'Missing the required parameter $packing_option_id when calling listPackingGroupItems'
-            );
-        }
-        if (strlen($packing_option_id) > 38) {
-            throw new InvalidArgumentException('invalid length for "$packing_option_id" when calling FbaInboundApi.listPackingGroupItems, must be smaller than or equal to 38.');
-        }
-        if (strlen($packing_option_id) < 38) {
-            throw new InvalidArgumentException('invalid length for "$packing_option_id" when calling FbaInboundApi.listPackingGroupItems, must be bigger than or equal to 38.');
-        }
-        if (!preg_match("/^[a-zA-Z0-9-]*$/", $packing_option_id)) {
-            throw new InvalidArgumentException("invalid value for \"packing_option_id\" when calling FbaInboundApi.listPackingGroupItems, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
         }
 
         // verify the required parameter 'packing_group_id' is set
@@ -4788,7 +6714,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
         }
 
 
-        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingOptions/{packingOptionId}/packingGroups/{packingGroupId}/items';
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingGroups/{packingGroupId}/items';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4820,14 +6746,6 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
             $resourcePath = str_replace(
                 '{' . 'inboundPlanId' . '}',
                 ObjectSerializer::toPathValue($inbound_plan_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($packing_option_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'packingOptionId' . '}',
-                ObjectSerializer::toPathValue($packing_option_id),
                 $resourcePath
             );
         }
@@ -4899,7 +6817,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of packing options to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -5001,7 +6919,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of packing options to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -5136,7 +7054,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of placement options to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -5238,7 +7156,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of placement options to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
      *
@@ -5369,15 +7287,1067 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
+     * Operation listShipmentBoxes
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of boxes to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentBoxesResponse
+     */
+    public function listShipmentBoxes(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null)
+    {
+        $request = $this->listShipmentBoxesRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $page_size, $pagination_token);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'listShipmentBoxes', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentBoxes')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentBoxes'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentBoxes',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'listShipmentBoxes', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentBoxes')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentBoxes'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentBoxes',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentBoxesResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'listShipmentBoxes'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of boxes to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function listShipmentBoxesRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling listShipmentBoxes'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentBoxes, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentBoxes, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.listShipmentBoxes, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling listShipmentBoxes'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentBoxes, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentBoxes, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.listShipmentBoxes, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        if ($page_size !== null && $page_size > 1000) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentBoxes, must be smaller than or equal to 1000.');
+        }
+        if ($page_size !== null && $page_size < 1) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentBoxes, must be bigger than or equal to 1.');
+        }
+
+        if ($pagination_token !== null && strlen($pagination_token) > 1024) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentBoxes, must be smaller than or equal to 1024.');
+        }
+        if ($pagination_token !== null && strlen($pagination_token) < 0) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentBoxes, must be bigger than or equal to 0.');
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/boxes';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+        // query params
+        if (is_array($page_size)) {
+            $page_size = ObjectSerializer::serializeCollection($page_size, '', true);
+        }
+        if ($page_size !== null) {
+            $queryParams['pageSize'] = ObjectSerializer::toString($page_size);
+        }
+        // query params
+        if (is_array($pagination_token)) {
+            $pagination_token = ObjectSerializer::serializeCollection($pagination_token, '', true);
+        }
+        if ($pagination_token !== null) {
+            $queryParams['paginationToken'] = ObjectSerializer::toString($pagination_token);
+        }
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'GET',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
+     * Operation listShipmentContentUpdatePreviews
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of content update previews to return. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentContentUpdatePreviewsResponse
+     */
+    public function listShipmentContentUpdatePreviews(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null)
+    {
+        $request = $this->listShipmentContentUpdatePreviewsRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $page_size, $pagination_token);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'listShipmentContentUpdatePreviews', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentContentUpdatePreviews')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentContentUpdatePreviews'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentContentUpdatePreviews',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'listShipmentContentUpdatePreviews', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentContentUpdatePreviews')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentContentUpdatePreviews'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentContentUpdatePreviews',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentContentUpdatePreviewsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'listShipmentContentUpdatePreviews'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of content update previews to return. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function listShipmentContentUpdatePreviewsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling listShipmentContentUpdatePreviews'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling listShipmentContentUpdatePreviews'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        if ($page_size !== null && $page_size > 20) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be smaller than or equal to 20.');
+        }
+        if ($page_size !== null && $page_size < 1) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be bigger than or equal to 1.');
+        }
+
+        if ($pagination_token !== null && strlen($pagination_token) > 1024) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be smaller than or equal to 1024.');
+        }
+        if ($pagination_token !== null && strlen($pagination_token) < 0) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentContentUpdatePreviews, must be bigger than or equal to 0.');
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+        // query params
+        if (is_array($page_size)) {
+            $page_size = ObjectSerializer::serializeCollection($page_size, '', true);
+        }
+        if ($page_size !== null) {
+            $queryParams['pageSize'] = ObjectSerializer::toString($page_size);
+        }
+        // query params
+        if (is_array($pagination_token)) {
+            $pagination_token = ObjectSerializer::serializeCollection($pagination_token, '', true);
+        }
+        if ($pagination_token !== null) {
+            $queryParams['paginationToken'] = ObjectSerializer::toString($pagination_token);
+        }
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'GET',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
+     * Operation listShipmentItems
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of items to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentItemsResponse
+     */
+    public function listShipmentItems(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null)
+    {
+        $request = $this->listShipmentItemsRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $page_size, $pagination_token);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'listShipmentItems', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentItems')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentItems'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentItems',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'listShipmentItems', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentItems')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentItems'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentItems',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentItemsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'listShipmentItems'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of items to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function listShipmentItemsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling listShipmentItems'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentItems, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentItems, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.listShipmentItems, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling listShipmentItems'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentItems, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentItems, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.listShipmentItems, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        if ($page_size !== null && $page_size > 1000) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentItems, must be smaller than or equal to 1000.');
+        }
+        if ($page_size !== null && $page_size < 1) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentItems, must be bigger than or equal to 1.');
+        }
+
+        if ($pagination_token !== null && strlen($pagination_token) > 1024) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentItems, must be smaller than or equal to 1024.');
+        }
+        if ($pagination_token !== null && strlen($pagination_token) < 0) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentItems, must be bigger than or equal to 0.');
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/items';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+        // query params
+        if (is_array($page_size)) {
+            $page_size = ObjectSerializer::serializeCollection($page_size, '', true);
+        }
+        if ($page_size !== null) {
+            $queryParams['pageSize'] = ObjectSerializer::toString($page_size);
+        }
+        // query params
+        if (is_array($pagination_token)) {
+            $pagination_token = ObjectSerializer::serializeCollection($pagination_token, '', true);
+        }
+        if ($pagination_token !== null) {
+            $queryParams['paginationToken'] = ObjectSerializer::toString($pagination_token);
+        }
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'GET',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
+     * Operation listShipmentPallets
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of pallets to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentPalletsResponse
+     */
+    public function listShipmentPallets(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null)
+    {
+        $request = $this->listShipmentPalletsRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $page_size, $pagination_token);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'listShipmentPallets', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentPallets')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentPallets'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentPallets',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'listShipmentPallets', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'listShipmentPallets')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'listShipmentPallets'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'listShipmentPallets',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentPalletsResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'listShipmentPallets'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param int $page_size  The number of pallets to return in the response matching the given query. (optional, default to 10)
+     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function listShipmentPalletsRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling listShipmentPallets'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentPallets, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.listShipmentPallets, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.listShipmentPallets, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling listShipmentPallets'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentPallets, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.listShipmentPallets, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.listShipmentPallets, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        if ($page_size !== null && $page_size > 1000) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentPallets, must be smaller than or equal to 1000.');
+        }
+        if ($page_size !== null && $page_size < 1) {
+            throw new InvalidArgumentException('invalid value for "$page_size" when calling FbaInboundApi.listShipmentPallets, must be bigger than or equal to 1.');
+        }
+
+        if ($pagination_token !== null && strlen($pagination_token) > 1024) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentPallets, must be smaller than or equal to 1024.');
+        }
+        if ($pagination_token !== null && strlen($pagination_token) < 0) {
+            throw new InvalidArgumentException('invalid length for "$pagination_token" when calling FbaInboundApi.listShipmentPallets, must be bigger than or equal to 0.');
+        }
+
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/pallets';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+        // query params
+        if (is_array($page_size)) {
+            $page_size = ObjectSerializer::serializeCollection($page_size, '', true);
+        }
+        if ($page_size !== null) {
+            $queryParams['pageSize'] = ObjectSerializer::toString($page_size);
+        }
+        // query params
+        if (is_array($pagination_token)) {
+            $pagination_token = ObjectSerializer::serializeCollection($pagination_token, '', true);
+        }
+        if ($pagination_token !== null) {
+            $queryParams['paginationToken'] = ObjectSerializer::toString($pagination_token);
+        }
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'GET',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
      * Operation listTransportationOptions
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of transportation options to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
-     * @param string|null $placement_option_id  The placement option to get transportation options for. Either placementOptionId or shipmentId must be specified. (optional)
-     * @param string|null $shipment_id  The shipment to get transportation options for. Either placementOptionId or shipmentId must be specified. (optional)
+     * @param string|null $placement_option_id  The placement option to get transportation options for. Either &#x60;placementOptionId&#x60; or &#x60;shipmentId&#x60; must be specified. (optional)
+     * @param string|null $shipment_id  The shipment to get transportation options for. Either &#x60;placementOptionId&#x60; or &#x60;shipmentId&#x60; must be specified. (optional)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -5477,11 +8447,11 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param int $page_size  The number of transportation options to return in the response matching the given query. (optional, default to 10)
      * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
-     * @param string|null $placement_option_id  The placement option to get transportation options for. Either placementOptionId or shipmentId must be specified. (optional)
-     * @param string|null $shipment_id  The shipment to get transportation options for. Either placementOptionId or shipmentId must be specified. (optional)
+     * @param string|null $placement_option_id  The placement option to get transportation options for. Either &#x60;placementOptionId&#x60; or &#x60;shipmentId&#x60; must be specified. (optional)
+     * @param string|null $shipment_id  The shipment to get transportation options for. Either &#x60;placementOptionId&#x60; or &#x60;shipmentId&#x60; must be specified. (optional)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
@@ -5648,9 +8618,9 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param string $slot_id  Identifier to a self-ship appointment slot. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $slot_id  An identifier to a self-ship appointment slot. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ScheduleSelfShipAppointmentRequest $body  The body of the request to &#x60;scheduleSelfShipAppointment&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
@@ -5751,9 +8721,9 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param string $slot_id  Identifier to a self-ship appointment slot. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $slot_id  An identifier to a self-ship appointment slot. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ScheduleSelfShipAppointmentRequest $body  The body of the request to &#x60;scheduleSelfShipAppointment&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
@@ -5921,7 +8891,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\SetPackingInformationRequest $body  The body of the request to &#x60;setPackingInformation&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
@@ -6022,7 +8992,7 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\SetPackingInformationRequest $body  The body of the request to &#x60;setPackingInformation&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
@@ -6093,6 +9063,222 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
 
         $request = $this->httpFactory->createRequest(
             'POST',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (isset($body)) {
+            if ($headers['content-type'] === ['application/json']) {
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+
+            $request = $request->withBody($this->httpFactory->createStreamFromString($httpBody));
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
+     * Operation updateInboundPlanName
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateInboundPlanNameRequest $body  The body of the request to &#x60;updateInboundPlanName&#x60;. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return null
+     */
+    public function updateInboundPlanName(AccessToken $accessToken, string $region, $inbound_plan_id, $body)
+    {
+        $request = $this->updateInboundPlanNameRequest($accessToken, $region, $inbound_plan_id, $body);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'updateInboundPlanName', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateInboundPlanName')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'updateInboundPlanName'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'updateInboundPlanName',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'updateInboundPlanName', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateInboundPlanName')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'updateInboundPlanName'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'updateInboundPlanName',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return null;
+    }
+
+    /**
+     * Create request for operation 'updateInboundPlanName'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateInboundPlanNameRequest $body  The body of the request to &#x60;updateInboundPlanName&#x60;. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function updateInboundPlanNameRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $body) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling updateInboundPlanName'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateInboundPlanName, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateInboundPlanName, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.updateInboundPlanName, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $body when calling updateInboundPlanName'
+            );
+        }
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/name';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'PUT',
             $this->configuration->apiURL($region) . $resourcePath . '?' . $query
         );
 
@@ -6355,23 +9541,23 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
     }
 
     /**
-     * Operation updateShipmentDeliveryWindow
+     * Operation updateShipmentName
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentDeliveryWindowRequest $body  The body of the request to &#x60;updateShipmentDeliveryWindow&#x60;. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentNameRequest $body  The body of the request to &#x60;updateShipmentName&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentDeliveryWindowResponse
+     * @return null
      */
-    public function updateShipmentDeliveryWindow(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body)
+    public function updateShipmentName(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body)
     {
-        $request = $this->updateShipmentDeliveryWindowRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $body);
+        $request = $this->updateShipmentNameRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $body);
 
-        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'updateShipmentDeliveryWindow', $request);
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'updateShipmentName', $request);
 
         try {
             $correlationId = $this->configuration->idGenerator()->generate();
@@ -6381,13 +9567,13 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
                 $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
             }
 
-            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateShipmentDeliveryWindow')) {
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateShipmentName')) {
                 $this->logger->log(
-                    $this->configuration->logLevel('FulfillmentInbound', 'updateShipmentDeliveryWindow'),
+                    $this->configuration->logLevel('FulfillmentInbound', 'updateShipmentName'),
                     'Amazon Selling Partner API pre request',
                     [
                         'api' => 'FulfillmentInbound',
-                        'operation' => 'updateShipmentDeliveryWindow',
+                        'operation' => 'updateShipmentName',
                         'request_correlation_id' => $correlationId,
                         'request_body' => (string) $sanitizedRequest->getBody(),
                         'request_headers' => $sanitizedRequest->getHeaders(),
@@ -6398,9 +9584,9 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
 
             $response = $this->client->sendRequest($request);
 
-            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'updateShipmentDeliveryWindow', $request, $response);
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'updateShipmentName', $request, $response);
 
-            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateShipmentDeliveryWindow')) {
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateShipmentName')) {
 
                 $sanitizedResponse = $response;
 
@@ -6409,11 +9595,11 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
                 }
 
                 $this->logger->log(
-                    $this->configuration->logLevel('FulfillmentInbound', 'updateShipmentDeliveryWindow'),
+                    $this->configuration->logLevel('FulfillmentInbound', 'updateShipmentName'),
                     'Amazon Selling Partner API post request',
                     [
                         'api' => 'FulfillmentInbound',
-                        'operation' => 'updateShipmentDeliveryWindow',
+                        'operation' => 'updateShipmentName',
                         'response_correlation_id' => $correlationId,
                         'response_body' => (string) $sanitizedResponse->getBody(),
                         'response_headers' => $sanitizedResponse->getHeaders(),
@@ -6448,68 +9634,63 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
             );
         }
 
-        return ObjectSerializer::deserialize(
-            $this->configuration,
-            (string) $response->getBody(),
-            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentDeliveryWindowResponse',
-            []
-        );
+        return null;
     }
 
     /**
-     * Create request for operation 'updateShipmentDeliveryWindow'
+     * Create request for operation 'updateShipmentName'
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentDeliveryWindowRequest $body  The body of the request to &#x60;updateShipmentDeliveryWindow&#x60;. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentNameRequest $body  The body of the request to &#x60;updateShipmentName&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
      * @return \Psr\Http\Message\RequestInterface
      */
-    public function updateShipmentDeliveryWindowRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body) : RequestInterface
+    public function updateShipmentNameRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body) : RequestInterface
     {
         // verify the required parameter 'inbound_plan_id' is set
         if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
             throw new InvalidArgumentException(
-                'Missing the required parameter $inbound_plan_id when calling updateShipmentDeliveryWindow'
+                'Missing the required parameter $inbound_plan_id when calling updateShipmentName'
             );
         }
         if (strlen($inbound_plan_id) > 38) {
-            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateShipmentDeliveryWindow, must be smaller than or equal to 38.');
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateShipmentName, must be smaller than or equal to 38.');
         }
         if (strlen($inbound_plan_id) < 38) {
-            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateShipmentDeliveryWindow, must be bigger than or equal to 38.');
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateShipmentName, must be bigger than or equal to 38.');
         }
         if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
-            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.updateShipmentDeliveryWindow, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.updateShipmentName, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
         }
 
         // verify the required parameter 'shipment_id' is set
         if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
             throw new InvalidArgumentException(
-                'Missing the required parameter $shipment_id when calling updateShipmentDeliveryWindow'
+                'Missing the required parameter $shipment_id when calling updateShipmentName'
             );
         }
         if (strlen($shipment_id) > 38) {
-            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.updateShipmentDeliveryWindow, must be smaller than or equal to 38.');
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.updateShipmentName, must be smaller than or equal to 38.');
         }
         if (strlen($shipment_id) < 38) {
-            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.updateShipmentDeliveryWindow, must be bigger than or equal to 38.');
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.updateShipmentName, must be bigger than or equal to 38.');
         }
         if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
-            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.updateShipmentDeliveryWindow, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.updateShipmentName, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
         }
 
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
             throw new InvalidArgumentException(
-                'Missing the required parameter $body when calling updateShipmentDeliveryWindow'
+                'Missing the required parameter $body when calling updateShipmentName'
             );
         }
 
-        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindow';
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/name';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6556,7 +9737,254 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
         }
 
         $request = $this->httpFactory->createRequest(
-            'POST',
+            'PUT',
+            $this->configuration->apiURL($region) . $resourcePath . '?' . $query
+        );
+
+        // for model (json/xml)
+        if (isset($body)) {
+            if ($headers['content-type'] === ['application/json']) {
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+
+            $request = $request->withBody($this->httpFactory->createStreamFromString($httpBody));
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                $request = $request->withParsedBody($multipartContents);
+            } elseif ($headers['content-type'] === ['application/json']) {
+                $request = $request->withBody($this->httpFactory->createStreamFromString(\json_encode($formParams)));
+            } else {
+                $request = $request->withParsedBody($formParams);
+            }
+        }
+
+        foreach (\array_merge($headerParams, $headers) as $name => $header) {
+            $request = $request->withHeader($name, $header);
+        }
+
+        return HttpSignatureHeaders::forConfig(
+            $this->configuration,
+            $accessToken,
+            $region,
+            $request
+        );
+    }
+
+    /**
+     * Operation updateShipmentSourceAddress
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentSourceAddressRequest $body  The body of the request to &#x60;updateShipmentSourceAddress&#x60;. (required)
+     *
+     * @throws ApiException on non-2xx response
+     * @throws InvalidArgumentException
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentSourceAddressResponse
+     */
+    public function updateShipmentSourceAddress(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body)
+    {
+        $request = $this->updateShipmentSourceAddressRequest($accessToken, $region, $inbound_plan_id, $shipment_id, $body);
+
+        $this->configuration->extensions()->preRequest('FulfillmentInbound', 'updateShipmentSourceAddress', $request);
+
+        try {
+            $correlationId = $this->configuration->idGenerator()->generate();
+            $sanitizedRequest = $request;
+
+            foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                $sanitizedRequest = $sanitizedRequest->withoutHeader($sensitiveHeader);
+            }
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateShipmentSourceAddress')) {
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'updateShipmentSourceAddress'),
+                    'Amazon Selling Partner API pre request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'updateShipmentSourceAddress',
+                        'request_correlation_id' => $correlationId,
+                        'request_body' => (string) $sanitizedRequest->getBody(),
+                        'request_headers' => $sanitizedRequest->getHeaders(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                    ]
+                );
+            }
+
+            $response = $this->client->sendRequest($request);
+
+            $this->configuration->extensions()->postRequest('FulfillmentInbound', 'updateShipmentSourceAddress', $request, $response);
+
+            if ($this->configuration->loggingEnabled('FulfillmentInbound', 'updateShipmentSourceAddress')) {
+
+                $sanitizedResponse = $response;
+
+                foreach ($this->configuration->loggingSkipHeaders() as $sensitiveHeader) {
+                    $sanitizedResponse = $sanitizedResponse->withoutHeader($sensitiveHeader);
+                }
+
+                $this->logger->log(
+                    $this->configuration->logLevel('FulfillmentInbound', 'updateShipmentSourceAddress'),
+                    'Amazon Selling Partner API post request',
+                    [
+                        'api' => 'FulfillmentInbound',
+                        'operation' => 'updateShipmentSourceAddress',
+                        'response_correlation_id' => $correlationId,
+                        'response_body' => (string) $sanitizedResponse->getBody(),
+                        'response_headers' => $sanitizedResponse->getHeaders(),
+                        'response_status_code' => $sanitizedResponse->getStatusCode(),
+                        'request_uri' => (string) $sanitizedRequest->getUri(),
+                        'request_body' => (string) $sanitizedRequest->getBody()
+                    ]
+                );
+            }
+        } catch (ClientExceptionInterface $e) {
+            throw new ApiException(
+                "[{$e->getCode()}] {$e->getMessage()}",
+                (int) $e->getCode(),
+                null,
+                null,
+                $e
+            );
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new ApiException(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    (string) $request->getUri()
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+
+        return ObjectSerializer::deserialize(
+            $this->configuration,
+            (string) $response->getBody(),
+            '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentSourceAddressResponse',
+            []
+        );
+    }
+
+    /**
+     * Create request for operation 'updateShipmentSourceAddress'
+     *
+     * @param AccessToken $accessToken
+     * @param string $region
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentSourceAddressRequest $body  The body of the request to &#x60;updateShipmentSourceAddress&#x60;. (required)
+     *
+     * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function updateShipmentSourceAddressRequest(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body) : RequestInterface
+    {
+        // verify the required parameter 'inbound_plan_id' is set
+        if ($inbound_plan_id === null || (is_array($inbound_plan_id) && count($inbound_plan_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $inbound_plan_id when calling updateShipmentSourceAddress'
+            );
+        }
+        if (strlen($inbound_plan_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateShipmentSourceAddress, must be smaller than or equal to 38.');
+        }
+        if (strlen($inbound_plan_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$inbound_plan_id" when calling FbaInboundApi.updateShipmentSourceAddress, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $inbound_plan_id)) {
+            throw new InvalidArgumentException("invalid value for \"inbound_plan_id\" when calling FbaInboundApi.updateShipmentSourceAddress, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'shipment_id' is set
+        if ($shipment_id === null || (is_array($shipment_id) && count($shipment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $shipment_id when calling updateShipmentSourceAddress'
+            );
+        }
+        if (strlen($shipment_id) > 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.updateShipmentSourceAddress, must be smaller than or equal to 38.');
+        }
+        if (strlen($shipment_id) < 38) {
+            throw new InvalidArgumentException('invalid length for "$shipment_id" when calling FbaInboundApi.updateShipmentSourceAddress, must be bigger than or equal to 38.');
+        }
+        if (!preg_match("/^[a-zA-Z0-9-]*$/", $shipment_id)) {
+            throw new InvalidArgumentException("invalid value for \"shipment_id\" when calling FbaInboundApi.updateShipmentSourceAddress, must conform to the pattern /^[a-zA-Z0-9-]*$/.");
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $body when calling updateShipmentSourceAddress'
+            );
+        }
+
+        $resourcePath = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/sourceAddress';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $multipart = false;
+        $query = '';
+
+
+        if (\count($queryParams)) {
+            $query = http_build_query($queryParams);
+        }
+
+
+        // path params
+        if ($inbound_plan_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'inboundPlanId' . '}',
+                ObjectSerializer::toPathValue($inbound_plan_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($shipment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'shipmentId' . '}',
+                ObjectSerializer::toPathValue($shipment_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = [
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        } else {
+            $headers = [
+                'content-type' => ['application/json'],
+                'accept' => ['application/json'],
+                'host' => [$this->configuration->apiHost($region)],
+                'user-agent' => [$this->configuration->userAgent()],
+            ];
+        }
+
+        $request = $this->httpFactory->createRequest(
+            'PUT',
             $this->configuration->apiURL($region) . $resourcePath . '?' . $query
         );
 
@@ -6606,8 +10034,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentTrackingDetailsRequest $body  The body of the request to &#x60;updateShipmentTrackingDetails&#x60;. (required)
      *
      * @throws ApiException on non-2xx response
@@ -6708,8 +10136,8 @@ final class FulfillmentInboundSDK implements FulfillmentInboundSDKInterface
      *
      * @param AccessToken $accessToken
      * @param string $region
-     * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-     * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+     * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+     * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
      * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentTrackingDetailsRequest $body  The body of the request to &#x60;updateShipmentTrackingDetails&#x60;. (required)
      *
      * @throws \AmazonPHP\SellingPartner\Exception\InvalidArgumentException

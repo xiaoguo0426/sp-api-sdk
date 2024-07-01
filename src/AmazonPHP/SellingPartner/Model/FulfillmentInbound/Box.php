@@ -42,6 +42,7 @@ class Box implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPITypes = [
         'box_id' => 'string',
+        'content_information_source' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\BoxContentInformationSource',
         'destination_region' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Region',
         'dimensions' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Dimensions',
         'items' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\Item[]',
@@ -60,6 +61,7 @@ class Box implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPIFormats = [
         'box_id' => null,
+        'content_information_source' => null,
         'destination_region' => null,
         'dimensions' => null,
         'items' => null,
@@ -97,6 +99,7 @@ class Box implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $attributeMap = [
         'box_id' => 'boxId',
+        'content_information_source' => 'contentInformationSource',
         'destination_region' => 'destinationRegion',
         'dimensions' => 'dimensions',
         'items' => 'items',
@@ -113,6 +116,7 @@ class Box implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $setters = [
         'box_id' => 'setBoxId',
+        'content_information_source' => 'setContentInformationSource',
         'destination_region' => 'setDestinationRegion',
         'dimensions' => 'setDimensions',
         'items' => 'setItems',
@@ -129,6 +133,7 @@ class Box implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $getters = [
         'box_id' => 'getBoxId',
+        'content_information_source' => 'getContentInformationSource',
         'destination_region' => 'getDestinationRegion',
         'dimensions' => 'getDimensions',
         'items' => 'getItems',
@@ -196,6 +201,7 @@ class Box implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['box_id'] = $data['box_id'] ?? null;
+        $this->container['content_information_source'] = $data['content_information_source'] ?? null;
         $this->container['destination_region'] = $data['destination_region'] ?? null;
         $this->container['dimensions'] = $data['dimensions'] ?? null;
         $this->container['items'] = $data['items'] ?? null;
@@ -280,13 +286,37 @@ class Box implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets box_id
      *
-     * @param string|null $box_id The ID provided by Amazon that identifies a given box. This ID is comprised of the external shipment ID (which         is generated after transportation has been confirmed) and the index of the box.
+     * @param string|null $box_id The ID provided by Amazon that identifies a given box. This ID is comprised of the external shipment ID (which is generated after transportation has been confirmed) and the index of the box.
      *
      * @return self
      */
     public function setBoxId($box_id) : self
     {
         $this->container['box_id'] = $box_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets content_information_source
+     *
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\BoxContentInformationSource|null
+     */
+    public function getContentInformationSource()
+    {
+        return $this->container['content_information_source'];
+    }
+
+    /**
+     * Sets content_information_source
+     *
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\BoxContentInformationSource|null $content_information_source content_information_source
+     *
+     * @return self
+     */
+    public function setContentInformationSource($content_information_source) : self
+    {
+        $this->container['content_information_source'] = $content_information_source;
 
         return $this;
     }

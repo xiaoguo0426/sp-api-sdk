@@ -30,6 +30,9 @@ interface FulfillmentOutboundSDKInterface
     public const OPERATION_CREATEFULFILLMENTRETURN = 'createFulfillmentReturn';
 
     public const OPERATION_CREATEFULFILLMENTRETURN_PATH = '/fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}/return';
+    public const OPERATION_DELIVERYOFFERS = 'deliveryOffers';
+
+    public const OPERATION_DELIVERYOFFERS_PATH = '/fba/outbound/2020-07-01/deliveryOffers';
     public const OPERATION_GETFEATUREINVENTORY = 'getFeatureInventory';
 
     public const OPERATION_GETFEATUREINVENTORY_PATH = '/fba/outbound/2020-07-01/features/inventory/{featureName}';
@@ -78,7 +81,7 @@ interface FulfillmentOutboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\CreateFulfillmentOrderRequest $body  body (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\CreateFulfillmentOrderRequest $body  CreateFulfillmentOrderRequest parameter (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -91,13 +94,25 @@ interface FulfillmentOutboundSDKInterface
     * @param AccessToken $accessToken
     * @param string $region
     * @param string $seller_fulfillment_order_id  An identifier assigned by the seller to the fulfillment order at the time it was created. The seller uses their own records to find the correct &#x60;SellerFulfillmentOrderId&#x60; value based on the buyer&#39;s request to return items. (required)
-    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\CreateFulfillmentReturnRequest $body  body (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\CreateFulfillmentReturnRequest $body  CreateFulfillmentReturnRequest parameter (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
     * @return \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\CreateFulfillmentReturnResponse
     */
     public function createFulfillmentReturn(AccessToken $accessToken, string $region, $seller_fulfillment_order_id, $body);
+    /**
+    * Operation deliveryOffers
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\GetDeliveryOffersRequest $body  GetDeliveryOffersRequest parameter (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\GetDeliveryOffersResponse
+    */
+    public function deliveryOffers(AccessToken $accessToken, string $region, $body);
     /**
     * Operation getFeatureInventory
     *
@@ -106,12 +121,13 @@ interface FulfillmentOutboundSDKInterface
     * @param string $marketplace_id  The marketplace for which to return a list of the inventory that is eligible for the specified feature. (required)
     * @param string $feature_name  The name of the feature for which to return a list of eligible inventory. (required)
     * @param string|null $next_token  A string token returned in the response to your previous request that is used to return the next response page. A value of null will return the first page. (optional)
+    * @param \DateTimeInterface|null $query_start_date  A date that you can use to select inventory that has been updated since a specified date. An update is defined as any change in feature-enabled inventory availability. The date must be in the format yyyy-MM-ddTHH:mm:ss.sssZ (optional)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
     * @return \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\GetFeatureInventoryResponse
     */
-    public function getFeatureInventory(AccessToken $accessToken, string $region, $marketplace_id, $feature_name, $next_token = null);
+    public function getFeatureInventory(AccessToken $accessToken, string $region, $marketplace_id, $feature_name, $next_token = null, $query_start_date = null);
     /**
     * Operation getFeatureSKU
     *
@@ -155,7 +171,7 @@ interface FulfillmentOutboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\GetFulfillmentPreviewRequest $body  body (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\GetFulfillmentPreviewRequest $body  GetFulfillmentPreviewRequest parameter (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -208,7 +224,7 @@ interface FulfillmentOutboundSDKInterface
     * @param AccessToken $accessToken
     * @param string $region
     * @param string $seller_fulfillment_order_id  The identifier assigned to the item by the seller when the fulfillment order was created. (required)
-    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\SubmitFulfillmentOrderStatusUpdateRequest $body  body (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\SubmitFulfillmentOrderStatusUpdateRequest $body  The identifier assigned to the item by the seller when the fulfillment order was created. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -221,7 +237,7 @@ interface FulfillmentOutboundSDKInterface
     * @param AccessToken $accessToken
     * @param string $region
     * @param string $seller_fulfillment_order_id  The identifier assigned to the item by the seller when the fulfillment order was created. (required)
-    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\UpdateFulfillmentOrderRequest $body  body (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentOutbound\UpdateFulfillmentOrderRequest $body  UpdateFulfillmentOrderRequest parameter (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException

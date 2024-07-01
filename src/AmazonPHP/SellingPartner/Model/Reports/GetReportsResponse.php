@@ -220,7 +220,7 @@ class GetReportsResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets next_token
      *
-     * @param string|null $next_token Returned when the number of results exceeds pageSize. To get the next page of results, call getReports with this token as the only parameter.
+     * @param string|null $next_token Returned when the number of results exceeds `pageSize`. To get the next page of results, call `getReports` with this token as the only parameter.
      *
      * @return self
      */

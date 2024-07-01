@@ -42,7 +42,8 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
       */
     protected static array $openAPITypes = [
         'contact_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation',
-        'pallet_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInformation',
+        'freight_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\FreightInformation',
+        'pallets' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInput[]',
         'ready_to_ship_window' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\WindowInput',
         'shipment_id' => 'string'
     ];
@@ -56,7 +57,8 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
       */
     protected static array $openAPIFormats = [
         'contact_information' => null,
-        'pallet_information' => null,
+        'freight_information' => null,
+        'pallets' => null,
         'ready_to_ship_window' => null,
         'shipment_id' => null
     ];
@@ -89,7 +91,8 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
      */
     protected static array $attributeMap = [
         'contact_information' => 'contactInformation',
-        'pallet_information' => 'palletInformation',
+        'freight_information' => 'freightInformation',
+        'pallets' => 'pallets',
         'ready_to_ship_window' => 'readyToShipWindow',
         'shipment_id' => 'shipmentId'
     ];
@@ -101,7 +104,8 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
      */
     protected static array $setters = [
         'contact_information' => 'setContactInformation',
-        'pallet_information' => 'setPalletInformation',
+        'freight_information' => 'setFreightInformation',
+        'pallets' => 'setPallets',
         'ready_to_ship_window' => 'setReadyToShipWindow',
         'shipment_id' => 'setShipmentId'
     ];
@@ -113,7 +117,8 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
      */
     protected static array $getters = [
         'contact_information' => 'getContactInformation',
-        'pallet_information' => 'getPalletInformation',
+        'freight_information' => 'getFreightInformation',
+        'pallets' => 'getPallets',
         'ready_to_ship_window' => 'getReadyToShipWindow',
         'shipment_id' => 'getShipmentId'
     ];
@@ -176,7 +181,8 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['contact_information'] = $data['contact_information'] ?? null;
-        $this->container['pallet_information'] = $data['pallet_information'] ?? null;
+        $this->container['freight_information'] = $data['freight_information'] ?? null;
+        $this->container['pallets'] = $data['pallets'] ?? null;
         $this->container['ready_to_ship_window'] = $data['ready_to_ship_window'] ?? null;
         $this->container['shipment_id'] = $data['shipment_id'] ?? null;
     }
@@ -192,8 +198,8 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
             $this->container['contact_information']->validate();
             }
 
-            if ($this->container['pallet_information'] !== null) {
-            $this->container['pallet_information']->validate();
+            if ($this->container['freight_information'] !== null) {
+            $this->container['freight_information']->validate();
             }
 
         if ($this->container['ready_to_ship_window'] === null) {
@@ -246,25 +252,49 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets pallet_information
+     * Gets freight_information
      *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInformation|null
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\FreightInformation|null
      */
-    public function getPalletInformation()
+    public function getFreightInformation()
     {
-        return $this->container['pallet_information'];
+        return $this->container['freight_information'];
     }
 
     /**
-     * Sets pallet_information
+     * Sets freight_information
      *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInformation|null $pallet_information pallet_information
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\FreightInformation|null $freight_information freight_information
      *
      * @return self
      */
-    public function setPalletInformation($pallet_information) : self
+    public function setFreightInformation($freight_information) : self
     {
-        $this->container['pallet_information'] = $pallet_information;
+        $this->container['freight_information'] = $freight_information;
+
+        return $this;
+    }
+
+    /**
+     * Gets pallets
+     *
+     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInput[]|null
+     */
+    public function getPallets()
+    {
+        return $this->container['pallets'];
+    }
+
+    /**
+     * Sets pallets
+     *
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\PalletInput[]|null $pallets List of pallet configuration inputs.
+     *
+     * @return self
+     */
+    public function setPallets($pallets) : self
+    {
+        $this->container['pallets'] = $pallets;
 
         return $this;
     }
@@ -306,7 +336,7 @@ class ShipmentTransportationConfiguration implements ModelInterface, ArrayAccess
     /**
      * Sets shipment_id
      *
-     * @param string $shipment_id Identifier to a shipment. A shipment contains the boxes and units being inbounded.
+     * @param string $shipment_id Identifier of a shipment. A shipment contains the boxes and units being inbounded.
      *
      * @return self
      */

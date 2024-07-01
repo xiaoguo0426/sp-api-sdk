@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Orders
 *
-* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  _Note:_ The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
+* The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools. The Orders API supports orders that are two years old or less. Orders more than two years old will not show in the API response.  **Note:** The Orders API supports orders from 2016 and after for the JP, AU, and SG marketplaces.
 *
 * The version of the OpenAPI document: v0
 *
@@ -42,6 +42,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPITypes = [
         'name' => 'string',
+        'company_name' => 'string',
         'address_line1' => 'string',
         'address_line2' => 'string',
         'address_line3' => 'string',
@@ -66,6 +67,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPIFormats = [
         'name' => null,
+        'company_name' => null,
         'address_line1' => null,
         'address_line2' => null,
         'address_line3' => null,
@@ -109,6 +111,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $attributeMap = [
         'name' => 'Name',
+        'company_name' => 'CompanyName',
         'address_line1' => 'AddressLine1',
         'address_line2' => 'AddressLine2',
         'address_line3' => 'AddressLine3',
@@ -131,6 +134,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $setters = [
         'name' => 'setName',
+        'company_name' => 'setCompanyName',
         'address_line1' => 'setAddressLine1',
         'address_line2' => 'setAddressLine2',
         'address_line3' => 'setAddressLine3',
@@ -153,6 +157,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static array $getters = [
         'name' => 'getName',
+        'company_name' => 'getCompanyName',
         'address_line1' => 'getAddressLine1',
         'address_line2' => 'getAddressLine2',
         'address_line3' => 'getAddressLine3',
@@ -241,6 +246,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['name'] = $data['name'] ?? null;
+        $this->container['company_name'] = $data['company_name'] ?? null;
         $this->container['address_line1'] = $data['address_line1'] ?? null;
         $this->container['address_line2'] = $data['address_line2'] ?? null;
         $this->container['address_line3'] = $data['address_line3'] ?? null;
@@ -305,6 +311,30 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setName($name) : self
     {
         $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets company_name
+     *
+     * @return string|null
+     */
+    public function getCompanyName()
+    {
+        return $this->container['company_name'];
+    }
+
+    /**
+     * Sets company_name
+     *
+     * @param string|null $company_name The company name of the recipient.  **Note**: This attribute is only available for shipping address.
+     *
+     * @return self
+     */
+    public function setCompanyName($company_name) : self
+    {
+        $this->container['company_name'] = $company_name;
 
         return $this;
     }
@@ -394,7 +424,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets city
      *
-     * @param string|null $city The city
+     * @param string|null $city The city.
      *
      * @return self
      */
@@ -562,7 +592,7 @@ class Address implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets phone
      *
-     * @param string|null $phone The phone number. Not returned for Fulfillment by Amazon (FBA) orders.
+     * @param string|null $phone The phone number of the buyer.  **Note**:  1. This attribute is only available for shipping address. 2. The buyer `Phone` number is suppressed in some cases, including but not limited to  a. `Phone` is suppressed for all Fulfillment by Amazon (FBA) orders. b. `Phone` is suppressed for the shipped MFN(Fulfilled by the seller) order when current date is past Latest Delivery Date.
      *
      * @return self
      */

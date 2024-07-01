@@ -240,7 +240,7 @@ class InboundOperationStatus implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets operation
      *
-     * @param string $operation The name of the operation that was executed in the asynchronous API call.
+     * @param string $operation The name of the operation in the asynchronous API call.
      *
      * @return self
      */
@@ -264,7 +264,7 @@ class InboundOperationStatus implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets operation_id
      *
-     * @param string $operation_id The operation Id returned by the asynchronous API call.
+     * @param string $operation_id The operation ID returned by the asynchronous API call.
      *
      * @return self
      */

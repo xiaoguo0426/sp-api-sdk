@@ -27,6 +27,8 @@ class LabelOwner
 
     const SELLER = 'SELLER';
 
+    const NONE = 'NONE';
+
     private string $value;
 
     /**
@@ -37,7 +39,8 @@ class LabelOwner
     {
         return [
             self::AMAZON,
-            self::SELLER
+            self::SELLER,
+            self::NONE
         ];
     }
 

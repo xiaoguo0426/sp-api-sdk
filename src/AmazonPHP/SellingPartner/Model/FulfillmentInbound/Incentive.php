@@ -294,7 +294,7 @@ class Incentive implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets type
      *
-     * @param string $type Type of incentive. Can be `FEE` or `DISCOUNT`.
+     * @param string $type Type of incentive. Can be: `FEE`, `DISCOUNT`.
      *
      * @return self
      */

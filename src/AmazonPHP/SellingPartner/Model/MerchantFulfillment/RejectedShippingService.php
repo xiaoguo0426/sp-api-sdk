@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Merchant Fulfillment
 *
-* The Selling Partner API for Merchant Fulfillment helps you build applications that let sellers purchase shipping for non-Prime and Prime orders using Amazon’s Buy Shipping Services.
+* With the Selling Partner API for Merchant Fulfillment, you can build applications that sellers can use to purchase shipping for non-Prime and Prime orders using Amazon's Buy Shipping Services.
 *
 * The version of the OpenAPI document: v0
 *
@@ -226,7 +226,7 @@ class RejectedShippingService implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets carrier_name
      *
-     * @param string $carrier_name The rejected shipping carrier name. e.g. USPS
+     * @param string $carrier_name The rejected shipping carrier name. For example, USPS.
      *
      * @return self
      */
@@ -250,7 +250,7 @@ class RejectedShippingService implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets shipping_service_name
      *
-     * @param string $shipping_service_name The rejected shipping service localized name. e.g. FedEx Standard Overnight
+     * @param string $shipping_service_name The rejected shipping service localized name. For example, FedEx Standard Overnight.
      *
      * @return self
      */
@@ -298,7 +298,7 @@ class RejectedShippingService implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets rejection_reason_code
      *
-     * @param string $rejection_reason_code A reason code meant to be consumed programatically. e.g. CARRIER_CANNOT_SHIP_TO_POBOX
+     * @param string $rejection_reason_code A reason code meant to be consumed programatically. For example, `CARRIER_CANNOT_SHIP_TO_POBOX`.
      *
      * @return self
      */

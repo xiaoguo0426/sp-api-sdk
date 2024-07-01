@@ -200,7 +200,7 @@ class ListPackingGroupItemsResponse implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets items
      *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\Item[] $items Provides the information about the list of items in the inbound plan.
+     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\Item[] $items Provides the information about the list of items in the packing group.
      *
      * @return self
      */

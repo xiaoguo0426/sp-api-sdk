@@ -21,10 +21,57 @@ interface FBAInventorySDKInterface
 {
     public const API_NAME = 'FBAInventory';
 
+    public const OPERATION_ADDINVENTORY = 'addInventory';
+
+    public const OPERATION_ADDINVENTORY_PATH = '/fba/inventory/v1/items/inventory';
+    public const OPERATION_CREATEINVENTORYITEM = 'createInventoryItem';
+
+    public const OPERATION_CREATEINVENTORYITEM_PATH = '/fba/inventory/v1/items';
+    public const OPERATION_DELETEINVENTORYITEM = 'deleteInventoryItem';
+
+    public const OPERATION_DELETEINVENTORYITEM_PATH = '/fba/inventory/v1/items/{sellerSku}';
     public const OPERATION_GETINVENTORYSUMMARIES = 'getInventorySummaries';
 
     public const OPERATION_GETINVENTORYSUMMARIES_PATH = '/fba/inventory/v1/summaries';
 
+    /**
+    * Operation addInventory
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $x_amzn_idempotency_token  A unique token/requestId provided with each call to ensure idempotency. (required)
+    * @param \AmazonPHP\SellingPartner\Model\FBAInventory\AddInventoryRequest $add_inventory_request_body  List of items to add to Sandbox inventory. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FBAInventory\AddInventoryResponse
+    */
+    public function addInventory(AccessToken $accessToken, string $region, $x_amzn_idempotency_token, $add_inventory_request_body);
+    /**
+    * Operation createInventoryItem
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param \AmazonPHP\SellingPartner\Model\FBAInventory\CreateInventoryItemRequest $create_inventory_item_request_body  CreateInventoryItem Request Body Parameter. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FBAInventory\CreateInventoryItemResponse
+    */
+    public function createInventoryItem(AccessToken $accessToken, string $region, $create_inventory_item_request_body);
+    /**
+    * Operation deleteInventoryItem
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $seller_sku  A single seller SKU used for querying the specified seller SKU inventory summaries. (required)
+    * @param string $marketplace_id  The marketplace ID for the marketplace for which the sellerSku is to be deleted. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FBAInventory\DeleteInventoryItemResponse
+    */
+    public function deleteInventoryItem(AccessToken $accessToken, string $region, $seller_sku, $marketplace_id);
     /**
     * Operation getInventorySummaries
     *

@@ -41,7 +41,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'contact_information' => '\AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation',
         'created_at' => '\DateTimeInterface',
         'inbound_plan_id' => 'string',
         'last_updated_at' => '\DateTimeInterface',
@@ -59,7 +58,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'contact_information' => null,
         'created_at' => 'date-time',
         'inbound_plan_id' => null,
         'last_updated_at' => 'date-time',
@@ -96,7 +94,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static array $attributeMap = [
-        'contact_information' => 'contactInformation',
         'created_at' => 'createdAt',
         'inbound_plan_id' => 'inboundPlanId',
         'last_updated_at' => 'lastUpdatedAt',
@@ -112,7 +109,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static array $setters = [
-        'contact_information' => 'setContactInformation',
         'created_at' => 'setCreatedAt',
         'inbound_plan_id' => 'setInboundPlanId',
         'last_updated_at' => 'setLastUpdatedAt',
@@ -128,7 +124,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static array $getters = [
-        'contact_information' => 'getContactInformation',
         'created_at' => 'getCreatedAt',
         'inbound_plan_id' => 'getInboundPlanId',
         'last_updated_at' => 'getLastUpdatedAt',
@@ -195,7 +190,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->container['contact_information'] = $data['contact_information'] ?? null;
         $this->container['created_at'] = $data['created_at'] ?? null;
         $this->container['inbound_plan_id'] = $data['inbound_plan_id'] ?? null;
         $this->container['last_updated_at'] = $data['last_updated_at'] ?? null;
@@ -212,12 +206,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function validate() : void
     {
-        if ($this->container['contact_information'] === null) {
-            throw new AssertionException("'contact_information' can't be null");
-        }
-
-            $this->container['contact_information']->validate();
-
         if ($this->container['created_at'] === null) {
             throw new AssertionException("'created_at' can't be null");
         }
@@ -272,30 +260,6 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
 
 
     /**
-     * Gets contact_information
-     *
-     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation
-     */
-    public function getContactInformation()
-    {
-        return $this->container['contact_information'];
-    }
-
-    /**
-     * Sets contact_information
-     *
-     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContactInformation $contact_information contact_information
-     *
-     * @return self
-     */
-    public function setContactInformation($contact_information) : self
-    {
-        $this->container['contact_information'] = $contact_information;
-
-        return $this;
-    }
-
-    /**
      * Gets created_at
      *
      * @return \DateTimeInterface
@@ -332,7 +296,7 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets inbound_plan_id
      *
-     * @param string $inbound_plan_id Identifier to an inbound plan.
+     * @param string $inbound_plan_id Identifier of an inbound plan.
      *
      * @return self
      */
@@ -356,7 +320,7 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets last_updated_at
      *
-     * @param \DateTimeInterface $last_updated_at ISO 8601 datetime with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
+     * @param \DateTimeInterface $last_updated_at The ISO 8601 datetime with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.
      *
      * @return self
      */
@@ -452,7 +416,7 @@ class InboundPlanSummary implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets status
      *
-     * @param string $status Current status of the inbound plan. Can be 'ACTIVE', 'VOIDED', or 'SHIPPED'.
+     * @param string $status Current status of the inbound plan. Can be: `ACTIVE`, `VOIDED`, `SHIPPED`, 'ERRORED'.
      *
      * @return self
      */

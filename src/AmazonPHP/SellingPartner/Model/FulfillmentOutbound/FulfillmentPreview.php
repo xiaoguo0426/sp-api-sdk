@@ -462,7 +462,7 @@ class FulfillmentPreview implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets order_unfulfillable_reasons
      *
-     * @param string[]|null $order_unfulfillable_reasons order_unfulfillable_reasons
+     * @param string[]|null $order_unfulfillable_reasons String list
      *
      * @return self
      */

@@ -222,7 +222,7 @@ class TrackingEvent implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets event_date
      *
-     * @param \DateTimeInterface $event_date event_date
+     * @param \DateTimeInterface $event_date Date timestamp
      *
      * @return self
      */

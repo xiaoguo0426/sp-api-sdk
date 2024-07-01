@@ -190,7 +190,7 @@ class ErrorList implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets errors
      *
-     * @param \AmazonPHP\SellingPartner\Model\Feeds\Error[] $errors errors
+     * @param \AmazonPHP\SellingPartner\Model\Feeds\Error[] $errors An error response returned when the request is unsuccessful.
      *
      * @return self
      */

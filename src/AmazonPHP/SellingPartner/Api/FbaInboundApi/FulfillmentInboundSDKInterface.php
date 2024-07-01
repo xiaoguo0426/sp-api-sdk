@@ -26,19 +26,31 @@ interface FulfillmentInboundSDKInterface
     public const OPERATION_CANCELINBOUNDPLAN_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/cancellation';
     public const OPERATION_CANCELSELFSHIPAPPOINTMENT = 'cancelSelfShipAppointment';
 
-    public const OPERATION_CANCELSELFSHIPAPPOINTMENT_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/selfShipAppointmentSlots/{slotId}/cancellation';
+    public const OPERATION_CANCELSELFSHIPAPPOINTMENT_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/selfShipAppointmentCancellation';
+    public const OPERATION_CONFIRMDELIVERYWINDOWOPTIONS = 'confirmDeliveryWindowOptions';
+
+    public const OPERATION_CONFIRMDELIVERYWINDOWOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindowOptions/{deliveryWindowOptionId}/confirmation';
     public const OPERATION_CONFIRMPACKINGOPTION = 'confirmPackingOption';
 
     public const OPERATION_CONFIRMPACKINGOPTION_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingOptions/{packingOptionId}/confirmation';
     public const OPERATION_CONFIRMPLACEMENTOPTION = 'confirmPlacementOption';
 
     public const OPERATION_CONFIRMPLACEMENTOPTION_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/placementOptions/{placementOptionId}/confirmation';
+    public const OPERATION_CONFIRMSHIPMENTCONTENTUPDATEPREVIEW = 'confirmShipmentContentUpdatePreview';
+
+    public const OPERATION_CONFIRMSHIPMENTCONTENTUPDATEPREVIEW_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews/{contentUpdatePreviewId}/confirmation';
     public const OPERATION_CONFIRMTRANSPORTATIONOPTIONS = 'confirmTransportationOptions';
 
     public const OPERATION_CONFIRMTRANSPORTATIONOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/transportationOptions/confirmation';
     public const OPERATION_CREATEINBOUNDPLAN = 'createInboundPlan';
 
     public const OPERATION_CREATEINBOUNDPLAN_PATH = '/inbound/fba/2024-03-20/inboundPlans';
+    public const OPERATION_CREATEMARKETPLACEITEMLABELS = 'createMarketplaceItemLabels';
+
+    public const OPERATION_CREATEMARKETPLACEITEMLABELS_PATH = '/inbound/fba/2024-03-20/items/labels';
+    public const OPERATION_GENERATEDELIVERYWINDOWOPTIONS = 'generateDeliveryWindowOptions';
+
+    public const OPERATION_GENERATEDELIVERYWINDOWOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindowOptions';
     public const OPERATION_GENERATEPACKINGOPTIONS = 'generatePackingOptions';
 
     public const OPERATION_GENERATEPACKINGOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingOptions';
@@ -48,6 +60,9 @@ interface FulfillmentInboundSDKInterface
     public const OPERATION_GENERATESELFSHIPAPPOINTMENTSLOTS = 'generateSelfShipAppointmentSlots';
 
     public const OPERATION_GENERATESELFSHIPAPPOINTMENTSLOTS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/selfShipAppointmentSlots';
+    public const OPERATION_GENERATESHIPMENTCONTENTUPDATEPREVIEWS = 'generateShipmentContentUpdatePreviews';
+
+    public const OPERATION_GENERATESHIPMENTCONTENTUPDATEPREVIEWS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews';
     public const OPERATION_GENERATETRANSPORTATIONOPTIONS = 'generateTransportationOptions';
 
     public const OPERATION_GENERATETRANSPORTATIONOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/transportationOptions';
@@ -66,6 +81,12 @@ interface FulfillmentInboundSDKInterface
     public const OPERATION_GETSHIPMENT = 'getShipment';
 
     public const OPERATION_GETSHIPMENT_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}';
+    public const OPERATION_GETSHIPMENTCONTENTUPDATEPREVIEW = 'getShipmentContentUpdatePreview';
+
+    public const OPERATION_GETSHIPMENTCONTENTUPDATEPREVIEW_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews/{contentUpdatePreviewId}';
+    public const OPERATION_LISTDELIVERYWINDOWOPTIONS = 'listDeliveryWindowOptions';
+
+    public const OPERATION_LISTDELIVERYWINDOWOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindowOptions';
     public const OPERATION_LISTINBOUNDPLANBOXES = 'listInboundPlanBoxes';
 
     public const OPERATION_LISTINBOUNDPLANBOXES_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/boxes';
@@ -81,15 +102,30 @@ interface FulfillmentInboundSDKInterface
     public const OPERATION_LISTITEMCOMPLIANCEDETAILS = 'listItemComplianceDetails';
 
     public const OPERATION_LISTITEMCOMPLIANCEDETAILS_PATH = '/inbound/fba/2024-03-20/items/compliance';
+    public const OPERATION_LISTPACKINGGROUPBOXES = 'listPackingGroupBoxes';
+
+    public const OPERATION_LISTPACKINGGROUPBOXES_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingGroups/{packingGroupId}/boxes';
     public const OPERATION_LISTPACKINGGROUPITEMS = 'listPackingGroupItems';
 
-    public const OPERATION_LISTPACKINGGROUPITEMS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingOptions/{packingOptionId}/packingGroups/{packingGroupId}/items';
+    public const OPERATION_LISTPACKINGGROUPITEMS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingGroups/{packingGroupId}/items';
     public const OPERATION_LISTPACKINGOPTIONS = 'listPackingOptions';
 
     public const OPERATION_LISTPACKINGOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingOptions';
     public const OPERATION_LISTPLACEMENTOPTIONS = 'listPlacementOptions';
 
     public const OPERATION_LISTPLACEMENTOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/placementOptions';
+    public const OPERATION_LISTSHIPMENTBOXES = 'listShipmentBoxes';
+
+    public const OPERATION_LISTSHIPMENTBOXES_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/boxes';
+    public const OPERATION_LISTSHIPMENTCONTENTUPDATEPREVIEWS = 'listShipmentContentUpdatePreviews';
+
+    public const OPERATION_LISTSHIPMENTCONTENTUPDATEPREVIEWS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/contentUpdatePreviews';
+    public const OPERATION_LISTSHIPMENTITEMS = 'listShipmentItems';
+
+    public const OPERATION_LISTSHIPMENTITEMS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/items';
+    public const OPERATION_LISTSHIPMENTPALLETS = 'listShipmentPallets';
+
+    public const OPERATION_LISTSHIPMENTPALLETS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/pallets';
     public const OPERATION_LISTTRANSPORTATIONOPTIONS = 'listTransportationOptions';
 
     public const OPERATION_LISTTRANSPORTATIONOPTIONS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/transportationOptions';
@@ -99,12 +135,18 @@ interface FulfillmentInboundSDKInterface
     public const OPERATION_SETPACKINGINFORMATION = 'setPackingInformation';
 
     public const OPERATION_SETPACKINGINFORMATION_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingInformation';
+    public const OPERATION_UPDATEINBOUNDPLANNAME = 'updateInboundPlanName';
+
+    public const OPERATION_UPDATEINBOUNDPLANNAME_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/name';
     public const OPERATION_UPDATEITEMCOMPLIANCEDETAILS = 'updateItemComplianceDetails';
 
     public const OPERATION_UPDATEITEMCOMPLIANCEDETAILS_PATH = '/inbound/fba/2024-03-20/items/compliance';
-    public const OPERATION_UPDATESHIPMENTDELIVERYWINDOW = 'updateShipmentDeliveryWindow';
+    public const OPERATION_UPDATESHIPMENTNAME = 'updateShipmentName';
 
-    public const OPERATION_UPDATESHIPMENTDELIVERYWINDOW_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/deliveryWindow';
+    public const OPERATION_UPDATESHIPMENTNAME_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/name';
+    public const OPERATION_UPDATESHIPMENTSOURCEADDRESS = 'updateShipmentSourceAddress';
+
+    public const OPERATION_UPDATESHIPMENTSOURCEADDRESS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/sourceAddress';
     public const OPERATION_UPDATESHIPMENTTRACKINGDETAILS = 'updateShipmentTrackingDetails';
 
     public const OPERATION_UPDATESHIPMENTTRACKINGDETAILS_PATH = '/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/trackingDetails';
@@ -114,7 +156,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -126,23 +168,36 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-    * @param string $slot_id  Identifier to a self-ship appointment slot. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CancelSelfShipAppointmentRequest $body  The body of the request to &#x60;cancelSelfShipAppointment&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CancelSelfShipAppointmentResponse
     */
-    public function cancelSelfShipAppointment(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $slot_id, $body);
+    public function cancelSelfShipAppointment(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body);
+    /**
+    * Operation confirmDeliveryWindowOptions
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  The shipment to confirm the delivery window option for. (required)
+    * @param string $delivery_window_option_id  The id of the delivery window option to be confirmed. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmDeliveryWindowOptionsResponse
+    */
+    public function confirmDeliveryWindowOptions(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $delivery_window_option_id);
     /**
     * Operation confirmPackingOption
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $packing_option_id  Identifier to a packing option. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $packing_option_id  Identifier of a packing option. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -154,8 +209,8 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $placement_option_id  Identifier to a placement option. A placement option represents the shipment splits and destinations of SKUs. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $placement_option_id  The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -163,11 +218,25 @@ interface FulfillmentInboundSDKInterface
     */
     public function confirmPlacementOption(AccessToken $accessToken, string $region, $inbound_plan_id, $placement_option_id);
     /**
+    * Operation confirmShipmentContentUpdatePreview
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param string $content_update_preview_id  Identifier of a content update preview. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmShipmentContentUpdatePreviewResponse
+    */
+    public function confirmShipmentContentUpdatePreview(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $content_update_preview_id);
+    /**
     * Operation confirmTransportationOptions
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ConfirmTransportationOptionsRequest $body  The body of the request to &#x60;confirmTransportationOptions&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
@@ -188,11 +257,36 @@ interface FulfillmentInboundSDKInterface
     */
     public function createInboundPlan(AccessToken $accessToken, string $region, $body);
     /**
+    * Operation createMarketplaceItemLabels
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CreateMarketplaceItemLabelsRequest $body  The body of the request to &#x60;createMarketplaceItemLabels&#x60;. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\CreateMarketplaceItemLabelsResponse
+    */
+    public function createMarketplaceItemLabels(AccessToken $accessToken, string $region, $body);
+    /**
+    * Operation generateDeliveryWindowOptions
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  The shipment to generate delivery window options for. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateDeliveryWindowOptionsResponse
+    */
+    public function generateDeliveryWindowOptions(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id);
+    /**
     * Operation generatePackingOptions
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -204,7 +298,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GeneratePlacementOptionsRequest $body  The body of the request to &#x60;generatePlacementOptions&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
@@ -217,9 +311,9 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateSelfShipAppointmentSlotsRequest $body  The body of the request &#x60;generateSelfShipAppointmentSlots&#x60;. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateSelfShipAppointmentSlotsRequest $body  The body of the request to &#x60;generateSelfShipAppointmentSlots&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -227,11 +321,25 @@ interface FulfillmentInboundSDKInterface
     */
     public function generateSelfShipAppointmentSlots(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body);
     /**
+    * Operation generateShipmentContentUpdatePreviews
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateShipmentContentUpdatePreviewsRequest $body  The body of the request to &#x60;generateShipmentContentUpdatePreviews&#x60;. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateShipmentContentUpdatePreviewsResponse
+    */
+    public function generateShipmentContentUpdatePreviews(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body);
+    /**
     * Operation generateTransportationOptions
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\GenerateTransportationOptionsRequest $body  The body of the request to &#x60;generateTransportationOptions&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
@@ -244,8 +352,8 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -257,7 +365,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $operation_id  Identifier to an asynchronous operation. (required)
+    * @param string $operation_id  Identifier of an asynchronous operation. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -269,7 +377,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -281,8 +389,8 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
     * @param int $page_size  The number of self ship appointment slots to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
     *
@@ -296,8 +404,8 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -305,11 +413,40 @@ interface FulfillmentInboundSDKInterface
     */
     public function getShipment(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id);
     /**
+    * Operation getShipmentContentUpdatePreview
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param string $content_update_preview_id  Identifier of a content update preview. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ContentUpdatePreview
+    */
+    public function getShipmentContentUpdatePreview(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $content_update_preview_id);
+    /**
+    * Operation listDeliveryWindowOptions
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  The shipment to get delivery window options for. (required)
+    * @param int $page_size  The number of delivery window options to return in the response matching the given query. (optional, default to 10)
+    * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListDeliveryWindowOptionsResponse
+    */
+    public function listDeliveryWindowOptions(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null);
+    /**
     * Operation listInboundPlanBoxes
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param int $page_size  The number of boxes to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
     *
@@ -323,7 +460,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param int $page_size  The number of items to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
     *
@@ -337,7 +474,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param int $page_size  The number of pallets to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
     *
@@ -367,7 +504,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string[] $mskus  List of merchant SKUs, a merchant-supplied identifier for a specific SKU. (required)
+    * @param string[] $mskus  List of merchant SKUs - a merchant-supplied identifier for a specific SKU. (required)
     * @param string $marketplace_id  The Marketplace ID. Refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids) for a list of possible values. (required)
     *
     * @throws ApiException on non-2xx response
@@ -376,13 +513,27 @@ interface FulfillmentInboundSDKInterface
     */
     public function listItemComplianceDetails(AccessToken $accessToken, string $region, $mskus, $marketplace_id);
     /**
+    * Operation listPackingGroupBoxes
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $packing_group_id  Identifier of a packing group. (required)
+    * @param int $page_size  The number of packing group boxes to return in the response matching the given query. (optional, default to 10)
+    * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListPackingGroupBoxesResponse
+    */
+    public function listPackingGroupBoxes(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_group_id, $page_size = 10, $pagination_token = null);
+    /**
     * Operation listPackingGroupItems
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $packing_option_id  Identifier to a packing option. (required)
-    * @param string $packing_group_id  Identifier to a packing group. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $packing_group_id  Identifier of a packing group. (required)
     * @param int $page_size  The number of packing group items to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
     *
@@ -390,13 +541,13 @@ interface FulfillmentInboundSDKInterface
     * @throws InvalidArgumentException
     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListPackingGroupItemsResponse
     */
-    public function listPackingGroupItems(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_option_id, $packing_group_id, $page_size = 10, $pagination_token = null);
+    public function listPackingGroupItems(AccessToken $accessToken, string $region, $inbound_plan_id, $packing_group_id, $page_size = 10, $pagination_token = null);
     /**
     * Operation listPackingOptions
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param int $page_size  The number of packing options to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
     *
@@ -410,7 +561,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param int $page_size  The number of placement options to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
     *
@@ -420,15 +571,75 @@ interface FulfillmentInboundSDKInterface
     */
     public function listPlacementOptions(AccessToken $accessToken, string $region, $inbound_plan_id, $page_size = 10, $pagination_token = null);
     /**
+    * Operation listShipmentBoxes
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param int $page_size  The number of boxes to return in the response matching the given query. (optional, default to 10)
+    * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentBoxesResponse
+    */
+    public function listShipmentBoxes(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null);
+    /**
+    * Operation listShipmentContentUpdatePreviews
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param int $page_size  The number of content update previews to return. (optional, default to 10)
+    * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentContentUpdatePreviewsResponse
+    */
+    public function listShipmentContentUpdatePreviews(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null);
+    /**
+    * Operation listShipmentItems
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param int $page_size  The number of items to return in the response matching the given query. (optional, default to 10)
+    * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentItemsResponse
+    */
+    public function listShipmentItems(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null);
+    /**
+    * Operation listShipmentPallets
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param int $page_size  The number of pallets to return in the response matching the given query. (optional, default to 10)
+    * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ListShipmentPalletsResponse
+    */
+    public function listShipmentPallets(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $page_size = 10, $pagination_token = null);
+    /**
     * Operation listTransportationOptions
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param int $page_size  The number of transportation options to return in the response matching the given query. (optional, default to 10)
     * @param string|null $pagination_token  A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the &#x60;pagination&#x60; returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result. (optional)
-    * @param string|null $placement_option_id  The placement option to get transportation options for. Either placementOptionId or shipmentId must be specified. (optional)
-    * @param string|null $shipment_id  The shipment to get transportation options for. Either placementOptionId or shipmentId must be specified. (optional)
+    * @param string|null $placement_option_id  The placement option to get transportation options for. Either &#x60;placementOptionId&#x60; or &#x60;shipmentId&#x60; must be specified. (optional)
+    * @param string|null $shipment_id  The shipment to get transportation options for. Either &#x60;placementOptionId&#x60; or &#x60;shipmentId&#x60; must be specified. (optional)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
@@ -440,9 +651,9 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-    * @param string $slot_id  Identifier to a self-ship appointment slot. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param string $slot_id  An identifier to a self-ship appointment slot. (required)
     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\ScheduleSelfShipAppointmentRequest $body  The body of the request to &#x60;scheduleSelfShipAppointment&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
@@ -455,7 +666,7 @@ interface FulfillmentInboundSDKInterface
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\SetPackingInformationRequest $body  The body of the request to &#x60;setPackingInformation&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
@@ -463,6 +674,19 @@ interface FulfillmentInboundSDKInterface
     * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\SetPackingInformationResponse
     */
     public function setPackingInformation(AccessToken $accessToken, string $region, $inbound_plan_id, $body);
+    /**
+    * Operation updateInboundPlanName
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateInboundPlanNameRequest $body  The body of the request to &#x60;updateInboundPlanName&#x60;. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return null
+    */
+    public function updateInboundPlanName(AccessToken $accessToken, string $region, $inbound_plan_id, $body);
     /**
     * Operation updateItemComplianceDetails
     *
@@ -477,26 +701,40 @@ interface FulfillmentInboundSDKInterface
     */
     public function updateItemComplianceDetails(AccessToken $accessToken, string $region, $marketplace_id, $body);
     /**
-    * Operation updateShipmentDeliveryWindow
+    * Operation updateShipmentName
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
-    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentDeliveryWindowRequest $body  The body of the request to &#x60;updateShipmentDeliveryWindow&#x60;. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentNameRequest $body  The body of the request to &#x60;updateShipmentName&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
     * @throws InvalidArgumentException
-    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentDeliveryWindowResponse
+    * @return null
     */
-    public function updateShipmentDeliveryWindow(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body);
+    public function updateShipmentName(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body);
+    /**
+    * Operation updateShipmentSourceAddress
+    *
+    * @param AccessToken $accessToken
+    * @param string $region
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentSourceAddressRequest $body  The body of the request to &#x60;updateShipmentSourceAddress&#x60;. (required)
+    *
+    * @throws ApiException on non-2xx response
+    * @throws InvalidArgumentException
+    * @return \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentSourceAddressResponse
+    */
+    public function updateShipmentSourceAddress(AccessToken $accessToken, string $region, $inbound_plan_id, $shipment_id, $body);
     /**
     * Operation updateShipmentTrackingDetails
     *
     * @param AccessToken $accessToken
     * @param string $region
-    * @param string $inbound_plan_id  Identifier to an inbound plan. (required)
-    * @param string $shipment_id  Identifier to a shipment. A shipment contains the boxes and units being inbounded. (required)
+    * @param string $inbound_plan_id  Identifier of an inbound plan. (required)
+    * @param string $shipment_id  Identifier of a shipment. A shipment contains the boxes and units being inbounded. (required)
     * @param \AmazonPHP\SellingPartner\Model\FulfillmentInbound\UpdateShipmentTrackingDetailsRequest $body  The body of the request to &#x60;updateShipmentTrackingDetails&#x60;. (required)
     *
     * @throws ApiException on non-2xx response
