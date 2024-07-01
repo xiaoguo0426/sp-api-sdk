@@ -24,7 +24,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
+class ExcludedBenefit implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -33,7 +33,7 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static string $openAPIModelName = 'CurrencyAmount';
+    protected static string $openAPIModelName = 'ExcludedBenefit';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -41,8 +41,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'currency_code' => 'string',
-        'amount' => 'float'
+        'benefit' => 'string',
+        'reason_codes' => 'string[]'
     ];
 
     /**
@@ -53,8 +53,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'currency_code' => null,
-        'amount' => 'double'
+        'benefit' => null,
+        'reason_codes' => null
     ];
 
     /**
@@ -84,8 +84,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $attributeMap = [
-        'currency_code' => 'CurrencyCode',
-        'amount' => 'Amount'
+        'benefit' => 'Benefit',
+        'reason_codes' => 'ReasonCodes'
     ];
 
     /**
@@ -94,8 +94,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $setters = [
-        'currency_code' => 'setCurrencyCode',
-        'amount' => 'setAmount'
+        'benefit' => 'setBenefit',
+        'reason_codes' => 'setReasonCodes'
     ];
 
     /**
@@ -104,8 +104,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $getters = [
-        'currency_code' => 'getCurrencyCode',
-        'amount' => 'getAmount'
+        'benefit' => 'getBenefit',
+        'reason_codes' => 'getReasonCodes'
     ];
 
     /**
@@ -165,8 +165,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['currency_code'] = $data['currency_code'] ?? null;
-        $this->container['amount'] = $data['amount'] ?? null;
+        $this->container['benefit'] = $data['benefit'] ?? null;
+        $this->container['reason_codes'] = $data['reason_codes'] ?? null;
     }
 
     /**
@@ -176,65 +176,53 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function validate() : void
     {
-        if ($this->container['currency_code'] === null) {
-            throw new AssertionException("'currency_code' can't be null");
-        }
-
-        if ((mb_strlen($this->container['currency_code']) > 3)) {
-            throw new AssertionException("invalid value for 'currency_code', the character length must be smaller than or equal to 3.");
-        }
-
-        if ($this->container['amount'] === null) {
-            throw new AssertionException("'amount' can't be null");
-        }
-
     }
 
 
     /**
-     * Gets currency_code
+     * Gets benefit
      *
-     * @return string
+     * @return string|null
      */
-    public function getCurrencyCode()
+    public function getBenefit()
     {
-        return $this->container['currency_code'];
+        return $this->container['benefit'];
     }
 
     /**
-     * Sets currency_code
+     * Sets benefit
      *
-     * @param string $currency_code Three-digit currency code in ISO 4217 format.
+     * @param string|null $benefit A benefit that is being excluded from a shipment.
      *
      * @return self
      */
-    public function setCurrencyCode($currency_code) : self
+    public function setBenefit($benefit) : self
     {
-        $this->container['currency_code'] = $currency_code;
+        $this->container['benefit'] = $benefit;
 
         return $this;
     }
 
     /**
-     * Gets amount
+     * Gets reason_codes
      *
-     * @return float
+     * @return string[]|null
      */
-    public function getAmount()
+    public function getReasonCodes()
     {
-        return $this->container['amount'];
+        return $this->container['reason_codes'];
     }
 
     /**
-     * Sets amount
+     * Sets reason_codes
      *
-     * @param float $amount The currency amount.
+     * @param string[]|null $reason_codes List of reasons (for example, `LATE_DELIVERY_RISK`) why a benefit is excluded for a shipping offer.
      *
      * @return self
      */
-    public function setAmount($amount) : self
+    public function setReasonCodes($reason_codes) : self
     {
-        $this->container['amount'] = $amount;
+        $this->container['reason_codes'] = $reason_codes;
 
         return $this;
     }

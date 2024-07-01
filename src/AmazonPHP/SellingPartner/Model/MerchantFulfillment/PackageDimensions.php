@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Merchant Fulfillment
 *
-* The Selling Partner API for Merchant Fulfillment helps you build applications that let sellers purchase shipping for non-Prime and Prime orders using Amazon’s Buy Shipping Services.
+* With the Selling Partner API for Merchant Fulfillment, you can build applications that sellers can use to purchase shipping for non-Prime and Prime orders using Amazon's Buy Shipping Services.
 *
 * The version of the OpenAPI document: v0
 *
@@ -210,7 +210,7 @@ class PackageDimensions implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets length
      *
-     * @param float|null $length length
+     * @param float|null $length Number that represents the given package dimension.
      *
      * @return self
      */
@@ -234,7 +234,7 @@ class PackageDimensions implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets width
      *
-     * @param float|null $width width
+     * @param float|null $width Number that represents the given package dimension.
      *
      * @return self
      */
@@ -258,7 +258,7 @@ class PackageDimensions implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets height
      *
-     * @param float|null $height height
+     * @param float|null $height Number that represents the given package dimension.
      *
      * @return self
      */

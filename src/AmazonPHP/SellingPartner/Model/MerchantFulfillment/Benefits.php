@@ -24,7 +24,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
+class Benefits implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -33,7 +33,7 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static string $openAPIModelName = 'CurrencyAmount';
+    protected static string $openAPIModelName = 'Benefits';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -41,8 +41,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'currency_code' => 'string',
-        'amount' => 'float'
+        'included_benefits' => 'string[]',
+        'excluded_benefits' => '\AmazonPHP\SellingPartner\Model\MerchantFulfillment\ExcludedBenefit[]'
     ];
 
     /**
@@ -53,8 +53,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'currency_code' => null,
-        'amount' => 'double'
+        'included_benefits' => null,
+        'excluded_benefits' => null
     ];
 
     /**
@@ -84,8 +84,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $attributeMap = [
-        'currency_code' => 'CurrencyCode',
-        'amount' => 'Amount'
+        'included_benefits' => 'IncludedBenefits',
+        'excluded_benefits' => 'ExcludedBenefits'
     ];
 
     /**
@@ -94,8 +94,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $setters = [
-        'currency_code' => 'setCurrencyCode',
-        'amount' => 'setAmount'
+        'included_benefits' => 'setIncludedBenefits',
+        'excluded_benefits' => 'setExcludedBenefits'
     ];
 
     /**
@@ -104,8 +104,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $getters = [
-        'currency_code' => 'getCurrencyCode',
-        'amount' => 'getAmount'
+        'included_benefits' => 'getIncludedBenefits',
+        'excluded_benefits' => 'getExcludedBenefits'
     ];
 
     /**
@@ -165,8 +165,8 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['currency_code'] = $data['currency_code'] ?? null;
-        $this->container['amount'] = $data['amount'] ?? null;
+        $this->container['included_benefits'] = $data['included_benefits'] ?? null;
+        $this->container['excluded_benefits'] = $data['excluded_benefits'] ?? null;
     }
 
     /**
@@ -176,65 +176,53 @@ class CurrencyAmount implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function validate() : void
     {
-        if ($this->container['currency_code'] === null) {
-            throw new AssertionException("'currency_code' can't be null");
-        }
-
-        if ((mb_strlen($this->container['currency_code']) > 3)) {
-            throw new AssertionException("invalid value for 'currency_code', the character length must be smaller than or equal to 3.");
-        }
-
-        if ($this->container['amount'] === null) {
-            throw new AssertionException("'amount' can't be null");
-        }
-
     }
 
 
     /**
-     * Gets currency_code
+     * Gets included_benefits
      *
-     * @return string
+     * @return string[]|null
      */
-    public function getCurrencyCode()
+    public function getIncludedBenefits()
     {
-        return $this->container['currency_code'];
+        return $this->container['included_benefits'];
     }
 
     /**
-     * Sets currency_code
+     * Sets included_benefits
      *
-     * @param string $currency_code Three-digit currency code in ISO 4217 format.
+     * @param string[]|null $included_benefits A list of included benefits.
      *
      * @return self
      */
-    public function setCurrencyCode($currency_code) : self
+    public function setIncludedBenefits($included_benefits) : self
     {
-        $this->container['currency_code'] = $currency_code;
+        $this->container['included_benefits'] = $included_benefits;
 
         return $this;
     }
 
     /**
-     * Gets amount
+     * Gets excluded_benefits
      *
-     * @return float
+     * @return \AmazonPHP\SellingPartner\Model\MerchantFulfillment\ExcludedBenefit[]|null
      */
-    public function getAmount()
+    public function getExcludedBenefits()
     {
-        return $this->container['amount'];
+        return $this->container['excluded_benefits'];
     }
 
     /**
-     * Sets amount
+     * Sets excluded_benefits
      *
-     * @param float $amount The currency amount.
+     * @param \AmazonPHP\SellingPartner\Model\MerchantFulfillment\ExcludedBenefit[]|null $excluded_benefits A list of excluded benefits. Refer to the `ExcludeBenefit` object for further documentation.
      *
      * @return self
      */
-    public function setAmount($amount) : self
+    public function setExcludedBenefits($excluded_benefits) : self
     {
-        $this->container['amount'] = $amount;
+        $this->container['excluded_benefits'] = $excluded_benefits;
 
         return $this;
     }

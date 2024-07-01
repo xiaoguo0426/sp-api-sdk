@@ -13,7 +13,7 @@ use \AmazonPHP\SellingPartner\Exception\AssertionException;
 /**
 * Selling Partner API for Merchant Fulfillment
 *
-* The Selling Partner API for Merchant Fulfillment helps you build applications that let sellers purchase shipping for non-Prime and Prime orders using Amazon’s Buy Shipping Services.
+* With the Selling Partner API for Merchant Fulfillment, you can build applications that sellers can use to purchase shipping for non-Prime and Prime orders using Amazon's Buy Shipping Services.
 *
 * The version of the OpenAPI document: v0
 *
@@ -408,7 +408,7 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets item_list
      *
-     * @param \AmazonPHP\SellingPartner\Model\MerchantFulfillment\Item[] $item_list The list of items to be included in a shipment.
+     * @param \AmazonPHP\SellingPartner\Model\MerchantFulfillment\Item[] $item_list The list of items you want to include in a shipment.
      *
      * @return self
      */
@@ -648,7 +648,7 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_date
      *
-     * @param \DateTimeInterface $created_date created_date
+     * @param \DateTimeInterface $created_date Date-time formatted timestamp.
      *
      * @return self
      */
@@ -672,7 +672,7 @@ class Shipment implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets last_updated_date
      *
-     * @param \DateTimeInterface|null $last_updated_date last_updated_date
+     * @param \DateTimeInterface|null $last_updated_date Date-time formatted timestamp.
      *
      * @return self
      */
